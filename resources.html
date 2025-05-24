@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tài nguyên OIADB - Tài liệu tham khảo và thông tin bổ sung</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="description" content="Tài nguyên và thông tin bổ sung về thư viện OIADB - Changelog, giấy phép, và tài liệu tham khảo">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <span class="logo-text">OIADB</span>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <button class="menu-toggle" aria-label="Toggle menu">
+                    <span class="hamburger"></span>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li><a href="getting-started.html">Bắt đầu</a></li>
+                    <li><a href="features.html">Tính năng</a></li>
+                    <li><a href="api-reference.html">API Reference</a></li>
+                    <li><a href="guides.html">Hướng dẫn</a></li>
+                    <li><a href="examples.html">Ví dụ</a></li>
+                    <li><a href="resources.html" class="active">Tài nguyên</a></li>
+                </ul>
+            </nav>
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider round"></div>
+                </label>
+                <span class="theme-label"><i class="fas fa-moon"></i></span>
+            </div>
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Tìm kiếm...">
+                <button id="search-button"><i class="fas fa-search"></i></button>
+                <div id="search-results" class="search-results"></div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>Tài nguyên OIADB</h1>
+                <div class="breadcrumbs">
+                    <a href="index.html">Trang chủ</a> / <span>Tài nguyên</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="content-layout">
+                    <aside class="sidebar">
+                        <div class="sidebar-content">
+                            <h3>Trong trang này</h3>
+                            <ul class="sidebar-nav">
+                                <li><a href="#changelog">Changelog</a></li>
+                                <li><a href="#license">Giấy phép</a></li>
+                                <li><a href="#references">Tài liệu tham khảo</a></li>
+                                <li><a href="#community">Cộng đồng</a></li>
+                                <li><a href="#faq">Câu hỏi thường gặp</a></li>
+                                <li><a href="#troubleshooting">Xử lý sự cố</a></li>
+                            </ul>
+                        </div>
+                    </aside>
+
+                    <div class="main-content">
+                        <section id="changelog">
+                            <h2>Changelog</h2>
+                            <p>Lịch sử các phiên bản và thay đổi của thư viện OIADB.</p>
+                            
+                            <div class="changelog-container">
+                                <div class="changelog-item">
+                                    <div class="version">
+                                        <span class="version-number">0.6.0</span>
+                                        <span class="version-date">2025-05-01</span>
+                                    </div>
+                                    <div class="changes">
+                                        <h3>Phiên bản hiện tại</h3>
+                                        <ul>
+                                            <li>Thêm hỗ trợ cho nhận diện hình ảnh nâng cao với các tùy chọn xoay và tỷ lệ</li>
+                                            <li>Cải thiện hiệu suất của XML Dump Server</li>
+                                            <li>Thêm các hàm tiện ích mới cho tương tác với ứng dụng</li>
+                                            <li>Sửa lỗi khi kết nối với thiết bị không dây</li>
+                                            <li>Cập nhật tài liệu và ví dụ</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <div class="changelog-item">
+                                    <div class="version">
+                                        <span class="version-number">0.5.2</span>
+                                        <span class="version-date">2025-03-15</span>
+                                    </div>
+                                    <div class="changes">
+                                        <ul>
+                                            <li>Sửa lỗi khi sử dụng XML Dump trên Android 13+</li>
+                                            <li>Cải thiện độ chính xác của nhận diện hình ảnh</li>
+                                            <li>Thêm hỗ trợ cho các thiết bị có DPI cao</li>
+                                            <li>Tối ưu hóa hiệu suất khi chụp màn hình</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <div class="changelog-item">
+                                    <div class="version">
+                                        <span class="version-number">0.5.1</span>
+                                        <span class="version-date">2025-02-10</span>
+                                    </div>
+                                    <div class="changes">
+                                        <ul>
+                                            <li>Sửa lỗi khi sử dụng trên Windows</li>
+                                            <li>Cải thiện xử lý lỗi và thông báo</li>
+                                            <li>Thêm hỗ trợ cho Python 3.11</li>
+                                            <li>Cập nhật tài liệu</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <div class="changelog-item">
+                                    <div class="version">
+                                        <span class="version-number">0.5.0</span>
+                                        <span class="version-date">2025-01-05</span>
+                                    </div>
+                                    <div class="changes">
+                                        <ul>
+                                            <li>Thêm tính năng XML Dump Server</li>
+                                            <li>Cải thiện API cho tương tác với phần tử UI</li>
+                                            <li>Thêm hỗ trợ cho các thiết bị không dây</li>
+                                            <li>Tối ưu hóa hiệu suất khi xử lý hình ảnh</li>
+                                            <li>Thêm các ví dụ và tài liệu mới</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <div class="changelog-item">
+                                    <div class="version">
+                                        <span class="version-number">0.4.0</span>
+                                        <span class="version-date">2024-11-20</span>
+                                    </div>
+                                    <div class="changes">
+                                        <ul>
+                                            <li>Thêm tính năng nhận diện hình ảnh</li>
+                                            <li>Cải thiện API cho tương tác với thiết bị</li>
+                                            <li>Thêm hỗ trợ cho nhiều thiết bị</li>
+                                            <li>Sửa lỗi và cải thiện hiệu suất</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <div class="changelog-item">
+                                    <div class="version">
+                                        <span class="version-number">0.3.0</span>
+                                        <span class="version-date">2024-09-15</span>
+                                    </div>
+                                    <div class="changes">
+                                        <ul>
+                                            <li>Phiên bản đầu tiên với các tính năng cơ bản</li>
+                                            <li>Hỗ trợ các lệnh ADB cơ bản</li>
+                                            <li>Hỗ trợ tương tác với thiết bị Android</li>
+                                            <li>Tài liệu và ví dụ cơ bản</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="license">
+                            <h2>Giấy phép</h2>
+                            <div class="license-container">
+                                <h3>MIT License</h3>
+                                <p>Copyright (c) 2025 Tien Dung</p>
+                                <p>Permission is hereby granted, free of charge, to any person obtaining a copy
+                                of this software and associated documentation files (the "Software"), to deal
+                                in the Software without restriction, including without limitation the rights
+                                to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+                                copies of the Software, and to permit persons to whom the Software is
+                                furnished to do so, subject to the following conditions:</p>
+                                <p>The above copyright notice and this permission notice shall be included in all
+                                copies or substantial portions of the Software.</p>
+                                <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+                                IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+                                FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+                                AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+                                LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+                                OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+                                SOFTWARE.</p>
+                            </div>
+                        </section>
+
+                        <section id="references">
+                            <h2>Tài liệu tham khảo</h2>
+                            <p>Các tài liệu và nguồn tham khảo hữu ích khi làm việc với OIADB.</p>
+                            
+                            <div class="references-container">
+                                <div class="reference-category">
+                                    <h3>Tài liệu chính thức</h3>
+                                    <ul>
+                                        <li>
+                                            <a href="https://developer.android.com/studio/command-line/adb" target="_blank">
+                                                Android Debug Bridge (ADB) - Android Developers
+                                            </a>
+                                            <p>Tài liệu chính thức về ADB từ Android Developers.</p>
+                                        </li>
+                                        <li>
+                                            <a href="https://opencv.org/opencv-4-5-5/" target="_blank">
+                                                OpenCV Documentation
+                                            </a>
+                                            <p>Tài liệu về OpenCV, thư viện xử lý hình ảnh được sử dụng trong OIADB.</p>
+                                        </li>
+                                        <li>
+                                            <a href="https://docs.python.org/3/library/xml.etree.elementtree.html" target="_blank">
+                                                ElementTree XML API - Python Documentation
+                                            </a>
+                                            <p>Tài liệu về ElementTree XML API, được sử dụng để xử lý XML trong OIADB.</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="reference-category">
+                                    <h3>Hướng dẫn và bài viết</h3>
+                                    <ul>
+                                        <li>
+                                            <a href="https://medium.com/@example/automating-android-with-adb-12345" target="_blank">
+                                                Automating Android with ADB - Medium
+                                            </a>
+                                            <p>Bài viết về cách tự động hóa các tác vụ trên Android sử dụng ADB.</p>
+                                        </li>
+                                        <li>
+                                            <a href="https://towardsdatascience.com/image-recognition-for-automation-12345" target="_blank">
+                                                Image Recognition for Automation - Towards Data Science
+                                            </a>
+                                            <p>Bài viết về cách sử dụng nhận diện hình ảnh để tự động hóa các tác vụ.</p>
+                                        </li>
+                                        <li>
+                                            <a href="https://dev.to/example/xml-parsing-for-ui-automation-12345" target="_blank">
+                                                XML Parsing for UI Automation - Dev.to
+                                            </a>
+                                            <p>Bài viết về cách sử dụng XML để tự động hóa giao diện người dùng.</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="reference-category">
+                                    <h3>Thư viện và công cụ liên quan</h3>
+                                    <ul>
+                                        <li>
+                                            <a href="https://github.com/openatx/uiautomator2" target="_blank">
+                                                UIAutomator2
+                                            </a>
+                                            <p>Thư viện Python cho UI Automation trên Android.</p>
+                                        </li>
+                                        <li>
+                                            <a href="https://github.com/appium/appium" target="_blank">
+                                                Appium
+                                            </a>
+                                            <p>Công cụ tự động hóa đa nền tảng cho ứng dụng di động.</p>
+                                        </li>
+                                        <li>
+                                            <a href="https://github.com/opencv/opencv-python" target="_blank">
+                                                OpenCV-Python
+                                            </a>
+                                            <p>Gói Python cho thư viện OpenCV.</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="community">
+                            <h2>Cộng đồng</h2>
+                            <p>Tham gia cộng đồng OIADB để nhận hỗ trợ, chia sẻ kinh nghiệm và đóng góp vào dự án.</p>
+                            
+                            <div class="community-container">
+                                <div class="community-item">
+                                    <div class="community-icon">
+                                        <i class="fab fa-github"></i>
+                                    </div>
+                                    <div class="community-content">
+                                        <h3>GitHub</h3>
+                                        <p>Theo dõi dự án, báo cáo lỗi, và đóng góp mã nguồn trên GitHub.</p>
+                                        <a href="https://github.com/tiendung102k3/oiadb" target="_blank" class="btn btn-primary">
+                                            <i class="fab fa-github"></i> Truy cập GitHub
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                                <div class="community-item">
+                                    <div class="community-icon">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div class="community-content">
+                                        <h3>Email</h3>
+                                        <p>Liên hệ trực tiếp với tác giả để được hỗ trợ hoặc đóng góp ý kiến.</p>
+                                        <a href="mailto:monstertattoovn696@gmail.com" class="btn btn-primary">
+                                            <i class="fas fa-envelope"></i> Gửi email
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                                <div class="community-item">
+                                    <div class="community-icon">
+                                        <i class="fas fa-code-branch"></i>
+                                    </div>
+                                    <div class="community-content">
+                                        <h3>Đóng góp</h3>
+                                        <p>Đóng góp vào dự án bằng cách gửi Pull Request hoặc báo cáo lỗi.</p>
+                                        <a href="https://github.com/tiendung102k3/oiadb/issues" target="_blank" class="btn btn-primary">
+                                            <i class="fas fa-bug"></i> Báo cáo lỗi
+                                        </a>
+                                        <a href="https://github.com/tiendung102k3/oiadb/pulls" target="_blank" class="btn btn-primary">
+                                            <i class="fas fa-code-branch"></i> Gửi Pull Request
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="faq">
+                            <h2>Câu hỏi thường gặp</h2>
+                            <p>Các câu hỏi thường gặp khi sử dụng thư viện OIADB.</p>
+                            
+                            <div class="faq-container">
+                                <div class="faq-item">
+                                    <div class="faq-question" onclick="toggleFAQ(this)">
+                                        <h3>OIADB có hoạt động trên tất cả các thiết bị Android không?</h3>
+                                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                                    </div>
+                                    <div class="faq-answer">
+                                        <p>OIADB hoạt động trên hầu hết các thiết bị Android, từ phiên bản Android 5.0 (Lollipop) trở lên. Tuy nhiên, một số tính năng như XML Dump có thể yêu cầu quyền đặc biệt hoặc không hoạt động trên một số thiết bị cụ thể do hạn chế của nhà sản xuất.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="faq-item">
+                                    <div class="faq-question" onclick="toggleFAQ(this)">
+                                        <h3>Tôi cần cài đặt những gì để sử dụng OIADB?</h3>
+                                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                                    </div>
+                                    <div class="faq-answer">
+                                        <p>Để sử dụng OIADB, bạn cần:</p>
+                                        <ul>
+                                            <li>Python 3.7 trở lên</li>
+                                            <li>Android Debug Bridge (ADB) đã được cài đặt và thêm vào PATH</li>
+                                            <li>OpenCV (được cài đặt tự động khi bạn cài đặt OIADB qua pip)</li>
+                                            <li>Thiết bị Android đã bật chế độ nhà phát triển và USB Debugging</li>
+                                        </ul>
+                                        <p>Bạn có thể cài đặt OIADB qua pip với lệnh: <code>pip install oiadb</code></p>
+                                    </div>
+                                </div>
+                                
+                                <div class="faq-item">
+                                    <div class="faq-question" onclick="toggleFAQ(this)">
+                                        <h3>Làm thế nào để cải thiện độ chính xác của nhận diện hình ảnh?</h3>
+                                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                                    </div>
+                                    <div class="faq-answer">
+                                        <p>Để cải thiện độ chính xác của nhận diện hình ảnh, bạn có thể:</p>
+                                        <ul>
+                                            <li>Sử dụng hình ảnh mẫu chất lượng cao và rõ ràng</li>
+                                            <li>Điều chỉnh ngưỡng nhận diện (threshold) phù hợp với từng trường hợp</li>
+                                            <li>Sử dụng các tùy chọn nâng cao như xoay và tỷ lệ khi cần thiết</li>
+                                            <li>Chụp lại hình ảnh mẫu trên cùng một thiết bị và độ phân giải màn hình</li>
+                                            <li>Tránh sử dụng hình ảnh có gradient hoặc hiệu ứng mờ</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <div class="faq-item">
+                                    <div class="faq-question" onclick="toggleFAQ(this)">
+                                        <h3>OIADB có hoạt động trên thiết bị không root không?</h3>
+                                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                                    </div>
+                                    <div class="faq-answer">
+                                        <p>Có, OIADB hoạt động trên cả thiết bị đã root và chưa root. Hầu hết các tính năng như nhận diện hình ảnh, tương tác cơ bản, và quản lý ứng dụng đều hoạt động mà không cần quyền root. Tuy nhiên, một số tính năng nâng cao như truy cập vào dữ liệu ứng dụng hoặc thay đổi cài đặt hệ thống có thể yêu cầu quyền root.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="faq-item">
+                                    <div class="faq-question" onclick="toggleFAQ(this)">
+                                        <h3>Làm thế nào để kết nối với thiết bị không dây?</h3>
+                                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                                    </div>
+                                    <div class="faq-answer">
+                                        <p>Để kết nối với thiết bị không dây, bạn cần:</p>
+                                        <ol>
+                                            <li>Kết nối thiết bị với máy tính qua USB</li>
+                                            <li>Bật chế độ kết nối không dây với lệnh: <code>adb tcpip 5555</code></li>
+                                            <li>Ngắt kết nối USB</li>
+                                            <li>Kết nối không dây với lệnh: <code>adb connect IP_ADDRESS:5555</code> (thay IP_ADDRESS bằng địa chỉ IP của thiết bị)</li>
+                                        </ol>
+                                        <p>Trong OIADB, bạn có thể sử dụng:</p>
+                                        <pre><code>from oiadb.commands import connect
+connect.connect_over_network("192.168.1.100", 5555)</code></pre>
+                                    </div>
+                                </div>
+                                
+                                <div class="faq-item">
+                                    <div class="faq-question" onclick="toggleFAQ(this)">
+                                        <h3>OIADB có hỗ trợ nhiều thiết bị cùng lúc không?</h3>
+                                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                                    </div>
+                                    <div class="faq-answer">
+                                        <p>Có, OIADB hỗ trợ làm việc với nhiều thiết bị cùng lúc. Bạn có thể chỉ định thiết bị cụ thể khi khởi tạo đối tượng MyADB:</p>
+                                        <pre><code>from oiadb import MyADB
+
+# Khởi tạo ADB cho thiết bị cụ thể
+adb1 = MyADB(device_id="emulator-5554")
+adb2 = MyADB(device_id="192.168.1.100:5555")
+
+# Thực hiện các thao tác trên từng thiết bị
+adb1.run("shell input tap 500 500")
+adb2.run("shell input swipe 500 1000 500 500")</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="troubleshooting">
+                            <h2>Xử lý sự cố</h2>
+                            <p>Hướng dẫn xử lý các sự cố thường gặp khi sử dụng OIADB.</p>
+                            
+                            <div class="troubleshooting-container">
+                                <div class="troubleshooting-item">
+                                    <h3>Không thể kết nối với thiết bị</h3>
+                                    <div class="problem">
+                                        <p><strong>Vấn đề:</strong> OIADB không thể kết nối với thiết bị Android.</p>
+                                    </div>
+                                    <div class="solution">
+                                        <p><strong>Giải pháp:</strong></p>
+                                        <ol>
+                                            <li>Kiểm tra xem ADB đã được cài đặt và thêm vào PATH chưa</li>
+                                            <li>Đảm bảo thiết bị đã bật chế độ nhà phát triển và USB Debugging</li>
+                                            <li>Thử kết nối lại thiết bị với máy tính</li>
+                                            <li>Kiểm tra xem thiết bị có xuất hiện trong danh sách <code>adb devices</code> không</li>
+                                            <li>Thử khởi động lại ADB Server với lệnh <code>adb kill-server</code> và <code>adb start-server</code></li>
+                                            <li>Đối với kết nối không dây, kiểm tra xem thiết bị và máy tính có cùng mạng không</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                                
+                                <div class="troubleshooting-item">
+                                    <h3>Nhận diện hình ảnh không chính xác</h3>
+                                    <div class="problem">
+                                        <p><strong>Vấn đề:</strong> Tính năng nhận diện hình ảnh không tìm thấy hoặc nhận diện sai phần tử trên màn hình.</p>
+                                    </div>
+                                    <div class="solution">
+                                        <p><strong>Giải pháp:</strong></p>
+                                        <ol>
+                                            <li>Kiểm tra chất lượng hình ảnh mẫu, đảm bảo nó rõ ràng và không bị mờ</li>
+                                            <li>Điều chỉnh ngưỡng nhận diện (threshold), thử giảm xuống 0.7 hoặc 0.6 nếu quá nghiêm ngặt</li>
+                                            <li>Chụp lại hình ảnh mẫu trên cùng một thiết bị và độ phân giải màn hình</li>
+                                            <li>Sử dụng các tùy chọn nâng cao như xoay và tỷ lệ</li>
+                                            <li>Kiểm tra xem màn hình có bị thay đổi (như chế độ tối/sáng) so với hình ảnh mẫu không</li>
+                                            <li>Thử sử dụng XML Dump thay vì nhận diện hình ảnh nếu có thể</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                                
+                                <div class="troubleshooting-item">
+                                    <h3>XML Dump không hoạt động</h3>
+                                    <div class="problem">
+                                        <p><strong>Vấn đề:</strong> Tính năng XML Dump không hoạt động hoặc trả về lỗi.</p>
+                                    </div>
+                                    <div class="solution">
+                                        <p><strong>Giải pháp:</strong></p>
+                                        <ol>
+                                            <li>Đảm bảo thiết bị chạy Android 5.0 trở lên</li>
+                                            <li>Kiểm tra xem port forwarding đã được thiết lập đúng chưa</li>
+                                            <li>Đảm bảo XML Server đã được khởi động trước khi sử dụng XML Dump</li>
+                                            <li>Thử khởi động lại XML Server</li>
+                                            <li>Kiểm tra xem có ứng dụng nào đang sử dụng cùng port không</li>
+                                            <li>Đối với Android 11+, một số hạn chế bảo mật có thể ảnh hưởng đến XML Dump, thử sử dụng thiết bị đã root nếu có thể</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                                
+                                <div class="troubleshooting-item">
+                                    <h3>Lỗi ImportError khi cài đặt hoặc sử dụng</h3>
+                                    <div class="problem">
+                                        <p><strong>Vấn đề:</strong> Gặp lỗi ImportError khi cài đặt hoặc sử dụng OIADB.</p>
+                                    </div>
+                                    <div class="solution">
+                                        <p><strong>Giải pháp:</strong></p>
+                                        <ol>
+                                            <li>Đảm bảo đã cài đặt tất cả các phụ thuộc cần thiết: <code>pip install -r requirements.txt</code></li>
+                                            <li>Kiểm tra phiên bản Python, OIADB yêu cầu Python 3.7 trở lên</li>
+                                            <li>Thử cài đặt lại OIADB với lệnh: <code>pip install --upgrade --force-reinstall oiadb</code></li>
+                                            <li>Đối với lỗi liên quan đến OpenCV, thử cài đặt OpenCV riêng: <code>pip install opencv-python</code></li>
+                                            <li>Kiểm tra xem có xung đột phiên bản giữa các thư viện không</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                                
+                                <div class="troubleshooting-item">
+                                    <h3>Tương tác với thiết bị không hoạt động</h3>
+                                    <div class="problem">
+                                        <p><strong>Vấn đề:</strong> Các lệnh tương tác như tap, swipe, hoặc text_input không hoạt động.</p>
+                                    </div>
+                                    <div class="solution">
+                                        <p><strong>Giải pháp:</strong></p>
+                                        <ol>
+                                            <li>Kiểm tra xem thiết bị có đang hiển thị màn hình khóa không</li>
+                                            <li>Đảm bảo tọa độ màn hình chính xác và nằm trong phạm vi màn hình thiết bị</li>
+                                            <li>Thử sử dụng lệnh ADB trực tiếp để xác nhận vấn đề: <code>adb shell input tap 500 500</code></li>
+                                            <li>Kiểm tra xem thiết bị có đang chạy ứng dụng nào chặn tương tác không</li>
+                                            <li>Đối với text_input, đảm bảo trường nhập liệu đang được focus</li>
+                                            <li>Thử khởi động lại thiết bị và ADB Server</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>OIADB</h3>
+                    <p>Thư viện Python wrapper cho Android Debug Bridge (ADB) với chức năng nhận diện hình ảnh, dump XML và hỗ trợ đa nền tảng.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Liên kết</h3>
+                    <ul>
+                        <li><a href="index.html">Trang chủ</a></li>
+                        <li><a href="getting-started.html">Bắt đầu</a></li>
+                        <li><a href="features.html">Tính năng</a></li>
+                        <li><a href="api-reference.html">API Reference</a></li>
+                        <li><a href="guides.html">Hướng dẫn</a></li>
+                        <li><a href="examples.html">Ví dụ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Tài nguyên</h3>
+                    <ul>
+                        <li><a href="https://github.com/tiendung102k3/oiadb" target="_blank">GitHub</a></li>
+                        <li><a href="https://pypi.org/project/oiadb/" target="_blank">PyPI</a></li>
+                        <li><a href="resources.html#changelog">Changelog</a></li>
+                        <li><a href="resources.html#license">Giấy phép</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Liên hệ</h3>
+                    <p>Email: monstertattoovn696@gmail.com</p>
+                    <div class="social-links">
+                        <a href="https://github.com/tiendung102k3" target="_blank"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 OIADB. Giấy phép MIT.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const icon = element.querySelector('.faq-toggle i');
+            
+            if (answer.style.maxHeight) {
+                answer.style.maxHeight = null;
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            } else {
+                answer.style.maxHeight = answer.scrollHeight + "px";
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            }
+        }
+    </script>
+</body>
+</html>

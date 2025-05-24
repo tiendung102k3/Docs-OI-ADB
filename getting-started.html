@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bắt đầu với OIADB - Cài đặt và Sử dụng Cơ bản</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/prism.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="description" content="Hướng dẫn bắt đầu với thư viện OIADB - Cài đặt, cấu hình và sử dụng cơ bản">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <span class="logo-text">OIADB</span>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <button class="menu-toggle" aria-label="Toggle menu">
+                    <span class="hamburger"></span>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li><a href="getting-started.html" class="active">Bắt đầu</a></li>
+                    <li><a href="features.html">Tính năng</a></li>
+                    <li><a href="api-reference.html">API Reference</a></li>
+                    <li><a href="guides.html">Hướng dẫn</a></li>
+                    <li><a href="examples.html">Ví dụ</a></li>
+                    <li><a href="resources.html">Tài nguyên</a></li>
+                </ul>
+            </nav>
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider round"></div>
+                </label>
+                <span class="theme-label"><i class="fas fa-moon"></i></span>
+            </div>
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Tìm kiếm...">
+                <button id="search-button"><i class="fas fa-search"></i></button>
+                <div id="search-results" class="search-results"></div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>Bắt đầu với OIADB</h1>
+                <div class="breadcrumbs">
+                    <a href="index.html">Trang chủ</a> / <span>Bắt đầu</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="content-layout">
+                    <aside class="sidebar">
+                        <div class="sidebar-content">
+                            <h3>Trong trang này</h3>
+                            <ul class="sidebar-nav">
+                                <li><a href="#requirements">Yêu cầu</a></li>
+                                <li><a href="#installation">Cài đặt</a></li>
+                                <li><a href="#basic-usage">Sử dụng cơ bản</a></li>
+                                <li><a href="#platform-specific">Hướng dẫn đa nền tảng</a></li>
+                                <li><a href="#troubleshooting">Xử lý sự cố</a></li>
+                                <li><a href="#next-steps">Bước tiếp theo</a></li>
+                            </ul>
+                        </div>
+                    </aside>
+
+                    <div class="main-content">
+                        <section id="requirements">
+                            <h2>Yêu cầu</h2>
+                            <p>Trước khi bắt đầu với OIADB, hãy đảm bảo hệ thống của bạn đáp ứng các yêu cầu sau:</p>
+                            <ul>
+                                <li>Python 3.6 trở lên</li>
+                                <li><strong>Không cần cài đặt ADB thủ công</strong>: Thư viện sẽ tự động tải xuống và cài đặt ADB nếu cần</li>
+                                <li><strong>Lưu ý:</strong> Thư viện sẽ tự động cài đặt và quản lý <code>oiadb-server.apk</code> trên thiết bị Android của bạn.</li>
+                                <li><strong>Tùy chọn (cho nhận dạng ảnh):</strong> OpenCV và NumPy (cần cài đặt riêng, xem phần Cài đặt).</li>
+                            </ul>
+                            <div class="info-box">
+                                <h4><i class="fas fa-info-circle"></i> Lưu ý</h4>
+                                <p>Để sử dụng đầy đủ tính năng của OIADB, thiết bị Android của bạn cần được bật chế độ USB Debugging. Xem hướng dẫn bật USB Debugging <a href="#usb-debugging">tại đây</a>.</p>
+                            </div>
+                        </section>
+
+                        <section id="installation">
+                            <h2>Cài đặt</h2>
+                            
+                            <h3>Cài đặt cơ bản</h3>
+                            <p>Cách đơn giản nhất để cài đặt OIADB là thông qua pip:</p>
+                            <div class="code-block">
+                                <pre><code class="language-bash">pip install oiadb</code></pre>
+                                <button class="copy-btn" data-clipboard-text="pip install oiadb"><i class="fas fa-copy"></i></button>
+                            </div>
+
+                            <h3>Cài đặt với hỗ trợ nhận diện hình ảnh</h3>
+                            <p>Để sử dụng tính năng nhận diện hình ảnh, bạn cần cài đặt với các phụ thuộc bổ sung:</p>
+                            <div class="code-block">
+                                <pre><code class="language-bash">pip install oiadb[image]</code></pre>
+                                <button class="copy-btn" data-clipboard-text="pip install oiadb[image]"><i class="fas fa-copy"></i></button>
+                            </div>
+
+                            <h3>Cài đặt từ mã nguồn</h3>
+                            <p>Bạn cũng có thể cài đặt OIADB trực tiếp từ mã nguồn:</p>
+                            <div class="code-block">
+                                <pre><code class="language-bash">git clone https://github.com/tiendung102k3/oiadb
+cd oiadb
+pip install -e .</code></pre>
+                                <button class="copy-btn" data-clipboard-text="git clone https://github.com/tiendung102k3/oiadb
+cd oiadb
+pip install -e ."><i class="fas fa-copy"></i></button>
+                            </div>
+
+                            <h3>Cài đặt trên Termux</h3>
+                            <p>Để cài đặt OIADB trên Termux (Android):</p>
+                            <div class="code-block">
+                                <pre><code class="language-bash">pkg install python
+pip install oiadb</code></pre>
+                                <button class="copy-btn" data-clipboard-text="pkg install python
+pip install oiadb"><i class="fas fa-copy"></i></button>
+                            </div>
+                        </section>
+
+                        <section id="basic-usage">
+                            <h2>Sử dụng cơ bản</h2>
+                            
+                            <h3>Khởi tạo</h3>
+                            <p>Để bắt đầu sử dụng OIADB, bạn cần khởi tạo đối tượng MyADB:</p>
+                            <div class="code-block">
+                                <pre><code class="language-python">from oiadb import MyADB
+
+# Khởi tạo với thiết bị mặc định
+adb = MyADB()
+
+# Hoặc chỉ định thiết bị cụ thể
+adb = MyADB(device_id="emulator-5554")
+
+# Tắt tự động cài đặt ADB (nếu bạn đã cài đặt ADB)
+adb = MyADB(auto_install_adb=False)</code></pre>
+                                <button class="copy-btn" data-clipboard-text="from oiadb import MyADB
+
+# Khởi tạo với thiết bị mặc định
+adb = MyADB()
+
+# Hoặc chỉ định thiết bị cụ thể
+adb = MyADB(device_id='emulator-5554')
+
+# Tắt tự động cài đặt ADB (nếu bạn đã cài đặt ADB)
+adb = MyADB(auto_install_adb=False)"><i class="fas fa-copy"></i></button>
+                            </div>
+
+                            <h3>Các thao tác cơ bản</h3>
+                            <p>Dưới đây là một số thao tác cơ bản bạn có thể thực hiện với OIADB:</p>
+                            <div class="code-block">
+                                <pre><code class="language-python"># Liệt kê các thiết bị đã kết nối
+devices = adb.get_devices()
+print(devices)
+
+# Cài đặt ứng dụng
+adb.install_app("/path/to/app.apk")
+
+# Gỡ cài đặt ứng dụng
+adb.uninstall_app("com.example.app")
+
+# Khởi động lại thiết bị
+adb.reboot_device()</code></pre>
+                                <button class="copy-btn" data-clipboard-text="# Liệt kê các thiết bị đã kết nối
+devices = adb.get_devices()
+print(devices)
+
+# Cài đặt ứng dụng
+adb.install_app('/path/to/app.apk')
+
+# Gỡ cài đặt ứng dụng
+adb.uninstall_app('com.example.app')
+
+# Khởi động lại thiết bị
+adb.reboot_device()"><i class="fas fa-copy"></i></button>
+                            </div>
+
+                            <h3>Tương tác với thiết bị</h3>
+                            <p>OIADB cung cấp nhiều cách để tương tác với thiết bị Android:</p>
+                            <div class="code-block">
+                                <pre><code class="language-python">from oiadb.commands import interaction
+
+# Nhấn vào tọa độ màn hình
+interaction.tap(500, 500)
+
+# Vuốt màn hình
+interaction.swipe(100, 500, 600, 500)
+
+# Nhập văn bản
+interaction.text_input("Hello World")
+
+# Nhấn phím Home
+interaction.home()</code></pre>
+                                <button class="copy-btn" data-clipboard-text="from oiadb.commands import interaction
+
+# Nhấn vào tọa độ màn hình
+interaction.tap(500, 500)
+
+# Vuốt màn hình
+interaction.swipe(100, 500, 600, 500)
+
+# Nhập văn bản
+interaction.text_input('Hello World')
+
+# Nhấn phím Home
+interaction.home()"><i class="fas fa-copy"></i></button>
+                            </div>
+                        </section>
+
+                        <section id="platform-specific">
+                            <h2>Hướng dẫn đa nền tảng</h2>
+                            
+                            <div class="platform-tabs">
+                                <div class="tabs">
+                                    <button class="tab-btn active" data-tab="windows">Windows</button>
+                                    <button class="tab-btn" data-tab="linux">Linux</button>
+                                    <button class="tab-btn" data-tab="macos">macOS</button>
+                                    <button class="tab-btn" data-tab="termux">Termux</button>
+                                </div>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="windows">
+                                        <h3>Windows</h3>
+                                        <ol>
+                                            <li>
+                                                <strong>Cài đặt Python</strong>: Tải và cài đặt Python từ <a href="https://www.python.org/downloads/windows/" target="_blank">python.org</a>
+                                            </li>
+                                            <li>
+                                                <strong>Cài đặt OIADB</strong>:
+                                                <div class="code-block">
+                                                    <pre><code class="language-bash">pip install oiadb[image]</code></pre>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <strong>Sử dụng</strong>:
+                                                <div class="code-block">
+                                                    <pre><code class="language-python">from oiadb import MyADB
+adb = MyADB()  # Tự động tải và cài đặt ADB nếu cần</code></pre>
+                                                </div>
+                                            </li>
+                                        </ol>
+                                        <div class="info-box">
+                                            <h4><i class="fas fa-info-circle"></i> Lưu ý cho Windows</h4>
+                                            <p>Nếu gặp lỗi về đường dẫn, hãy sử dụng dấu gạch chéo ngược kép (<code>\\</code>) hoặc dấu gạch chéo thuận (<code>/</code>).</p>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="linux">
+                                        <h3>Linux</h3>
+                                        <ol>
+                                            <li>
+                                                <strong>Cài đặt Python và các gói phụ thuộc</strong>:
+                                                <div class="code-block">
+                                                    <pre><code class="language-bash">sudo apt-get update
+sudo apt-get install python3 python3-pip python3-dev</code></pre>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <strong>Cài đặt OIADB</strong>:
+                                                <div class="code-block">
+                                                    <pre><code class="language-bash">pip3 install oiadb[image]</code></pre>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <strong>Sử dụng</strong>:
+                                                <div class="code-block">
+                                                    <pre><code class="language-python">from oiadb import MyADB
+adb = MyADB()  # Tự động tải và cài đặt ADB nếu cần</code></pre>
+                                                </div>
+                                            </li>
+                                        </ol>
+                                        <div class="info-box">
+                                            <h4><i class="fas fa-info-circle"></i> Quyền USB trên Linux</h4>
+                                            <p>Nếu không thể kết nối thiết bị, thêm quy tắc udev:</p>
+                                            <div class="code-block">
+                                                <pre><code class="language-bash">sudo nano /etc/udev/rules.d/51-android.rules
+# Thêm: SUBSYSTEM=="usb", ATTR{idVendor}=="XXXX", MODE="0666"
+sudo udevadm control --reload-rules</code></pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="macos">
+                                        <h3>macOS</h3>
+                                        <ol>
+                                            <li>
+                                                <strong>Cài đặt Python</strong>: Sử dụng Homebrew hoặc tải từ <a href="https://www.python.org/downloads/macos/" target="_blank">python.org</a>
+                                                <div class="code-block">
+                                                    <pre><code class="language-bash">brew install python</code></pre>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <strong>Cài đặt OIADB</strong>:
+                                                <div class="code-block">
+                                                    <pre><code class="language-bash">pip3 install oiadb[image]</code></pre>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <strong>Sử dụng</strong>:
+                                                <div class="code-block">
+                                                    <pre><code class="language-python">from oiadb import MyADB
+adb = MyADB()  # Tự động tải và cài đặt ADB nếu cần</code></pre>
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                    <div class="tab-pane" id="termux">
+                                        <h3>Termux (Android)</h3>
+                                        <ol>
+                                            <li>
+                                                <strong>Cài đặt Termux</strong>: Tải từ <a href="https://f-droid.org/packages/com.termux/" target="_blank">F-Droid</a>
+                                            </li>
+                                            <li>
+                                                <strong>Cài đặt Python và các gói phụ thuộc</strong>:
+                                                <div class="code-block">
+                                                    <pre><code class="language-bash">pkg update
+pkg install python clang python-dev</code></pre>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <strong>Cài đặt OIADB</strong>:
+                                                <div class="code-block">
+                                                    <pre><code class="language-bash">pip install oiadb</code></pre>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <strong>Sử dụng</strong>:
+                                                <div class="code-block">
+                                                    <pre><code class="language-python">from oiadb import MyADB
+adb = MyADB()  # Tự động cài đặt ADB thông qua package manager</code></pre>
+                                                </div>
+                                            </li>
+                                        </ol>
+                                        <div class="info-box">
+                                            <h4><i class="fas fa-info-circle"></i> Lưu ý cho Termux</h4>
+                                            <p>Đảm bảo Termux có quyền truy cập bộ nhớ: <code>termux-setup-storage</code></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="troubleshooting">
+                            <h2>Xử lý sự cố</h2>
+                            
+                            <div class="accordion">
+                                <div class="accordion-item">
+                                    <button class="accordion-header">
+                                        <span>ADB không tự động cài đặt</span>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </button>
+                                    <div class="accordion-content">
+                                        <p>Đảm bảo bạn có quyền ghi vào thư mục cài đặt. Trên Linux/macOS, có thể cần chạy với sudo.</p>
+                                        <div class="code-block">
+                                            <pre><code class="language-bash">sudo pip install oiadb</code></pre>
+                                        </div>
+                                        <p>Hoặc bạn có thể tự cài đặt ADB và tắt tính năng tự động cài đặt:</p>
+                                        <div class="code-block">
+                                            <pre><code class="language-python">adb = MyADB(auto_install_adb=False)</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <button class="accordion-header">
+                                        <span>Lỗi kết nối thiết bị</span>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </button>
+                                    <div class="accordion-content">
+                                        <p>Đảm bảo USB debugging đã được bật trên thiết bị Android và thiết bị đã được cấp quyền.</p>
+                                        <ol>
+                                            <li>Kiểm tra kết nối USB</li>
+                                            <li>Đảm bảo đã bật USB debugging trong Developer Options</li>
+                                            <li>Chấp nhận lời nhắc "Allow USB debugging" trên thiết bị</li>
+                                            <li>Kiểm tra thiết bị được phát hiện bằng lệnh:</li>
+                                        </ol>
+                                        <div class="code-block">
+                                            <pre><code class="language-python">from oiadb import MyADB
+adb = MyADB()
+devices = adb.get_devices()
+print(devices)</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <button class="accordion-header">
+                                        <span>Lỗi khi sử dụng tính năng nhận diện hình ảnh</span>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </button>
+                                    <div class="accordion-content">
+                                        <p>Đảm bảo bạn đã cài đặt các phụ thuộc cần thiết:</p>
+                                        <div class="code-block">
+                                            <pre><code class="language-bash">pip install opencv-python numpy</code></pre>
+                                        </div>
+                                        <p>Hoặc cài đặt lại OIADB với tùy chọn image:</p>
+                                        <div class="code-block">
+                                            <pre><code class="language-bash">pip install oiadb[image]</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <button class="accordion-header">
+                                        <span>Lỗi quyền trên Linux/macOS</span>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </button>
+                                    <div class="accordion-content">
+                                        <p>Nếu gặp lỗi quyền khi kết nối thiết bị trên Linux/macOS, hãy thử:</p>
+                                        <div class="code-block">
+                                            <pre><code class="language-bash"># Trên Linux
+sudo apt-get install android-tools-adb
+sudo usermod -aG plugdev $LOGNAME
+
+# Trên macOS
+brew install android-platform-tools</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="next-steps">
+                            <h2>Bước tiếp theo</h2>
+                            <p>Sau khi đã cài đặt và cấu hình OIADB thành công, bạn có thể khám phá các tính năng nâng cao:</p>
+                            <div class="next-steps-grid">
+                                <a href="features.html#image-recognition" class="next-step-card">
+                                    <div class="next-step-icon">
+                                        <i class="fas fa-image"></i>
+                                    </div>
+                                    <h3>Nhận diện hình ảnh</h3>
+                                    <p>Tìm hiểu cách tương tác với thiết bị dựa trên nhận diện hình ảnh</p>
+                                </a>
+                                <a href="features.html#xml-dump" class="next-step-card">
+                                    <div class="next-step-icon">
+                                        <i class="fas fa-code"></i>
+                                    </div>
+                                    <h3>XML Dump & Trợ năng</h3>
+                                    <p>Khám phá tính năng truy xuất và phân tích cấu trúc UI</p>
+                                </a>
+                                <a href="examples.html" class="next-step-card">
+                                    <div class="next-step-icon">
+                                        <i class="fas fa-laptop-code"></i>
+                                    </div>
+                                    <h3>Ví dụ thực tế</h3>
+                                    <p>Xem các ví dụ thực tế về cách sử dụng OIADB</p>
+                                </a>
+                                <a href="api-reference.html" class="next-step-card">
+                                    <div class="next-step-icon">
+                                        <i class="fas fa-book"></i>
+                                    </div>
+                                    <h3>API Reference</h3>
+                                    <p>Tài liệu chi tiết về các lớp và phương thức</p>
+                                </a>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>OIADB</h3>
+                    <p>Thư viện Python wrapper cho Android Debug Bridge (ADB) với chức năng nhận diện hình ảnh, dump XML và hỗ trợ đa nền tảng.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Liên kết</h3>
+                    <ul>
+                        <li><a href="index.html">Trang chủ</a></li>
+                        <li><a href="getting-started.html">Bắt đầu</a></li>
+                        <li><a href="features.html">Tính năng</a></li>
+                        <li><a href="api-reference.html">API Reference</a></li>
+                        <li><a href="guides.html">Hướng dẫn</a></li>
+                        <li><a href="examples.html">Ví dụ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Tài nguyên</h3>
+                    <ul>
+                        <li><a href="https://github.com/tiendung102k3/oiadb" target="_blank">GitHub</a></li>
+                        <li><a href="https://pypi.org/project/oiadb/" target="_blank">PyPI</a></li>
+                        <li><a href="resources.html#changelog">Changelog</a></li>
+                        <li><a href="resources.html#license">Giấy phép</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Liên hệ</h3>
+                    <p>Email: monstertattoovn696@gmail.com</p>
+                    <div class="social-links">
+                        <a href="https://github.com/tiendung102k3" target="_blank"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 OIADB. Giấy phép MIT.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/prism.js"></script>
+    <script src="js/clipboard.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hướng dẫn OIADB - Hướng dẫn chi tiết về các tính năng và cách sử dụng</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/prism.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="description" content="Hướng dẫn chi tiết về cách sử dụng thư viện OIADB - Nhận diện hình ảnh, XML Dump, và các tính năng nâng cao">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <span class="logo-text">OIADB</span>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <button class="menu-toggle" aria-label="Toggle menu">
+                    <span class="hamburger"></span>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li><a href="getting-started.html">Bắt đầu</a></li>
+                    <li><a href="features.html">Tính năng</a></li>
+                    <li><a href="api-reference.html">API Reference</a></li>
+                    <li><a href="guides.html" class="active">Hướng dẫn</a></li>
+                    <li><a href="examples.html">Ví dụ</a></li>
+                    <li><a href="resources.html">Tài nguyên</a></li>
+                </ul>
+            </nav>
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider round"></div>
+                </label>
+                <span class="theme-label"><i class="fas fa-moon"></i></span>
+            </div>
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Tìm kiếm...">
+                <button id="search-button"><i class="fas fa-search"></i></button>
+                <div id="search-results" class="search-results"></div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>Hướng dẫn OIADB</h1>
+                <div class="breadcrumbs">
+                    <a href="index.html">Trang chủ</a> / <span>Hướng dẫn</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="content-layout">
+                    <aside class="sidebar">
+                        <div class="sidebar-content">
+                            <h3>Trong trang này</h3>
+                            <ul class="sidebar-nav">
+                                <li><a href="#image-recognition">Hướng dẫn nhận diện hình ảnh</a></li>
+                                <li><a href="#xml-dump">Hướng dẫn XML Dump & Trợ năng</a></li>
+                                <li><a href="#wireless-connection">Kết nối không dây</a></li>
+                                <li><a href="#app-automation">Tự động hóa ứng dụng</a></li>
+                                <li><a href="#performance-optimization">Tối ưu hiệu suất</a></li>
+                                <li><a href="#troubleshooting">Xử lý sự cố nâng cao</a></li>
+                            </ul>
+                        </div>
+                    </aside>
+
+                    <div class="main-content">
+                        <section id="image-recognition">
+                            <h2>Hướng dẫn nhận diện hình ảnh</h2>
+                            <p>Tính năng nhận diện hình ảnh của OIADB cho phép bạn tương tác với thiết bị Android dựa trên hình ảnh mẫu, thay vì phải dựa vào tọa độ cố định. Hướng dẫn này sẽ giúp bạn hiểu và sử dụng hiệu quả tính năng này.</p>
+                            
+                            <h3>Chuẩn bị hình ảnh mẫu</h3>
+                            <p>Để đạt được kết quả tốt nhất, hãy tuân thủ các nguyên tắc sau khi chuẩn bị hình ảnh mẫu:</p>
+                            
+                            <div class="guide-tips">
+                                <div class="tip-item">
+                                    <div class="tip-icon">
+                                        <i class="fas fa-crop"></i>
+                                    </div>
+                                    <div class="tip-content">
+                                        <h4>Cắt chính xác</h4>
+                                        <p>Cắt hình ảnh mẫu chỉ bao gồm phần tử cần tìm, loại bỏ các phần không liên quan. Tránh cắt quá sát hoặc quá rộng.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="tip-item">
+                                    <div class="tip-icon">
+                                        <i class="fas fa-compress-arrows-alt"></i>
+                                    </div>
+                                    <div class="tip-content">
+                                        <h4>Kích thước phù hợp</h4>
+                                        <p>Sử dụng hình ảnh mẫu có kích thước tương đối so với kích thước thực tế trên màn hình. Nếu phần tử quá nhỏ, hãy chụp màn hình ở độ phân giải cao hơn.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="tip-item">
+                                    <div class="tip-icon">
+                                        <i class="fas fa-adjust"></i>
+                                    </div>
+                                    <div class="tip-content">
+                                        <h4>Độ tương phản cao</h4>
+                                        <p>Chọn hình ảnh mẫu có độ tương phản cao với nền. Điều này giúp thuật toán nhận diện dễ dàng hơn.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="tip-item">
+                                    <div class="tip-icon">
+                                        <i class="fas fa-file-image"></i>
+                                    </div>
+                                    <div class="tip-content">
+                                        <h4>Định dạng phù hợp</h4>
+                                        <p>Lưu hình ảnh mẫu ở định dạng PNG để tránh mất chất lượng do nén. Tránh sử dụng JPEG cho các biểu tượng hoặc văn bản.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h3>Tìm kiếm hình ảnh cơ bản</h3>
+                            <p>Dưới đây là cách sử dụng các phương thức tìm kiếm hình ảnh cơ bản:</p>
+                            
+                            <div class="code-block">
+                                <pre><code class="language-python">from oiadb import MyADB
+from oiadb.commands import image_interaction
+
+# Khởi tạo ADB
+adb = MyADB()
+
+# Tìm hình ảnh đơn
+result = image_interaction.find_image(
+    template_path="/path/to/template.png",
+    threshold=0.8  # Ngưỡng tương đồng (0.0 - 1.0)
+)
+
+if result:
+    x, y, confidence = result
+    print(f"Đã tìm thấy hình ảnh tại ({x}, {y}) với độ tương đồng {confidence}")
+    
+    # Nhấp vào vị trí tìm thấy
+    from oiadb.commands import interaction
+    interaction.tap(x, y)
+else:
+    print("Không tìm thấy hình ảnh")</code></pre>
+                            </div>
+                            
+                            <h3>Tìm kiếm hình ảnh nâng cao</h3>
+                            <p>Để xử lý các trường hợp phức tạp hơn, bạn có thể sử dụng các tùy chọn nâng cao:</p>
+                            
+                            <div class="code-block">
+                                <pre><code class="language-python"># Tìm hình ảnh với nhiều tùy chọn
+result = image_interaction.find_image(
+    template_path="/path/to/template.png",
+    threshold=0.8,
+    region=(100, 100, 500, 500),  # Vùng tìm kiếm (x, y, width, height)
+    scale_range=(0.8, 1.2),  # Phạm vi tỷ lệ để tìm kiếm
+    scale_steps=5,  # Số bước tỷ lệ
+    rotation_range=(-10, 10),  # Phạm vi góc xoay (độ)
+    rotation_steps=5,  # Số bước góc xoay
+    use_gray=True,  # Sử dụng ảnh xám để tăng tốc độ
+    use_canny=False  # Sử dụng phát hiện cạnh Canny cho hình ảnh mờ
+)</code></pre>
+                            </div>
+                            
+                            <div class="info-box">
+                                <h4><i class="fas fa-info-circle"></i> Giải thích các tham số</h4>
+                                <ul>
+                                    <li><strong>threshold</strong>: Ngưỡng tương đồng (0.0 - 1.0). Giá trị cao hơn yêu cầu khớp chính xác hơn, giá trị thấp hơn cho phép khớp mờ hơn.</li>
+                                    <li><strong>region</strong>: Giới hạn vùng tìm kiếm để tăng tốc độ và giảm khả năng khớp sai.</li>
+                                    <li><strong>scale_range</strong>: Phạm vi tỷ lệ để tìm kiếm. Hữu ích khi kích thước phần tử có thể thay đổi (ví dụ: do độ phân giải màn hình khác nhau).</li>
+                                    <li><strong>rotation_range</strong>: Phạm vi góc xoay để tìm kiếm. Hữu ích khi phần tử có thể bị xoay.</li>
+                                    <li><strong>use_gray</strong>: Sử dụng ảnh xám để tăng tốc độ. Nên bật trừ khi màu sắc là yếu tố quan trọng để phân biệt.</li>
+                                    <li><strong>use_canny</strong>: Sử dụng phát hiện cạnh Canny. Hữu ích cho hình ảnh mờ hoặc có độ tương phản thấp.</li>
+                                </ul>
+                            </div>
+                            
+                            <h3>Tương tác dựa trên hình ảnh</h3>
+                            <p>OIADB cung cấp nhiều phương thức để tương tác với thiết bị dựa trên hình ảnh:</p>
+                            
+                            <div class="code-block">
+                                <pre><code class="language-python"># Tìm và nhấp vào hình ảnh
+image_interaction.tap_image("/path/to/button.png", threshold=0.8)
+
+# Đợi hình ảnh xuất hiện và nhấp vào
+image_interaction.wait_and_tap_image(
+    "/path/to/button.png", 
+    timeout=10,  # Thời gian tối đa đợi (giây)
+    interval=0.5  # Khoảng thời gian giữa các lần tìm kiếm (giây)
+)
+
+# Kéo từ hình ảnh này đến hình ảnh khác
+image_interaction.drag_image_to_image(
+    "/path/to/source.png", 
+    "/path/to/target.png",
+    duration=800  # Thời gian kéo (ms)
+)
+
+# Đợi hình ảnh xuất hiện
+image_interaction.wait_for_image(
+    "/path/to/button.png", 
+    timeout=10
+)
+
+# Đợi hình ảnh biến mất
+image_interaction.wait_until_image_disappears(
+    "/path/to/loading.png", 
+    timeout=30
+)</code></pre>
+                            </div>
+                            
+                            <h3>Xử lý các trường hợp đặc biệt</h3>
+                            
+                            <div class="guide-tips">
+                                <div class="tip-item">
+                                    <div class="tip-icon">
+                                        <i class="fas fa-mobile-alt"></i>
+                                    </div>
+                                    <div class="tip-content">
+                                        <h4>Màn hình phân giải cao</h4>
+                                        <p>Đối với màn hình phân giải cao, hãy sử dụng phạm vi tỷ lệ lớn hơn:</p>
+                                        <div class="code-block">
+                                            <pre><code class="language-python">result_high_res = image_interaction.find_image(
+    template_path="/path/to/template.png",
+    threshold=0.8,
+    scale_range=(1.0, 1.5),  # Tỷ lệ lớn hơn cho màn hình phân giải cao
+    scale_steps=5
+)</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="tip-item">
+                                    <div class="tip-icon">
+                                        <i class="fas fa-low-vision"></i>
+                                    </div>
+                                    <div class="tip-content">
+                                        <h4>Hình ảnh mờ</h4>
+                                        <p>Đối với hình ảnh mờ hoặc có độ tương phản thấp, hãy sử dụng phát hiện cạnh Canny:</p>
+                                        <div class="code-block">
+                                            <pre><code class="language-python">result_blurry = image_interaction.find_image(
+    template_path="/path/to/template.png",
+    threshold=0.7,  # Ngưỡng thấp hơn cho hình ảnh mờ
+    use_canny=True  # Sử dụng phát hiện cạnh Canny
+)</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="tip-item">
+                                    <div class="tip-icon">
+                                        <i class="fas fa-sync-alt"></i>
+                                    </div>
+                                    <div class="tip-content">
+                                        <h4>Hình ảnh xoay</h4>
+                                        <p>Đối với hình ảnh có thể bị xoay, hãy sử dụng phạm vi góc xoay:</p>
+                                        <div class="code-block">
+                                            <pre><code class="language-python">result_rotated = image_interaction.find_image(
+    template_path="/path/to/template.png",
+    threshold=0.8,
+    rotation_range=(-30, 30),  # Phạm vi góc xoay ±30 độ
+    rotation_steps=10  # Số bước góc xoay
+)</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="tip-item">
+                                    <div class="tip-icon">
+                                        <i class="fas fa-palette"></i>
+                                    </div>
+                                    <div class="tip-content">
+                                        <h4>Hình ảnh màu</h4>
+                                        <p>Đối với hình ảnh mà màu sắc là yếu tố quan trọng để phân biệt:</p>
+                                        <div class="code-block">
+                                            <pre><code class="language-python">result_color = image_interaction.find_image(
+    template_path="/path/to/template.png",
+    threshold=0.8,
+    use_gray=False  # Sử dụng ảnh màu thay vì ảnh xám
+)</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h3>Mẹo và thủ thuật</h3>
+                            <ul>
+                                <li><strong>Sử dụng vùng tìm kiếm</strong>: Giới hạn vùng tìm kiếm để tăng tốc độ và giảm khả năng khớp sai.</li>
+                                <li><strong>Điều chỉnh ngưỡng</strong>: Bắt đầu với ngưỡng cao (0.9) và giảm dần nếu không tìm thấy hình ảnh.</li>
+                                <li><strong>Tạo nhiều mẫu</strong>: Đối với phần tử có nhiều trạng thái (ví dụ: nút bật/tắt), hãy tạo mẫu cho mỗi trạng thái.</li>
+                                <li><strong>Xử lý ngoại lệ</strong>: Luôn kiểm tra kết quả trả về và xử lý trường hợp không tìm thấy hình ảnh.</li>
+                                <li><strong>Tối ưu hiệu suất</strong>: Sử dụng <code>use_gray=True</code> và vùng tìm kiếm hợp lý để tăng tốc độ.</li>
+                            </ul>
+                        </section>
+
+                        <section id="xml-dump">
+                            <h2>Hướng dẫn XML Dump & Trợ năng</h2>
+                            <p>Tính năng XML Dump của OIADB cho phép bạn truy xuất cấu trúc XML của giao diện người dùng Android và tương tác với ứng dụng thông qua API trợ năng. Hướng dẫn này sẽ giúp bạn hiểu và sử dụng hiệu quả tính năng này.</p>
+                            
+                            <h3>Thiết lập XML Server</h3>
+                            <p>Trước khi sử dụng tính năng XML Dump, bạn cần thiết lập XML Server trên thiết bị Android:</p>
+                            
+                            <div class="code-block">
+                                <pre><code class="language-python">from oiadb import MyADB
+from oiadb.commands import xml_dump
+
+# Khởi tạo ADB
+adb = MyADB()
+
+# Khởi động server trên cổng 8000
+server, server_thread = xml_dump.start_xml_server(port=8000)
+
+# Thiết lập port forwarding
+xml_dump.setup_port_forwarding(device_port=8000, host_port=8000)
+
+# Lấy địa chỉ IP của thiết bị
+device_ip = xml_dump.get_device_ip()
+print(f"XML dump available at: http://{device_ip}:8000/get_xml")</code></pre>
+                            </div>
+                            
+                            <div class="info-box">
+                                <h4><i class="fas fa-info-circle"></i> Lưu ý</h4>
+                                <p>XML Server sẽ tự động cài đặt và khởi động <code>oiadb-server.apk</code> trên thiết bị Android của bạn. Đảm bảo thiết bị đã bật chế độ USB Debugging và đã cấp quyền trợ năng.</p>
+                            </div>
+                            
+                            <h3>Lấy XML Dump</h3>
+                            <p>Sau khi thiết lập XML Server, bạn có thể lấy XML dump của giao diện hiện tại:</p>
+                            
+                            <div class="code-block">
+                                <pre><code class="language-python"># Lấy toàn bộ XML
+xml_content = xml_dump.get_xml_dump()
+print(xml_content)
+
+# Lấy XML với bộ lọc
+filtered_xml = xml_dump.get_xml_dump(
+    resource_id="button_login",  # Lọc theo resource ID
+    text_value="Login",  # Lọc theo giá trị text
+    threshold=0.7  # Ngưỡng tương đồng cho việc so khớp mờ
+)
+
+# Sử dụng cache để tăng tốc độ
+cached_xml = xml_dump.get_xml_dump(
+    resource_id="button_login",
+    use_cache=True  # Sử dụng cache
+)</code></pre>
+                            </div>
+                            
+                            <h3>Tìm phần tử UI</h3>
+                            <p>Bạn có thể tìm các phần tử UI dựa trên nhiều tiêu chí khác nhau:</p>
+                            
+                            <div class="code-block">
+                                <pre><code class="language-python"># Tìm tất cả các nút
+buttons = xml_dump.find_elements_by_criteria({"class": "android.widget.Button"})
+for button in buttons:
+    print(f"Button: {button.get('text')}, Bounds: {button.get('bounds')}")
+
+# Tìm phần tử với nhiều tiêu chí
+login_buttons = xml_dump.find_elements_by_criteria({
+    "class": "android.widget.Button",
+    "value": "Login",
+    "threshold": 0.7
+})
+
+# Tìm phần tử theo ID
+id_elements = xml_dump.find_elements_by_criteria({
+    "id": "com.example.app:id/submit_button"
+})
+
+# Tìm phần tử theo content description
+content_desc_elements = xml_dump.find_elements_by_criteria({
+    "content_desc": "Submit form"
+})</code></pre>
+                            </div>
+                            
+                            <h3>Thực hiện hành động trợ năng</h3>
+                            <p>Bạn có thể thực hiện các hành động trợ năng trên các phần tử UI:</p>
+                            
+                            <div class="code-block">
+                                <pre><code class="language-python"># Nhấp vào nút có text "Login"
+xml_dump.perform_accessibility_action(
+    "click", 
+    {"value": "Login", "threshold": 0.7}
+)
+
+# Nhập text vào trường EditText
+xml_dump.perform_accessibility_action(
+    "setText", 
+    {"class": "android.widget.EditText"}, 
+    "Hello from XML dump!"
+)
+
+# Cuộn danh sách
+xml_dump.perform_accessibility_action(
+    "scroll", 
+    {"class": "android.widget.ListView"}
+)
+
+# Nhấn giữ phần tử
+xml_dump.perform_accessibility_action(
+    "longClick", 
+    {"id": "com.example.app:id/item"}
+)</code></pre>
+                            </div>
+                            
+                            <h3>Các hành động trợ năng hỗ trợ</h3>
+                            <p>OIADB hỗ trợ nhiều hành động trợ năng khác nhau:</p>
+                            
+                            <div class="table-responsive">
+                                <table class="guide-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Hành động</th>
+                                            <th>Mô tả</th>
+                                            <th>Tham số bổ sung</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>click</code></td>
+                                            <td>Nhấp vào phần tử</td>
+                                            <td>Không</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>longClick</code></td>
+                                            <td>Nhấn giữ phần tử</td>
+                                            <td>Không</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>setText</code></td>
+                                            <td>Nhập văn bản vào phần tử</td>
+                                            <td>Văn bản cần nhập</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>clearText</code></td>
+                                            <td>Xóa văn bản trong phần tử</td>
+                                            <td>Không</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>scroll</code></td>
+                                            <td>Cuộn phần tử</td>
+                                            <td>Hướng (tùy chọn): "up", "down", "left", "right"</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>select</code></td>
+                                            <td>Chọn phần tử</td>
+                                            <td>Không</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>focus</code></td>
+                                            <td>Đặt focus vào phần tử</td>
+                                            <td>Không</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>copy</code></td>
+                                            <td>Sao chép nội dung phần tử</td>
+                                            <td>Không</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>paste</code></td>
+                                            <td>Dán nội dung vào phần tử</td>
+                                            <td>Không</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h3>Phân tích cấu trúc XML</h3>
+                            <p>Bạn có thể phân tích cấu trúc XML để hiểu rõ hơn về giao diện người dùng:</p>
+                            
+                            <div class="code-block">
+                                <pre><code class="language-python">import xml.etree.ElementTree as ET
+
+# Lấy XML dump
+xml_content = xml_dump.get_xml_dump()
+
+# Phân tích XML
+root = ET.fromstring(xml_content)
+
+# Duyệt qua tất cả các phần tử
+for element in root.findall(".//*"):
+    # Lấy thuộc tính của phần tử
+    class_name = element.get("class")
+    text = element.get("text")
+    resource_id = element.get("resource-id")
+    content_desc = element.get("content-desc")
+    bounds = element.get("bounds")
+    
+    # In thông tin phần tử
+    if text:
+        print(f"Element: {class_name}, Text: {text}, ID: {resource_id}")</code></pre>
+                            </div>
+                            
+                            <h3>Mẹo và thủ thuật</h3>
+                            <ul>
+                                <li><strong>Sử dụng cache</strong>: Bật cache để tăng tốc độ khi thực hiện nhiều thao tác trên cùng một màn hình.</li>
+                                <li><strong>Kết hợp với nhận diện hình ảnh</strong>: Kết hợp XML Dump với nhận diện hình ảnh để xử lý các trường hợp phức tạp.</li>
+                                <li><strong>Xử lý ngoại lệ</strong>: Luôn kiểm tra kết quả trả về và xử lý trường hợp không tìm thấy phần tử.</li>
+                                <li><strong>Sử dụng ngưỡng tương đồng</strong>: Điều chỉnh ngưỡng tương đồng để xử lý các trường hợp text không khớp chính xác.</li>
+                                <li><strong>Dừng server khi hoàn tất</strong>: Dừng XML server khi không cần sử dụng nữa để giải phóng tài nguyên.</li>
+                            </ul>
+                            
+                            <div class="code-block">
+                                <pre><code class="language-python"># Dừng server khi hoàn tất
+xml_dump.stop_xml_server(server)</code></pre>
+                            </div>
+                        </section>
+
+                        <section id="wireless-connection">
+                            <h2>Kết nối không dây</h2>
+                            <p>OIADB hỗ trợ kết nối với thiết bị Android qua mạng không dây, giúp bạn tương tác với thiết bị mà không cần kết nối USB. Hướng dẫn này sẽ giúp bạn thiết lập và sử dụng kết nối không dây.</p>
+                            
+                            <h3>Thiết lập kết nối không dây</h3>
+                            <p>Để thiết lập kết nối không dây, bạn cần thực hiện các bước sau:</p>
+                            
+                            <div class="code-block">
+                                <pre><code class="language-python">from oiadb import MyADB
+from oiadb.commands import connect
+
+# Khởi tạo ADB
+adb = MyADB()
+
+# Bước 1: Kết nối thiết bị qua USB
+# Đảm bảo thiết bị đã được kết nối qua USB và đã bật USB Debugging
+
+# Bước 2: Lấy địa chỉ IP của thiết bị
+device_ip = connect.get_device_ip()
+print(f"Device IP: {device_ip}")
+
+# Bước 3: Thiết lập kết nối không dây
+connect.enable_wireless_debugging(port=5555)
+
+# Bước 4: Ngắt kết nối USB và kết nối qua mạng
+# Bây giờ bạn có thể ngắt kết nối USB
+connect.connect_over_network(device_ip, 5555)
+
+# Kiểm tra kết nối
+devices = adb.get_devices()
+print(devices)</code></pre>
+                            </div>
+                            
+                            <div class="info-box">
+                                <h4><i class="fas fa-info-circle"></i> Lưu ý</h4>
+                                <p>Để sử dụng kết nối không dây, thiết bị Android và máy tính phải nằm trong cùng một mạng. Đảm bảo tường lửa không chặn kết nối.</p>
+                            </div>
+                            
+                            <h3>Kết nối tự động</h3>
+                            <p>Bạn có thể tự động kết nối với thiết bị đã biết địa chỉ IP:</p>
+                            
+                            <div class="code-block">
+                                <pre><code class="language-python"># Kết nối tự động với thiết bị đã biết địa chỉ IP
+def auto_connect_to_device(ip, port=5555, max_retries=3):
+    from oiadb.commands import connect
+    import time
+    
+    for i in range(max_retries):
+        try:
+            connect.connect_over_network(ip, port)
+            print(f"Connected to {ip}:{port}")
+            return True
+        except Exception as e:
+            print(f"Attempt {i+1}/{max_retries} failed: {e}")
+            time.sleep(2)
+    
+    return False
+
+# Sử dụng
+auto_connect_to_device("192.168.1.100")</code></pre>
+                            </div>
+                            
+                            <h3>Quản lý nhiều thiết bị không dây</h3>
+                            <p>Nếu bạn cần quản lý nhiều thiết bị không dây, bạn có thể sử dụng mã sau:</p>
+                            
+                            <div class="code-block">
+                                <pre><code class="language-python"># Quản lý nhiều thiết bị không dây
+def manage_wireless_devices(device_list):
+    from oiadb import MyADB
+    from oiadb.commands import connect
+    
+    connected_devices = []
+    
+    for device in device_list:
+        ip = device["ip"]
+        port = device.get("port", 5555)
+        name = device.get("name", ip)
+        
+        try:
+            connect.connect_over_network(ip, port)
+            device_id = f"{ip}:{port}"
+            adb = MyADB(device_id=device_id)
+            connected_devices.append({
+                "name": name,
+                "ip": ip,
+                "port": port,
+                "device_id": device_id,
+                "adb": adb
+            })
+            print(f"Connected to {name} ({ip}:{port})")
+        except Exception as e:
+            print(f"Failed to connect to {name} ({ip}:{port}): {e}")
+    
+    return connected_devices
+
+# Sử dụng
+devices = [
+    {"name": "Phone 1", "ip": "192.168.1.100"},
+    {"name": "Tablet", "ip": "192.168.1.101", "port": 5556}
+]
+
+connected_devices = manage_wireless_devices(devices)
+
+# Sử dụng thiết bị đã kết nối
+for device in connected_devices:
+    adb = device["adb"]
+    name = device["name"]
+    print(f"Working with {name}")
+    # Thực hiện các thao tác với thiết bị
+    device_info = adb.get_device_info()
+    print(device_info)</code></pre>
+                            </div>
+                            
+                            <h3>Mẹo và thủ thuật</h3>
+                            <ul>
+                                <li><strong>Địa chỉ IP tĩnh</strong>: Cấu hình thiết bị Android với địa chỉ IP tĩnh để dễ dàng kết nối lại.</li>
+                                <li><strong>Kết nối lại tự động</strong>: Triển khai cơ chế kết nối lại tự động khi mất kết nối.</li>
+                                <li><strong>Kiểm tra kết nối</strong>: Thường xuyên kiểm tra trạng thái kết nối để đảm bảo thiết bị vẫn được kết nối.</li>
+                                <li><strong>Sử dụng ADB Pair</strong>: Đối với Android 11 trở lên, sử dụng tính năng ADB Pair để kết nối an toàn hơn.</li>
+                            </ul>
+                            
+                            <div class="code-block">
+                                <pre><code class="language-python"># Kiểm tra kết nối
+def check_device_connection(device_id):
+    from oiadb import MyADB
+    
+    try:
+        adb = MyADB(device_id=device_id)
+        devices = adb.get_devices()
+        return device_id in devices
+    except:
+        return False
+
+# Sử dụng
+is_connected = check_device_connection("192.168.1.100:5555")
+print(f"Device connected: {is_connected}")</code></pre>
+                            </div>
+                        </section>
+
+                        <section id="app-automation">
+                            <h2>Tự động hóa ứng dụng</h2>
+                            <p>OIADB cho phép bạn tự động hóa các tác vụ trên ứng dụng Android. Hướng dẫn này sẽ giúp bạn xây dựng các kịch bản tự động hóa hiệu quả.</p>
+                            
+                            <h3>Cài đặt và khởi động ứng dụng</h3>
+                            <p>Bước đầu tiên trong tự động hóa ứng dụng là cài đặt và khởi động ứng dụng:</p>
+                            
+                            <div class="code-block">
+                                <pre><code class="language-python">from oiadb import MyADB
+from oiadb.commands import apps
+
+# Khởi tạo ADB
+adb = MyADB()
+
+# Cài đặt ứng dụng
+adb.install_app("/path/to/app.apk")
+
+# Lấy thông tin package và activity chính
+from oiadb.commands import app_info
+package_info = app_info.get_package_info("/path/to/app.apk")
+package_name = package_info["package_name"]
+main_activity = package_info["main_activity"]
+
+# Khởi động ứng dụng
+apps.start_app(package_name)
+
+# Hoặc khởi động ứng dụng với activity cụ thể
+apps.start_activity(f"{package_name}/{main_activity}")</code></pre>
+                            </div>
+                            
+                            <h3>Xây dựng kịch bản tự động hóa</h3>
+                            <p>Bạn có thể kết hợp nhiều phương thức để xây dựng kịch bản tự động hóa phức tạp:</p>
+                            
+                            <div class="code-block">
+                                <pre><code class="language-python"># Ví dụ: Tự động đăng nhập vào ứng dụng
+def auto_login(username, password):
+    from oiadb.commands import interaction, image_interaction
+    import time
+    
+    # Khởi động ứng dụng
+    apps.start_app("com.example.app")
+    time.sleep(2)  # Đợi ứng dụng khởi động
+    
+    # Phương pháp 1: Sử dụng nhận diện hình ảnh
+    if image_interaction.is_image_present("/path/to/username_field.png"):
+        # Nhấp vào trường username
+        image_interaction.tap_image("/path/to/username_field.png")
+        # Nhập username
+        interaction.text_input(username)
+        
+        # Nhấp vào trường password
+        image_interaction.tap_image("/path/to/password_field.png")
+        # Nhập password
+        interaction.text_input(password)
+        
+        # Nhấp vào nút đăng nhập
+        image_interaction.tap_image("/path/to/login_button.png")
+    
+    # Phương pháp 2: Sử dụng XML Dump
+    else:
+        from oiadb.commands import xml_dump
+        
+        # Nhập username
+        xml_dump.perform_accessibility_action(
+            "setText", 
+            {"class": "android.widget.EditText", "hint": "Username"}, 
+            username
+        )
+        
+        # Nhập password
+        xml_dump.perform_accessibility_action(
+            "setText", 
+            {"class": "android.widget.EditText", "hint": "Password"}, 
+            password
+        )
+        
+        # Nhấp vào nút đăng nhập
+        xml_dump.perform_accessibility_action(
+            "click", 
+            {"class": "android.widget.Button", "value": "Login"}
+        )
+    
+    # Đợi màn hình chính xuất hiện
+    return image_interaction.wait_for_image("/path/to/home_screen.png", timeout=10)
+
+# Sử dụng
+login_success = auto_login("user123", "password123")
+if login_success:
+    print("Login successful")
+else:
+    print("Login failed")</code></pre>
+                            </div>
+                            
+                            <h3>Xử lý các trường hợp đặc biệt</h3>
+                            <p>Trong quá trình tự động hóa, bạn có thể gặp phải các trường hợp đặc biệt cần xử lý:</p>
+                            
+                            <div class="guide-tips">
+                                <div class="tip-item">
+                                    <div class="tip-icon">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </div>
+                                    <div class="tip-content">
+                                        <h4>Xử lý hộp thoại</h4>
+                                        <p>Xử lý các hộp thoại xuất hiện trong quá trình tự động hóa:</p>
+                                        <div class="code-block">
+                                            <pre><code class="language-python">def handle_dialog():
+    from oiadb.commands import image_interaction
+    
+    # Kiểm tra các loại hộp thoại phổ biến
+    if image_interaction.is_image_present("/path/to/permission_dialog.png"):
+        # Nhấp vào nút "Allow"
+        image_interaction.tap_image("/path/to/allow_button.png")
+        return True
+    
+    if image_interaction.is_image_present("/path/to/update_dialog.png"):
+        # Nhấp vào nút "Later"
+        image_interaction.tap_image("/path/to/later_button.png")
+        return True
+    
+    # Sử dụng XML Dump để xử lý hộp thoại không nhận diện được
+    from oiadb.commands import xml_dump
+    
+    # Tìm và nhấp vào nút "OK" hoặc "Allow"
+    for button_text in ["OK", "Allow", "Accept", "Yes", "Continue"]:
+        try:
+            xml_dump.perform_accessibility_action(
+                "click", 
+                {"class": "android.widget.Button", "value": button_text}
+            )
+            return True
+        except:
+            pass
+    
+    return False</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="tip-item">
+                                    <div class="tip-icon">
+                                        <i class="fas fa-spinner"></i>
+                                    </div>
+                                    <div class="tip-content">
+                                        <h4>Xử lý màn hình loading</h4>
+                                        <p>Đợi màn hình loading biến mất trước khi tiếp tục:</p>
+                                        <div class="code-block">
+                                            <pre><code class="language-python">def wait_for_loading_to_finish(timeout=30):
+    from oiadb.commands import image_interaction
+    import time
+    
+    start_time = time.time()
+    
+    while time.time() - start_time < timeout:
+        if not image_interaction.is_image_present("/path/to/loading_indicator.png"):
+            # Đợi thêm một chút để đảm bảo màn hình đã tải xong
+            time.sleep(1)
+            return True
+        
+        # Đợi một chút trước khi kiểm tra lại
+        time.sleep(0.5)
+    
+    return False</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="tip-item">
+                                    <div class="tip-icon">
+                                        <i class="fas fa-redo-alt"></i>
+                                    </div>
+                                    <div class="tip-content">
+                                        <h4>Thử lại thao tác</h4>
+                                        <p>Thử lại thao tác nếu không thành công:</p>
+                                        <div class="code-block">
+                                            <pre><code class="language-python">def retry_operation(operation_func, max_retries=3, *args, **kwargs):
+    import time
+    
+    for i in range(max_retries):
+        try:
+            result = operation_func(*args, **kwargs)
+            if result:
+                return True
+        except Exception as e:
+            print(f"Attempt {i+1}/{max_retries} failed: {e}")
+        
+        # Đợi một chút trước khi thử lại
+        time.sleep(1)
+    
+    return False</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h3>Mẹo và thủ thuật</h3>
+                            <ul>
+                                <li><strong>Kết hợp nhiều phương pháp</strong>: Kết hợp nhận diện hình ảnh và XML Dump để xử lý các trường hợp phức tạp.</li>
+                                <li><strong>Sử dụng thời gian chờ</strong>: Thêm thời gian chờ hợp lý giữa các thao tác để đảm bảo ứng dụng có đủ thời gian phản hồi.</li>
+                                <li><strong>Xử lý ngoại lệ</strong>: Luôn xử lý các ngoại lệ có thể xảy ra trong quá trình tự động hóa.</li>
+                                <li><strong>Kiểm tra trạng thái</strong>: Thường xuyên kiểm tra trạng thái của ứng dụng để đảm bảo kịch bản đang chạy đúng.</li>
+                                <li><strong>Ghi log</strong>: Ghi log các thao tác và kết quả để dễ dàng gỡ lỗi.</li>
+                            </ul>
+                        </section>
+
+                        <section id="performance-optimization">
+                            <h2>Tối ưu hiệu suất</h2>
+                            <p>Khi làm việc với OIADB, việc tối ưu hiệu suất là rất quan trọng, đặc biệt là khi bạn cần tự động hóa các tác vụ phức tạp hoặc làm việc với nhiều thiết bị. Hướng dẫn này sẽ giúp bạn tối ưu hiệu suất của OIADB.</p>
+                            
+                            <h3>Sử dụng cache</h3>
+                            <p>OIADB cung cấp cơ chế cache để tăng tốc độ thực thi các lệnh lặp lại:</p>
+                            
+                            <div class="code-block">
+                                <pre><code class="language-python">from oiadb import MyADB
+
+# Khởi tạo ADB với cache bật
+adb = MyADB(cache_enabled=True)
+
+# Sử dụng cache cho XML Dump
+from oiadb.commands import xml_dump
+xml_content = xml_dump.get_xml_dump(use_cache=True)
+
+# Xóa cache khi cần
+adb.clear_cache()</code></pre>
+                            </div>
+                            
+                            <h3>Tối ưu nhận diện hình ảnh</h3>
+                            <p>Nhận diện hình ảnh có thể tốn nhiều tài nguyên. Dưới đây là một số cách để tối ưu:</p>
+                            
+                            <div class="code-block">
+                                <pre><code class="language-python">from oiadb.commands import image_interaction
+
+# Sử dụng vùng tìm kiếm
+result = image_interaction.find_image(
+    template_path="/path/to/template.png",
+    region=(100, 100, 500, 500)  # Giới hạn vùng tìm kiếm
+)
+
+# Sử dụng ảnh xám để tăng tốc độ
+result = image_interaction.find_image(
+    template_path="/path/to/template.png",
+    use_gray=True  # Mặc định là True
+)
+
+# Giảm số bước tỷ lệ và góc xoay
+result = image_interaction.find_image(
+    template_path="/path/to/template.png",
+    scale_range=(0.9, 1.1),  # Phạm vi tỷ lệ nhỏ hơn
+    scale_steps=3,  # Ít bước tỷ lệ hơn
+    rotation_range=(0, 0)  # Không xoay
+)</code></pre>
+                            </div>
+                            
+                            <h3>Tối ưu XML Dump</h3>
+                            <p>XML Dump cũng có thể được tối ưu để tăng hiệu suất:</p>
+                            
+                            <div class="code-block">
+                                <pre><code class="language-python">from oiadb.commands import xml_dump
+
+# Sử dụng bộ lọc để giảm kích thước XML
+filtered_xml = xml_dump.get_xml_dump(
+    class_name="android.widget.Button"  # Chỉ lấy các nút
+)
+
+# Sử dụng cache
+cached_xml = xml_dump.get_xml_dump(
+    use_cache=True
+)
+
+# Tối ưu tìm kiếm phần tử
+buttons = xml_dump.find_elements_by_criteria({
+    "class": "android.widget.Button",
+    "visible": True  # Chỉ lấy các phần tử hiển thị
+})</code></pre>
+                            </div>
+                            
+                            <h3>Tối ưu thời gian chờ</h3>
+                            <p>Điều chỉnh thời gian chờ phù hợp để tránh lãng phí thời gian:</p>
+                            
+                            <div class="code-block">
+                                <pre><code class="language-python">from oiadb import MyADB
+
+# Điều chỉnh thời gian chờ mặc định
+adb = MyADB(timeout=10)  # Giảm thời gian chờ mặc định
+
+# Điều chỉnh thời gian chờ cho các thao tác cụ thể
+from oiadb.commands import image_interaction
+
+# Giảm thời gian chờ cho các thao tác không quan trọng
+image_interaction.is_image_present("/path/to/optional_element.png", timeout=1)
+
+# Tăng thời gian chờ cho các thao tác quan trọng
+image_interaction.wait_for_image("/path/to/critical_element.png", timeout=30)</code></pre>
+                            </div>
+                            
+                            <h3>Tối ưu kết nối</h3>
+                            <p>Kết nối ADB có thể ảnh hưởng đến hiệu suất. Dưới đây là một số cách để tối ưu:</p>
+                            
+                            <div class="code-block">
+                                <pre><code class="language-python"># Sử dụng kết nối USB thay vì kết nối không dây khi cần hiệu suất cao
+from oiadb import MyADB
+adb = MyADB()
+
+# Giảm thiểu số lần khởi động lại ADB server
+from oiadb.utils import adb_manager
+adb_manager.start_adb_server()  # Chỉ khởi động một lần
+
+# Sử dụng thiết bị cụ thể thay vì để OIADB tự động tìm
+adb = MyADB(device_id="emulator-5554")</code></pre>
+                            </div>
+                            
+                            <h3>Tối ưu bộ nhớ</h3>
+                            <p>Quản lý bộ nhớ hiệu quả để tránh rò rỉ bộ nhớ:</p>
+                            
+                            <div class="code-block">
+                                <pre><code class="language-python"># Xóa các biến lớn khi không cần thiết
+import gc
+
+# Sau khi sử dụng XML lớn
+xml_content = xml_dump.get_xml_dump()
+# Xử lý XML
+# ...
+# Xóa biến khi không cần thiết nữa
+del xml_content
+gc.collect()
+
+# Sử dụng context manager để tự động giải phóng tài nguyên
+class XMLDumpContext:
+    def __enter__(self):
+        self.xml_content = xml_dump.get_xml_dump()
+        return self.xml_content
+    
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        del self.xml_content
+        gc.collect()
+
+# Sử dụng
+with XMLDumpContext() as xml:
+    # Xử lý XML
+    # ...</code></pre>
+                            </div>
+                            
+                            <h3>Mẹo và thủ thuật</h3>
+                            <ul>
+                                <li><strong>Sử dụng đa luồng</strong>: Sử dụng đa luồng để thực hiện các thao tác độc lập đồng thời.</li>
+                                <li><strong>Tránh polling liên tục</strong>: Sử dụng các phương thức đợi thay vì kiểm tra liên tục.</li>
+                                <li><strong>Tối ưu hóa hình ảnh mẫu</strong>: Sử dụng hình ảnh mẫu nhỏ và đơn giản để tăng tốc độ nhận diện.</li>
+                                <li><strong>Sử dụng phương thức phù hợp</strong>: Chọn phương thức phù hợp với từng tác vụ (ví dụ: XML Dump cho tìm kiếm phần tử, nhận diện hình ảnh cho xác nhận trực quan).</li>
+                                <li><strong>Giám sát hiệu suất</strong>: Sử dụng các công cụ giám sát hiệu suất để xác định các điểm nghẽn.</li>
+                            </ul>
+                        </section>
+
+                        <section id="troubleshooting">
+                            <h2>Xử lý sự cố nâng cao</h2>
+                            <p>Khi làm việc với OIADB, bạn có thể gặp phải các sự cố phức tạp. Hướng dẫn này sẽ giúp bạn xử lý các sự cố nâng cao.</p>
+                            
+                            <h3>Xử lý lỗi kết nối</h3>
+                            <p>Lỗi kết nối là một trong những sự cố phổ biến nhất khi làm việc với ADB:</p>
+                            
+                            <div class="code-block">
+                                <pre><code class="language-python">from oiadb import MyADB
+from oiadb.exceptions import DeviceNotFoundError, ADBError
+
+def handle_connection_issues():
+    try:
+        # Thử khởi tạo ADB
+        adb = MyADB()
+        return adb
+    except DeviceNotFoundError:
+        # Không tìm thấy thiết bị
+        print("Device not found. Trying to reconnect...")
+        
+        # Khởi động lại ADB server
+        from oiadb.utils import adb_manager
+        adb_manager.kill_adb_server()
+        adb_manager.start_adb_server()
+        
+        # Thử kết nối lại
+        try:
+            adb = MyADB()
+            return adb
+        except DeviceNotFoundError:
+            # Vẫn không tìm thấy thiết bị
+            print("Device still not found. Please check USB connection.")
+            
+            # Thử kết nối không dây
+            try:
+                from oiadb.commands import connect
+                device_ip = input("Enter device IP: ")
+                connect.connect_over_network(device_ip, 5555)
+                adb = MyADB(device_id=f"{device_ip}:5555")
+                return adb
+            except Exception as e:
+                print(f"Wireless connection failed: {e}")
+                return None
+    except ADBError as e:
+        print(f"ADB error: {e}")
+        return None
+
+# Sử dụng
+adb = handle_connection_issues()
+if adb:
+    print("Connection established")
+    # Tiếp tục với các thao tác khác
+else:
+    print("Failed to establish connection")</code></pre>
+                            </div>
+                            
+                            <h3>Xử lý lỗi nhận diện hình ảnh</h3>
+                            <p>Nhận diện hình ảnh có thể gặp sự cố do nhiều yếu tố khác nhau:</p>
+                            
+                            <div class="code-block">
+                                <pre><code class="language-python">from oiadb.commands import image_interaction
+from oiadb.exceptions import ImageNotFoundError
+import os
+import time
+
+def handle_image_recognition_issues(template_path, max_retries=3):
+    # Kiểm tra xem file hình ảnh mẫu có tồn tại không
+    if not os.path.exists(template_path):
+        print(f"Template image not found: {template_path}")
+        return None
+    
+    # Thử với các ngưỡng khác nhau
+    thresholds = [0.8, 0.7, 0.6]
+    
+    for threshold in thresholds:
+        for i in range(max_retries):
+            try:
+                result = image_interaction.find_image(
+                    template_path=template_path,
+                    threshold=threshold
+                )
+                if result:
+                    print(f"Image found with threshold {threshold}")
+                    return result
+            except ImageNotFoundError:
+                pass
+            
+            # Đợi một chút trước khi thử lại
+            time.sleep(1)
+    
+    # Thử với các tùy chọn nâng cao
+    try:
+        # Thử với ảnh xám
+        result = image_interaction.find_image(
+            template_path=template_path,
+            threshold=0.6,
+            use_gray=True
+        )
+        if result:
+            print("Image found with grayscale")
+            return result
+        
+        # Thử với phát hiện cạnh Canny
+        result = image_interaction.find_image(
+            template_path=template_path,
+            threshold=0.6,
+            use_canny=True
+        )
+        if result:
+            print("Image found with Canny edge detection")
+            return result
+        
+        # Thử với phạm vi tỷ lệ rộng hơn
+        result = image_interaction.find_image(
+            template_path=template_path,
+            threshold=0.6,
+            scale_range=(0.5, 1.5),
+            scale_steps=10
+        )
+        if result:
+            print("Image found with wider scale range")
+            return result
+    except Exception as e:
+        print(f"Advanced image recognition failed: {e}")
+    
+    print("Image recognition failed with all attempts")
+    return None
+
+# Sử dụng
+result = handle_image_recognition_issues("/path/to/template.png")
+if result:
+    x, y, confidence = result
+    print(f"Image found at ({x}, {y}) with confidence {confidence}")
+else:
+    print("Image not found")</code></pre>
+                            </div>
+                            
+                            <h3>Xử lý lỗi XML Dump</h3>
+                            <p>XML Dump có thể gặp sự cố do nhiều yếu tố khác nhau:</p>
+                            
+                            <div class="code-block">
+                                <pre><code class="language-python">from oiadb.commands import xml_dump
+import xml.etree.ElementTree as ET
+import time
+
+def handle_xml_dump_issues(max_retries=3):
+    for i in range(max_retries):
+        try:
+            # Thử lấy XML dump
+            xml_content = xml_dump.get_xml_dump()
+            
+            # Kiểm tra xem XML có hợp lệ không
+            try:
+                root = ET.fromstring(xml_content)
+                return xml_content
+            except ET.ParseError:
+                print(f"Invalid XML (attempt {i+1}/{max_retries})")
+        except Exception as e:
+            print(f"XML dump failed (attempt {i+1}/{max_retries}): {e}")
+        
+        # Đợi một chút trước khi thử lại
+        time.sleep(2)
+    
+    # Thử khởi động lại XML server
+    try:
+        print("Restarting XML server...")
+        server, server_thread = xml_dump.start_xml_server(port=8000)
+        xml_dump.setup_port_forwarding(device_port=8000, host_port=8000)
+        
+        # Thử lại sau khi khởi động lại server
+        time.sleep(2)
+        xml_content = xml_dump.get_xml_dump()
+        
+        try:
+            root = ET.fromstring(xml_content)
+            return xml_content
+        except ET.ParseError:
+            print("Invalid XML after server restart")
+    except Exception as e:
+        print(f"XML server restart failed: {e}")
+    
+    print("XML dump failed with all attempts")
+    return None
+
+# Sử dụng
+xml_content = handle_xml_dump_issues()
+if xml_content:
+    print("XML dump successful")
+    # Tiếp tục xử lý XML
+else:
+    print("XML dump failed")</code></pre>
+                            </div>
+                            
+                            <h3>Xử lý lỗi ứng dụng</h3>
+                            <p>Ứng dụng Android có thể gặp sự cố trong quá trình tự động hóa:</p>
+                            
+                            <div class="code-block">
+                                <pre><code class="language-python">from oiadb.commands import apps, device_actions
+import time
+
+def handle_app_issues(package_name):
+    # Kiểm tra xem ứng dụng có đang chạy không
+    from oiadb.commands import app_info
+    running_apps = app_info.get_running_apps()
+    
+    if package_name not in running_apps:
+        print(f"App {package_name} is not running. Starting...")
+        apps.start_app(package_name)
+        time.sleep(2)
+    
+    # Kiểm tra xem ứng dụng có bị treo không
+    is_app_responsive = check_app_responsiveness(package_name)
+    
+    if not is_app_responsive:
+        print(f"App {package_name} is not responsive. Restarting...")
+        # Dừng ứng dụng
+        apps.stop_app(package_name)
+        time.sleep(1)
+        
+        # Khởi động lại ứng dụng
+        apps.start_app(package_name)
+        time.sleep(2)
+        
+        # Kiểm tra lại
+        is_app_responsive = check_app_responsiveness(package_name)
+        
+        if not is_app_responsive:
+            print(f"App {package_name} is still not responsive. Clearing data...")
+            # Xóa dữ liệu ứng dụng
+            apps.clear_app_data(package_name)
+            time.sleep(1)
+            
+            # Khởi động lại ứng dụng
+            apps.start_app(package_name)
+            time.sleep(2)
+            
+            # Kiểm tra lại
+            is_app_responsive = check_app_responsiveness(package_name)
+            
+            if not is_app_responsive:
+                print(f"App {package_name} is still not responsive. Rebooting device...")
+                # Khởi động lại thiết bị
+                device_actions.reboot_device()
+                time.sleep(30)  # Đợi thiết bị khởi động lại
+                
+                # Khởi động lại ứng dụng
+                apps.start_app(package_name)
+                time.sleep(2)
+                
+                # Kiểm tra lại
+                is_app_responsive = check_app_responsiveness(package_name)
+                
+                if not is_app_responsive:
+                    print(f"App {package_name} is still not responsive after all attempts")
+                    return False
+    
+    return True
+
+def check_app_responsiveness(package_name):
+    # Kiểm tra xem ứng dụng có phản hồi không
+    try:
+        # Thử thực hiện một thao tác đơn giản
+        from oiadb.commands import interaction
+        interaction.tap(100, 100)  # Nhấp vào một vị trí bất kỳ
+        
+        # Kiểm tra xem ứng dụng có còn chạy không
+        from oiadb.commands import app_info
+        running_apps = app_info.get_running_apps()
+        
+        return package_name in running_apps
+    except:
+        return False
+
+# Sử dụng
+app_ok = handle_app_issues("com.example.app")
+if app_ok:
+    print("App is running and responsive")
+    # Tiếp tục với các thao tác khác
+else:
+    print("Failed to handle app issues")</code></pre>
+                            </div>
+                            
+                            <h3>Mẹo và thủ thuật</h3>
+                            <ul>
+                                <li><strong>Ghi log chi tiết</strong>: Ghi log chi tiết để dễ dàng xác định nguyên nhân của sự cố.</li>
+                                <li><strong>Sử dụng try-except</strong>: Bao bọc các thao tác trong try-except để xử lý các ngoại lệ.</li>
+                                <li><strong>Thử lại với các tùy chọn khác nhau</strong>: Thử lại với các tùy chọn khác nhau khi gặp sự cố.</li>
+                                <li><strong>Kiểm tra điều kiện trước khi thực hiện</strong>: Kiểm tra điều kiện trước khi thực hiện các thao tác để tránh lỗi.</li>
+                                <li><strong>Sử dụng timeout hợp lý</strong>: Sử dụng timeout hợp lý để tránh chờ đợi quá lâu.</li>
+                                <li><strong>Kiểm tra trạng thái thiết bị</strong>: Kiểm tra trạng thái thiết bị trước khi thực hiện các thao tác.</li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>OIADB</h3>
+                    <p>Thư viện Python wrapper cho Android Debug Bridge (ADB) với chức năng nhận diện hình ảnh, dump XML và hỗ trợ đa nền tảng.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Liên kết</h3>
+                    <ul>
+                        <li><a href="index.html">Trang chủ</a></li>
+                        <li><a href="getting-started.html">Bắt đầu</a></li>
+                        <li><a href="features.html">Tính năng</a></li>
+                        <li><a href="api-reference.html">API Reference</a></li>
+                        <li><a href="guides.html">Hướng dẫn</a></li>
+                        <li><a href="examples.html">Ví dụ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Tài nguyên</h3>
+                    <ul>
+                        <li><a href="https://github.com/tiendung102k3/oiadb" target="_blank">GitHub</a></li>
+                        <li><a href="https://pypi.org/project/oiadb/" target="_blank">PyPI</a></li>
+                        <li><a href="resources.html#changelog">Changelog</a></li>
+                        <li><a href="resources.html#license">Giấy phép</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Liên hệ</h3>
+                    <p>Email: monstertattoovn696@gmail.com</p>
+                    <div class="social-links">
+                        <a href="https://github.com/tiendung102k3" target="_blank"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 OIADB. Giấy phép MIT.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/prism.js"></script>
+    <script src="js/clipboard.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

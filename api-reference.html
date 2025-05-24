@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Reference - OIADB</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/prism.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="description" content="Tài liệu API đầy đủ cho thư viện OIADB - Tham khảo các lớp, phương thức và tham số">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <span class="logo-text">OIADB</span>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <button class="menu-toggle" aria-label="Toggle menu">
+                    <span class="hamburger"></span>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li><a href="getting-started.html">Bắt đầu</a></li>
+                    <li><a href="features.html">Tính năng</a></li>
+                    <li><a href="api-reference.html" class="active">API Reference</a></li>
+                    <li><a href="guides.html">Hướng dẫn</a></li>
+                    <li><a href="examples.html">Ví dụ</a></li>
+                    <li><a href="resources.html">Tài nguyên</a></li>
+                </ul>
+            </nav>
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider round"></div>
+                </label>
+                <span class="theme-label"><i class="fas fa-moon"></i></span>
+            </div>
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Tìm kiếm...">
+                <button id="search-button"><i class="fas fa-search"></i></button>
+                <div id="search-results" class="search-results"></div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>API Reference</h1>
+                <div class="breadcrumbs">
+                    <a href="index.html">Trang chủ</a> / <span>API Reference</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="content-layout">
+                    <aside class="sidebar">
+                        <div class="sidebar-content">
+                            <h3>Trong trang này</h3>
+                            <ul class="sidebar-nav">
+                                <li><a href="#myadb">Lớp MyADB</a></li>
+                                <li><a href="#commands">Module commands</a>
+                                    <ul>
+                                        <li><a href="#interaction">interaction</a></li>
+                                        <li><a href="#image-interaction">image_interaction</a></li>
+                                        <li><a href="#xml-dump">xml_dump</a></li>
+                                        <li><a href="#apps">apps</a></li>
+                                        <li><a href="#file-ops">file_ops</a></li>
+                                        <li><a href="#other-commands">Các lệnh khác</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#utils">Module utils</a>
+                                    <ul>
+                                        <li><a href="#platform-utils">platform_utils</a></li>
+                                        <li><a href="#adb-manager">adb_manager</a></li>
+                                        <li><a href="#image-recognition">image_recognition</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#exceptions">Module exceptions</a></li>
+                            </ul>
+                        </div>
+                    </aside>
+
+                    <div class="main-content">
+                        <section id="myadb">
+                            <h2>Lớp MyADB</h2>
+                            <p>Lớp chính để tương tác với ADB. Cung cấp các phương thức cơ bản để khởi tạo, kết nối thiết bị, thực thi lệnh ADB, và nhiều tính năng khác.</p>
+                            
+                            <h3>Khởi tạo</h3>
+                            <div class="api-method">
+                                <h4 class="method-signature">__init__(device_id=None, cache_enabled=True, timeout=30, adb_path=None, auto_start_server=True, auto_install_adb=True)</h4>
+                                <p>Khởi tạo đối tượng MyADB với các tùy chọn.</p>
+                                <h5>Tham số:</h5>
+                                <ul>
+                                    <li><code>device_id</code> (str, optional): ID của thiết bị cần kết nối. Mặc định là None (thiết bị đầu tiên được tìm thấy).</li>
+                                    <li><code>cache_enabled</code> (bool, optional): Bật/tắt cache để tăng hiệu suất. Mặc định là True.</li>
+                                    <li><code>timeout</code> (int, optional): Thời gian chờ tối đa cho các lệnh ADB (giây). Mặc định là 30.</li>
+                                    <li><code>adb_path</code> (str, optional): Đường dẫn đến tệp thực thi ADB. Mặc định là None (tự động tìm).</li>
+                                    <li><code>auto_start_server</code> (bool, optional): Tự động khởi động ADB server nếu chưa chạy. Mặc định là True.</li>
+                                    <li><code>auto_install_adb</code> (bool, optional): Tự động cài đặt ADB nếu không tìm thấy. Mặc định là True.</li>
+                                </ul>
+                                <h5>Ví dụ:</h5>
+                                <div class="code-block">
+                                    <pre><code class="language-python">from oiadb import MyADB
+
+# Khởi tạo với thiết bị mặc định
+adb = MyADB()
+
+# Hoặc chỉ định thiết bị cụ thể
+adb = MyADB(device_id="emulator-5554")
+
+# Tắt tự động cài đặt ADB (nếu bạn đã cài đặt ADB)
+adb = MyADB(auto_install_adb=False)</code></pre>
+                                </div>
+                            </div>
+                            
+                            <h3>Phương thức</h3>
+                            
+                            <div class="api-method">
+                                <h4 class="method-signature">run(command)</h4>
+                                <p>Chạy lệnh ADB tùy chỉnh.</p>
+                                <h5>Tham số:</h5>
+                                <ul>
+                                    <li><code>command</code> (str): Lệnh ADB cần thực thi.</li>
+                                </ul>
+                                <h5>Trả về:</h5>
+                                <ul>
+                                    <li><code>str</code>: Kết quả của lệnh ADB.</li>
+                                </ul>
+                                <h5>Ví dụ:</h5>
+                                <div class="code-block">
+                                    <pre><code class="language-python"># Thực thi lệnh ADB tùy chỉnh
+result = adb.run("shell dumpsys battery")
+print(result)</code></pre>
+                                </div>
+                            </div>
+                            
+                            <div class="api-method">
+                                <h4 class="method-signature">get_devices()</h4>
+                                <p>Liệt kê các thiết bị đã kết nối.</p>
+                                <h5>Trả về:</h5>
+                                <ul>
+                                    <li><code>list</code>: Danh sách các thiết bị đã kết nối.</li>
+                                </ul>
+                                <h5>Ví dụ:</h5>
+                                <div class="code-block">
+                                    <pre><code class="language-python"># Liệt kê các thiết bị đã kết nối
+devices = adb.get_devices()
+print(devices)</code></pre>
+                                </div>
+                            </div>
+                            
+                            <div class="api-method">
+                                <h4 class="method-signature">reboot_device()</h4>
+                                <p>Khởi động lại thiết bị.</p>
+                                <h5>Ví dụ:</h5>
+                                <div class="code-block">
+                                    <pre><code class="language-python"># Khởi động lại thiết bị
+adb.reboot_device()</code></pre>
+                                </div>
+                            </div>
+                            
+                            <div class="api-method">
+                                <h4 class="method-signature">install_app(apk_path)</h4>
+                                <p>Cài đặt ứng dụng từ file APK.</p>
+                                <h5>Tham số:</h5>
+                                <ul>
+                                    <li><code>apk_path</code> (str): Đường dẫn đến file APK.</li>
+                                </ul>
+                                <h5>Ví dụ:</h5>
+                                <div class="code-block">
+                                    <pre><code class="language-python"># Cài đặt ứng dụng
+adb.install_app("/path/to/app.apk")</code></pre>
+                                </div>
+                            </div>
+                            
+                            <div class="api-method">
+                                <h4 class="method-signature">uninstall_app(package_name)</h4>
+                                <p>Gỡ cài đặt ứng dụng.</p>
+                                <h5>Tham số:</h5>
+                                <ul>
+                                    <li><code>package_name</code> (str): Tên package của ứng dụng.</li>
+                                </ul>
+                                <h5>Ví dụ:</h5>
+                                <div class="code-block">
+                                    <pre><code class="language-python"># Gỡ cài đặt ứng dụng
+adb.uninstall_app("com.example.app")</code></pre>
+                                </div>
+                            </div>
+                            
+                            <div class="api-method">
+                                <h4 class="method-signature">push_file(local_path, remote_path)</h4>
+                                <p>Đẩy file lên thiết bị.</p>
+                                <h5>Tham số:</h5>
+                                <ul>
+                                    <li><code>local_path</code> (str): Đường dẫn đến file trên máy tính.</li>
+                                    <li><code>remote_path</code> (str): Đường dẫn đến vị trí lưu trên thiết bị.</li>
+                                </ul>
+                                <h5>Ví dụ:</h5>
+                                <div class="code-block">
+                                    <pre><code class="language-python"># Đẩy file lên thiết bị
+adb.push_file("/path/on/computer", "/path/on/device")</code></pre>
+                                </div>
+                            </div>
+                            
+                            <div class="api-method">
+                                <h4 class="method-signature">pull_file(remote_path, local_path)</h4>
+                                <p>Lấy file từ thiết bị.</p>
+                                <h5>Tham số:</h5>
+                                <ul>
+                                    <li><code>remote_path</code> (str): Đường dẫn đến file trên thiết bị.</li>
+                                    <li><code>local_path</code> (str): Đường dẫn đến vị trí lưu trên máy tính.</li>
+                                </ul>
+                                <h5>Ví dụ:</h5>
+                                <div class="code-block">
+                                    <pre><code class="language-python"># Lấy file từ thiết bị
+adb.pull_file("/path/on/device", "/path/on/computer")</code></pre>
+                                </div>
+                            </div>
+                            
+                            <div class="api-method">
+                                <h4 class="method-signature">get_device_info()</h4>
+                                <p>Lấy thông tin thiết bị.</p>
+                                <h5>Trả về:</h5>
+                                <ul>
+                                    <li><code>dict</code>: Thông tin thiết bị.</li>
+                                </ul>
+                                <h5>Ví dụ:</h5>
+                                <div class="code-block">
+                                    <pre><code class="language-python"># Lấy thông tin thiết bị
+device_info = adb.get_device_info()
+print(device_info)</code></pre>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="commands">
+                            <h2>Module commands</h2>
+                            <p>Module commands chứa các lệnh chuyên biệt để tương tác với thiết bị Android.</p>
+                            
+                            <section id="interaction">
+                                <h3>interaction</h3>
+                                <p>Module cung cấp các phương thức để tương tác với thiết bị Android thông qua tọa độ màn hình.</p>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">tap(x, y)</h4>
+                                    <p>Nhấn vào tọa độ màn hình.</p>
+                                    <h5>Tham số:</h5>
+                                    <ul>
+                                        <li><code>x</code> (int): Tọa độ x.</li>
+                                        <li><code>y</code> (int): Tọa độ y.</li>
+                                    </ul>
+                                    <h5>Ví dụ:</h5>
+                                    <div class="code-block">
+                                        <pre><code class="language-python">from oiadb.commands import interaction
+
+# Nhấn vào tọa độ màn hình
+interaction.tap(500, 500)</code></pre>
+                                    </div>
+                                </div>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">swipe(x1, y1, x2, y2, duration=300)</h4>
+                                    <p>Vuốt màn hình từ điểm (x1, y1) đến điểm (x2, y2).</p>
+                                    <h5>Tham số:</h5>
+                                    <ul>
+                                        <li><code>x1</code> (int): Tọa độ x bắt đầu.</li>
+                                        <li><code>y1</code> (int): Tọa độ y bắt đầu.</li>
+                                        <li><code>x2</code> (int): Tọa độ x kết thúc.</li>
+                                        <li><code>y2</code> (int): Tọa độ y kết thúc.</li>
+                                        <li><code>duration</code> (int, optional): Thời gian vuốt (ms). Mặc định là 300.</li>
+                                    </ul>
+                                    <h5>Ví dụ:</h5>
+                                    <div class="code-block">
+                                        <pre><code class="language-python"># Vuốt màn hình
+interaction.swipe(100, 500, 600, 500)</code></pre>
+                                    </div>
+                                </div>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">text_input(text)</h4>
+                                    <p>Nhập văn bản.</p>
+                                    <h5>Tham số:</h5>
+                                    <ul>
+                                        <li><code>text</code> (str): Văn bản cần nhập.</li>
+                                    </ul>
+                                    <h5>Ví dụ:</h5>
+                                    <div class="code-block">
+                                        <pre><code class="language-python"># Nhập văn bản
+interaction.text_input("Hello World")</code></pre>
+                                    </div>
+                                </div>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">home()</h4>
+                                    <p>Nhấn phím Home.</p>
+                                    <h5>Ví dụ:</h5>
+                                    <div class="code-block">
+                                        <pre><code class="language-python"># Nhấn phím Home
+interaction.home()</code></pre>
+                                    </div>
+                                </div>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">back()</h4>
+                                    <p>Nhấn phím Back.</p>
+                                    <h5>Ví dụ:</h5>
+                                    <div class="code-block">
+                                        <pre><code class="language-python"># Nhấn phím Back
+interaction.back()</code></pre>
+                                    </div>
+                                </div>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">long_press(x, y, duration=1000)</h4>
+                                    <p>Nhấn giữ tại tọa độ màn hình.</p>
+                                    <h5>Tham số:</h5>
+                                    <ul>
+                                        <li><code>x</code> (int): Tọa độ x.</li>
+                                        <li><code>y</code> (int): Tọa độ y.</li>
+                                        <li><code>duration</code> (int, optional): Thời gian nhấn giữ (ms). Mặc định là 1000.</li>
+                                    </ul>
+                                    <h5>Ví dụ:</h5>
+                                    <div class="code-block">
+                                        <pre><code class="language-python"># Nhấn giữ tại tọa độ màn hình
+interaction.long_press(500, 500, 2000)</code></pre>
+                                    </div>
+                                </div>
+                            </section>
+                            
+                            <section id="image-interaction">
+                                <h3>image_interaction</h3>
+                                <p>Module cung cấp các phương thức để tương tác với thiết bị Android dựa trên nhận diện hình ảnh.</p>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">find_image(template_path, threshold=0.8, region=None, scale_range=(0.8, 1.2), scale_steps=5, rotation_range=(0, 0), rotation_steps=1, use_gray=True, use_canny=False)</h4>
+                                    <p>Tìm hình ảnh mẫu trên màn hình thiết bị.</p>
+                                    <h5>Tham số:</h5>
+                                    <ul>
+                                        <li><code>template_path</code> (str): Đường dẫn đến hình ảnh mẫu.</li>
+                                        <li><code>threshold</code> (float, optional): Ngưỡng tương đồng (0.0 - 1.0). Mặc định là 0.8.</li>
+                                        <li><code>region</code> (tuple, optional): Vùng tìm kiếm (x, y, width, height). Mặc định là None (toàn màn hình).</li>
+                                        <li><code>scale_range</code> (tuple, optional): Phạm vi tỷ lệ để tìm kiếm. Mặc định là (0.8, 1.2).</li>
+                                        <li><code>scale_steps</code> (int, optional): Số bước tỷ lệ. Mặc định là 5.</li>
+                                        <li><code>rotation_range</code> (tuple, optional): Phạm vi góc xoay (độ). Mặc định là (0, 0).</li>
+                                        <li><code>rotation_steps</code> (int, optional): Số bước góc xoay. Mặc định là 1.</li>
+                                        <li><code>use_gray</code> (bool, optional): Sử dụng ảnh xám để tăng tốc độ. Mặc định là True.</li>
+                                        <li><code>use_canny</code> (bool, optional): Sử dụng phát hiện cạnh Canny cho hình ảnh mờ. Mặc định là False.</li>
+                                    </ul>
+                                    <h5>Trả về:</h5>
+                                    <ul>
+                                        <li><code>tuple</code>: (x, y, confidence) nếu tìm thấy, None nếu không tìm thấy.</li>
+                                    </ul>
+                                    <h5>Ví dụ:</h5>
+                                    <div class="code-block">
+                                        <pre><code class="language-python">from oiadb.commands import image_interaction
+
+# Tìm hình ảnh đơn
+result = image_interaction.find_image(
+    template_path="/path/to/template.png",
+    threshold=0.8
+)
+
+if result:
+    x, y, confidence = result
+    print(f"Đã tìm thấy hình ảnh tại ({x}, {y}) với độ tương đồng {confidence}")
+else:
+    print("Không tìm thấy hình ảnh")</code></pre>
+                                    </div>
+                                </div>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">tap_image(template_path, threshold=0.8, tap_offset=(0, 0))</h4>
+                                    <p>Tìm và nhấp vào hình ảnh.</p>
+                                    <h5>Tham số:</h5>
+                                    <ul>
+                                        <li><code>template_path</code> (str): Đường dẫn đến hình ảnh mẫu.</li>
+                                        <li><code>threshold</code> (float, optional): Ngưỡng tương đồng (0.0 - 1.0). Mặc định là 0.8.</li>
+                                        <li><code>tap_offset</code> (tuple, optional): Độ lệch (dx, dy) khi nhấp so với tâm hình ảnh. Mặc định là (0, 0).</li>
+                                    </ul>
+                                    <h5>Trả về:</h5>
+                                    <ul>
+                                        <li><code>bool</code>: True nếu thành công, False nếu không tìm thấy hình ảnh.</li>
+                                    </ul>
+                                    <h5>Ví dụ:</h5>
+                                    <div class="code-block">
+                                        <pre><code class="language-python"># Tìm và nhấp vào hình ảnh
+success = image_interaction.tap_image("/path/to/button.png", threshold=0.8)
+
+if success:
+    print("Đã nhấp vào hình ảnh thành công")
+else:
+    print("Không tìm thấy hình ảnh để nhấp")</code></pre>
+                                    </div>
+                                </div>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">wait_and_tap_image(template_path, timeout=10, interval=0.5, threshold=0.8)</h4>
+                                    <p>Đợi hình ảnh xuất hiện và nhấp vào.</p>
+                                    <h5>Tham số:</h5>
+                                    <ul>
+                                        <li><code>template_path</code> (str): Đường dẫn đến hình ảnh mẫu.</li>
+                                        <li><code>timeout</code> (int, optional): Thời gian tối đa đợi (giây). Mặc định là 10.</li>
+                                        <li><code>interval</code> (float, optional): Khoảng thời gian giữa các lần tìm kiếm (giây). Mặc định là 0.5.</li>
+                                        <li><code>threshold</code> (float, optional): Ngưỡng tương đồng (0.0 - 1.0). Mặc định là 0.8.</li>
+                                    </ul>
+                                    <h5>Trả về:</h5>
+                                    <ul>
+                                        <li><code>bool</code>: True nếu thành công, False nếu hình ảnh không xuất hiện trong thời gian chờ.</li>
+                                    </ul>
+                                    <h5>Ví dụ:</h5>
+                                    <div class="code-block">
+                                        <pre><code class="language-python"># Đợi hình ảnh xuất hiện và nhấp vào
+success = image_interaction.wait_and_tap_image("/path/to/button.png", timeout=10)
+
+if success:
+    print("Đã đợi và nhấp vào hình ảnh thành công")
+else:
+    print("Hình ảnh không xuất hiện trong thời gian chờ")</code></pre>
+                                    </div>
+                                </div>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">is_image_present(template_path, threshold=0.8)</h4>
+                                    <p>Kiểm tra xem hình ảnh có xuất hiện trên màn hình không.</p>
+                                    <h5>Tham số:</h5>
+                                    <ul>
+                                        <li><code>template_path</code> (str): Đường dẫn đến hình ảnh mẫu.</li>
+                                        <li><code>threshold</code> (float, optional): Ngưỡng tương đồng (0.0 - 1.0). Mặc định là 0.8.</li>
+                                    </ul>
+                                    <h5>Trả về:</h5>
+                                    <ul>
+                                        <li><code>bool</code>: True nếu hình ảnh xuất hiện, False nếu không.</li>
+                                    </ul>
+                                    <h5>Ví dụ:</h5>
+                                    <div class="code-block">
+                                        <pre><code class="language-python"># Kiểm tra xem hình ảnh có xuất hiện không
+if image_interaction.is_image_present("/path/to/element.png"):
+    print("Hình ảnh xuất hiện trên màn hình")
+else:
+    print("Hình ảnh không xuất hiện trên màn hình")</code></pre>
+                                    </div>
+                                </div>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">drag_image_to_image(source_template_path, target_template_path, duration=800, threshold=0.8)</h4>
+                                    <p>Kéo từ hình ảnh nguồn đến hình ảnh đích.</p>
+                                    <h5>Tham số:</h5>
+                                    <ul>
+                                        <li><code>source_template_path</code> (str): Đường dẫn đến hình ảnh nguồn.</li>
+                                        <li><code>target_template_path</code> (str): Đường dẫn đến hình ảnh đích.</li>
+                                        <li><code>duration</code> (int, optional): Thời gian kéo (ms). Mặc định là 800.</li>
+                                        <li><code>threshold</code> (float, optional): Ngưỡng tương đồng (0.0 - 1.0). Mặc định là 0.8.</li>
+                                    </ul>
+                                    <h5>Trả về:</h5>
+                                    <ul>
+                                        <li><code>bool</code>: True nếu thành công, False nếu không tìm thấy một hoặc cả hai hình ảnh.</li>
+                                    </ul>
+                                    <h5>Ví dụ:</h5>
+                                    <div class="code-block">
+                                        <pre><code class="language-python"># Kéo từ hình ảnh này đến hình ảnh khác
+success = image_interaction.drag_image_to_image("/path/to/source.png", "/path/to/target.png")
+
+if success:
+    print("Đã kéo thành công từ nguồn đến đích")
+else:
+    print("Không thể kéo vì không tìm thấy một hoặc cả hai hình ảnh")</code></pre>
+                                    </div>
+                                </div>
+                            </section>
+                            
+                            <section id="xml-dump">
+                                <h3>xml_dump</h3>
+                                <p>Module cung cấp các phương thức để truy xuất cấu trúc XML của giao diện người dùng Android và tương tác thông qua API trợ năng.</p>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">start_xml_server(port=8000)</h4>
+                                    <p>Khởi động local server trên thiết bị Android để cung cấp các API XML Dump.</p>
+                                    <h5>Tham số:</h5>
+                                    <ul>
+                                        <li><code>port</code> (int, optional): Cổng để chạy server. Mặc định là 8000.</li>
+                                    </ul>
+                                    <h5>Trả về:</h5>
+                                    <ul>
+                                        <li><code>tuple</code>: (server, server_thread) - đối tượng server và thread chạy server.</li>
+                                    </ul>
+                                    <h5>Ví dụ:</h5>
+                                    <div class="code-block">
+                                        <pre><code class="language-python">from oiadb.commands import xml_dump
+
+# Khởi động server trên cổng 8000
+server, server_thread = xml_dump.start_xml_server(port=8000)</code></pre>
+                                    </div>
+                                </div>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">get_xml_dump(resource_id=None, text_value=None, content_desc=None, class_name=None, threshold=0.8, use_cache=False)</h4>
+                                    <p>Lấy XML dump của giao diện hiện tại.</p>
+                                    <h5>Tham số:</h5>
+                                    <ul>
+                                        <li><code>resource_id</code> (str, optional): Lọc theo resource ID. Mặc định là None.</li>
+                                        <li><code>text_value</code> (str, optional): Lọc theo giá trị text. Mặc định là None.</li>
+                                        <li><code>content_desc</code> (str, optional): Lọc theo content description. Mặc định là None.</li>
+                                        <li><code>class_name</code> (str, optional): Lọc theo class name. Mặc định là None.</li>
+                                        <li><code>threshold</code> (float, optional): Ngưỡng tương đồng cho việc so khớp mờ. Mặc định là 0.8.</li>
+                                        <li><code>use_cache</code> (bool, optional): Sử dụng cache để tăng tốc độ. Mặc định là False.</li>
+                                    </ul>
+                                    <h5>Trả về:</h5>
+                                    <ul>
+                                        <li><code>str</code>: Nội dung XML.</li>
+                                    </ul>
+                                    <h5>Ví dụ:</h5>
+                                    <div class="code-block">
+                                        <pre><code class="language-python"># Lấy toàn bộ XML
+xml_content = xml_dump.get_xml_dump()
+
+# Lấy XML với bộ lọc
+filtered_xml = xml_dump.get_xml_dump(
+    resource_id="button_login",
+    text_value="Login",
+    threshold=0.7
+)</code></pre>
+                                    </div>
+                                </div>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">find_elements_by_criteria(criteria)</h4>
+                                    <p>Tìm các phần tử UI khớp với tiêu chí.</p>
+                                    <h5>Tham số:</h5>
+                                    <ul>
+                                        <li><code>criteria</code> (dict): Tiêu chí tìm kiếm, có thể bao gồm các khóa: "id", "value", "content_desc", "class", "threshold".</li>
+                                    </ul>
+                                    <h5>Trả về:</h5>
+                                    <ul>
+                                        <li><code>list</code>: Danh sách các phần tử khớp với tiêu chí.</li>
+                                    </ul>
+                                    <h5>Ví dụ:</h5>
+                                    <div class="code-block">
+                                        <pre><code class="language-python"># Tìm tất cả các nút
+buttons = xml_dump.find_elements_by_criteria({"class": "android.widget.Button"})
+
+# Tìm phần tử với nhiều tiêu chí
+login_buttons = xml_dump.find_elements_by_criteria({
+    "class": "android.widget.Button",
+    "value": "Login",
+    "threshold": 0.7
+})</code></pre>
+                                    </div>
+                                </div>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">perform_accessibility_action(action, criteria, value=None)</h4>
+                                    <p>Thực hiện hành động trợ năng trên phần tử UI khớp với tiêu chí.</p>
+                                    <h5>Tham số:</h5>
+                                    <ul>
+                                        <li><code>action</code> (str): Hành động trợ năng (ví dụ: "click", "setText", "scroll").</li>
+                                        <li><code>criteria</code> (dict): Tiêu chí để tìm phần tử.</li>
+                                        <li><code>value</code> (str, optional): Giá trị cho hành động (ví dụ: text để nhập). Mặc định là None.</li>
+                                    </ul>
+                                    <h5>Trả về:</h5>
+                                    <ul>
+                                        <li><code>bool</code>: True nếu thành công, False nếu không.</li>
+                                    </ul>
+                                    <h5>Ví dụ:</h5>
+                                    <div class="code-block">
+                                        <pre><code class="language-python"># Nhấp vào nút có text "Login"
+xml_dump.perform_accessibility_action(
+    "click", 
+    {"value": "Login", "threshold": 0.7}
+)
+
+# Nhập text vào trường EditText
+xml_dump.perform_accessibility_action(
+    "setText", 
+    {"class": "android.widget.EditText"}, 
+    "Hello from XML dump!"
+)</code></pre>
+                                    </div>
+                                </div>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">stop_xml_server(server)</h4>
+                                    <p>Dừng XML server.</p>
+                                    <h5>Tham số:</h5>
+                                    <ul>
+                                        <li><code>server</code>: Đối tượng server được trả về từ start_xml_server().</li>
+                                    </ul>
+                                    <h5>Ví dụ:</h5>
+                                    <div class="code-block">
+                                        <pre><code class="language-python"># Dừng server khi hoàn tất
+xml_dump.stop_xml_server(server)</code></pre>
+                                    </div>
+                                </div>
+                            </section>
+                            
+                            <section id="apps">
+                                <h3>apps</h3>
+                                <p>Module cung cấp các phương thức để quản lý ứng dụng Android.</p>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">start_app(package_name)</h4>
+                                    <p>Khởi động ứng dụng.</p>
+                                    <h5>Tham số:</h5>
+                                    <ul>
+                                        <li><code>package_name</code> (str): Tên package của ứng dụng.</li>
+                                    </ul>
+                                    <h5>Ví dụ:</h5>
+                                    <div class="code-block">
+                                        <pre><code class="language-python">from oiadb.commands import apps
+
+# Khởi động ứng dụng
+apps.start_app("com.example.app")</code></pre>
+                                    </div>
+                                </div>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">stop_app(package_name)</h4>
+                                    <p>Dừng ứng dụng.</p>
+                                    <h5>Tham số:</h5>
+                                    <ul>
+                                        <li><code>package_name</code> (str): Tên package của ứng dụng.</li>
+                                    </ul>
+                                    <h5>Ví dụ:</h5>
+                                    <div class="code-block">
+                                        <pre><code class="language-python"># Dừng ứng dụng
+apps.stop_app("com.example.app")</code></pre>
+                                    </div>
+                                </div>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">clear_app_data(package_name)</h4>
+                                    <p>Xóa dữ liệu ứng dụng.</p>
+                                    <h5>Tham số:</h5>
+                                    <ul>
+                                        <li><code>package_name</code> (str): Tên package của ứng dụng.</li>
+                                    </ul>
+                                    <h5>Ví dụ:</h5>
+                                    <div class="code-block">
+                                        <pre><code class="language-python"># Xóa dữ liệu ứng dụng
+apps.clear_app_data("com.example.app")</code></pre>
+                                    </div>
+                                </div>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">list_installed_apps()</h4>
+                                    <p>Liệt kê các ứng dụng đã cài đặt.</p>
+                                    <h5>Trả về:</h5>
+                                    <ul>
+                                        <li><code>list</code>: Danh sách các ứng dụng đã cài đặt.</li>
+                                    </ul>
+                                    <h5>Ví dụ:</h5>
+                                    <div class="code-block">
+                                        <pre><code class="language-python"># Liệt kê các ứng dụng đã cài đặt
+installed_apps = apps.list_installed_apps()
+print(installed_apps)</code></pre>
+                                    </div>
+                                </div>
+                            </section>
+                            
+                            <section id="file-ops">
+                                <h3>file_ops</h3>
+                                <p>Module cung cấp các phương thức để thao tác với file trên thiết bị Android.</p>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">push(local_path, remote_path)</h4>
+                                    <p>Đẩy file từ máy tính lên thiết bị.</p>
+                                    <h5>Tham số:</h5>
+                                    <ul>
+                                        <li><code>local_path</code> (str): Đường dẫn đến file trên máy tính.</li>
+                                        <li><code>remote_path</code> (str): Đường dẫn đến vị trí lưu trên thiết bị.</li>
+                                    </ul>
+                                    <h5>Ví dụ:</h5>
+                                    <div class="code-block">
+                                        <pre><code class="language-python">from oiadb.commands import file_ops
+
+# Đẩy file từ máy tính lên thiết bị
+file_ops.push("/path/on/computer", "/path/on/device")</code></pre>
+                                    </div>
+                                </div>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">pull(remote_path, local_path)</h4>
+                                    <p>Lấy file từ thiết bị về máy tính.</p>
+                                    <h5>Tham số:</h5>
+                                    <ul>
+                                        <li><code>remote_path</code> (str): Đường dẫn đến file trên thiết bị.</li>
+                                        <li><code>local_path</code> (str): Đường dẫn đến vị trí lưu trên máy tính.</li>
+                                    </ul>
+                                    <h5>Ví dụ:</h5>
+                                    <div class="code-block">
+                                        <pre><code class="language-python"># Lấy file từ thiết bị về máy tính
+file_ops.pull("/path/on/device", "/path/on/computer")</code></pre>
+                                    </div>
+                                </div>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">list_files(remote_path)</h4>
+                                    <p>Liệt kê các file trong thư mục trên thiết bị.</p>
+                                    <h5>Tham số:</h5>
+                                    <ul>
+                                        <li><code>remote_path</code> (str): Đường dẫn đến thư mục trên thiết bị.</li>
+                                    </ul>
+                                    <h5>Trả về:</h5>
+                                    <ul>
+                                        <li><code>list</code>: Danh sách các file trong thư mục.</li>
+                                    </ul>
+                                    <h5>Ví dụ:</h5>
+                                    <div class="code-block">
+                                        <pre><code class="language-python"># Liệt kê các file trong thư mục
+files = file_ops.list_files("/sdcard/Download")
+print(files)</code></pre>
+                                    </div>
+                                </div>
+                            </section>
+                            
+                            <section id="other-commands">
+                                <h3>Các lệnh khác</h3>
+                                <p>OIADB còn cung cấp nhiều module lệnh khác để tương tác với thiết bị Android.</p>
+                                
+                                <ul>
+                                    <li><code>app_info</code>: Lấy thông tin ứng dụng</li>
+                                    <li><code>basic</code>: Các lệnh ADB cơ bản</li>
+                                    <li><code>connect</code>: Kết nối thiết bị qua mạng</li>
+                                    <li><code>device_actions</code>: Các hành động thiết bị</li>
+                                    <li><code>device_info</code>: Thông tin thiết bị</li>
+                                    <li><code>logs</code>: Xem log thiết bị</li>
+                                    <li><code>permissions</code>: Quản lý quyền</li>
+                                </ul>
+                                
+                                <p>Xem <a href="guides.html">Hướng dẫn</a> để biết thêm chi tiết về cách sử dụng các lệnh này.</p>
+                            </section>
+                        </section>
+
+                        <section id="utils">
+                            <h2>Module utils</h2>
+                            <p>Module utils cung cấp các tiện ích hỗ trợ cho thư viện OIADB.</p>
+                            
+                            <section id="platform-utils">
+                                <h3>platform_utils</h3>
+                                <p>Module cung cấp các phương thức để hỗ trợ đa nền tảng.</p>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">get_current_platform()</h4>
+                                    <p>Lấy thông tin về nền tảng hiện tại.</p>
+                                    <h5>Trả về:</h5>
+                                    <ul>
+                                        <li><code>str</code>: Tên nền tảng ("windows", "linux", "macos", "termux").</li>
+                                    </ul>
+                                    <h5>Ví dụ:</h5>
+                                    <div class="code-block">
+                                        <pre><code class="language-python">from oiadb.utils import platform_utils
+
+# Kiểm tra nền tảng hiện tại
+current_platform = platform_utils.get_current_platform()
+print(f"Nền tảng hiện tại: {current_platform}")</code></pre>
+                                    </div>
+                                </div>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">is_windows()</h4>
+                                    <p>Kiểm tra xem có phải là Windows không.</p>
+                                    <h5>Trả về:</h5>
+                                    <ul>
+                                        <li><code>bool</code>: True nếu là Windows, False nếu không.</li>
+                                    </ul>
+                                    <h5>Ví dụ:</h5>
+                                    <div class="code-block">
+                                        <pre><code class="language-python"># Kiểm tra xem có phải là Windows không
+if platform_utils.is_windows():
+    print("Đang chạy trên Windows")</code></pre>
+                                    </div>
+                                </div>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">is_linux()</h4>
+                                    <p>Kiểm tra xem có phải là Linux không.</p>
+                                    <h5>Trả về:</h5>
+                                    <ul>
+                                        <li><code>bool</code>: True nếu là Linux, False nếu không.</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">is_macos()</h4>
+                                    <p>Kiểm tra xem có phải là macOS không.</p>
+                                    <h5>Trả về:</h5>
+                                    <ul>
+                                        <li><code>bool</code>: True nếu là macOS, False nếu không.</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">is_termux()</h4>
+                                    <p>Kiểm tra xem có phải là Termux không.</p>
+                                    <h5>Trả về:</h5>
+                                    <ul>
+                                        <li><code>bool</code>: True nếu là Termux, False nếu không.</li>
+                                    </ul>
+                                </div>
+                            </section>
+                            
+                            <section id="adb-manager">
+                                <h3>adb_manager</h3>
+                                <p>Module cung cấp các phương thức để quản lý cài đặt và cấu hình ADB.</p>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">find_adb()</h4>
+                                    <p>Tìm đường dẫn đến tệp thực thi ADB.</p>
+                                    <h5>Trả về:</h5>
+                                    <ul>
+                                        <li><code>str</code>: Đường dẫn đến tệp thực thi ADB, hoặc None nếu không tìm thấy.</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">install_adb()</h4>
+                                    <p>Cài đặt ADB nếu chưa có.</p>
+                                    <h5>Trả về:</h5>
+                                    <ul>
+                                        <li><code>str</code>: Đường dẫn đến tệp thực thi ADB sau khi cài đặt.</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">start_adb_server()</h4>
+                                    <p>Khởi động ADB server.</p>
+                                </div>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">kill_adb_server()</h4>
+                                    <p>Dừng ADB server.</p>
+                                </div>
+                            </section>
+                            
+                            <section id="image-recognition">
+                                <h3>image_recognition</h3>
+                                <p>Module cung cấp các phương thức cấp thấp để nhận diện hình ảnh.</p>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">find_template(screenshot, template, threshold=0.8, use_gray=True, use_canny=False)</h4>
+                                    <p>Tìm hình ảnh mẫu trong ảnh chụp màn hình.</p>
+                                    <h5>Tham số:</h5>
+                                    <ul>
+                                        <li><code>screenshot</code> (numpy.ndarray): Ảnh chụp màn hình.</li>
+                                        <li><code>template</code> (numpy.ndarray): Hình ảnh mẫu.</li>
+                                        <li><code>threshold</code> (float, optional): Ngưỡng tương đồng (0.0 - 1.0). Mặc định là 0.8.</li>
+                                        <li><code>use_gray</code> (bool, optional): Sử dụng ảnh xám để tăng tốc độ. Mặc định là True.</li>
+                                        <li><code>use_canny</code> (bool, optional): Sử dụng phát hiện cạnh Canny cho hình ảnh mờ. Mặc định là False.</li>
+                                    </ul>
+                                    <h5>Trả về:</h5>
+                                    <ul>
+                                        <li><code>tuple</code>: (x, y, confidence) nếu tìm thấy, None nếu không tìm thấy.</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">find_all_templates(screenshot, template, threshold=0.8, use_gray=True, use_canny=False)</h4>
+                                    <p>Tìm tất cả các vị trí của hình ảnh mẫu trong ảnh chụp màn hình.</p>
+                                    <h5>Tham số:</h5>
+                                    <ul>
+                                        <li><code>screenshot</code> (numpy.ndarray): Ảnh chụp màn hình.</li>
+                                        <li><code>template</code> (numpy.ndarray): Hình ảnh mẫu.</li>
+                                        <li><code>threshold</code> (float, optional): Ngưỡng tương đồng (0.0 - 1.0). Mặc định là 0.8.</li>
+                                        <li><code>use_gray</code> (bool, optional): Sử dụng ảnh xám để tăng tốc độ. Mặc định là True.</li>
+                                        <li><code>use_canny</code> (bool, optional): Sử dụng phát hiện cạnh Canny cho hình ảnh mờ. Mặc định là False.</li>
+                                    </ul>
+                                    <h5>Trả về:</h5>
+                                    <ul>
+                                        <li><code>list</code>: Danh sách các tuple (x, y, confidence).</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">scale_template(template, scale_factor)</h4>
+                                    <p>Thay đổi kích thước hình ảnh mẫu.</p>
+                                    <h5>Tham số:</h5>
+                                    <ul>
+                                        <li><code>template</code> (numpy.ndarray): Hình ảnh mẫu.</li>
+                                        <li><code>scale_factor</code> (float): Hệ số tỷ lệ.</li>
+                                    </ul>
+                                    <h5>Trả về:</h5>
+                                    <ul>
+                                        <li><code>numpy.ndarray</code>: Hình ảnh mẫu đã thay đổi kích thước.</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="api-method">
+                                    <h4 class="method-signature">rotate_template(template, angle)</h4>
+                                    <p>Xoay hình ảnh mẫu.</p>
+                                    <h5>Tham số:</h5>
+                                    <ul>
+                                        <li><code>template</code> (numpy.ndarray): Hình ảnh mẫu.</li>
+                                        <li><code>angle</code> (float): Góc xoay (độ).</li>
+                                    </ul>
+                                    <h5>Trả về:</h5>
+                                    <ul>
+                                        <li><code>numpy.ndarray</code>: Hình ảnh mẫu đã xoay.</li>
+                                    </ul>
+                                </div>
+                            </section>
+                        </section>
+
+                        <section id="exceptions">
+                            <h2>Module exceptions</h2>
+                            <p>Module exceptions định nghĩa các ngoại lệ đặc biệt của thư viện OIADB.</p>
+                            
+                            <div class="api-method">
+                                <h4 class="method-signature">ADBError</h4>
+                                <p>Ngoại lệ cơ bản cho các lỗi liên quan đến ADB.</p>
+                                <h5>Ví dụ:</h5>
+                                <div class="code-block">
+                                    <pre><code class="language-python">from oiadb.exceptions import ADBError
+
+try:
+    # Thực hiện một số thao tác ADB
+    pass
+except ADBError as e:
+    print(f"Lỗi ADB: {e}")</code></pre>
+                                </div>
+                            </div>
+                            
+                            <div class="api-method">
+                                <h4 class="method-signature">DeviceNotFoundError</h4>
+                                <p>Ngoại lệ khi không tìm thấy thiết bị.</p>
+                                <h5>Ví dụ:</h5>
+                                <div class="code-block">
+                                    <pre><code class="language-python">from oiadb.exceptions import DeviceNotFoundError
+
+try:
+    # Thực hiện một số thao tác với thiết bị
+    pass
+except DeviceNotFoundError as e:
+    print(f"Không tìm thấy thiết bị: {e}")</code></pre>
+                                </div>
+                            </div>
+                            
+                            <div class="api-method">
+                                <h4 class="method-signature">TimeoutError</h4>
+                                <p>Ngoại lệ khi thao tác vượt quá thời gian chờ.</p>
+                                <h5>Ví dụ:</h5>
+                                <div class="code-block">
+                                    <pre><code class="language-python">from oiadb.exceptions import TimeoutError
+
+try:
+    # Thực hiện một số thao tác có thể mất nhiều thời gian
+    pass
+except TimeoutError as e:
+    print(f"Thao tác vượt quá thời gian chờ: {e}")</code></pre>
+                                </div>
+                            </div>
+                            
+                            <div class="api-method">
+                                <h4 class="method-signature">ImageNotFoundError</h4>
+                                <p>Ngoại lệ khi không tìm thấy hình ảnh.</p>
+                                <h5>Ví dụ:</h5>
+                                <div class="code-block">
+                                    <pre><code class="language-python">from oiadb.exceptions import ImageNotFoundError
+
+try:
+    # Thực hiện một số thao tác nhận diện hình ảnh
+    pass
+except ImageNotFoundError as e:
+    print(f"Không tìm thấy hình ảnh: {e}")</code></pre>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>OIADB</h3>
+                    <p>Thư viện Python wrapper cho Android Debug Bridge (ADB) với chức năng nhận diện hình ảnh, dump XML và hỗ trợ đa nền tảng.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Liên kết</h3>
+                    <ul>
+                        <li><a href="index.html">Trang chủ</a></li>
+                        <li><a href="getting-started.html">Bắt đầu</a></li>
+                        <li><a href="features.html">Tính năng</a></li>
+                        <li><a href="api-reference.html">API Reference</a></li>
+                        <li><a href="guides.html">Hướng dẫn</a></li>
+                        <li><a href="examples.html">Ví dụ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Tài nguyên</h3>
+                    <ul>
+                        <li><a href="https://github.com/tiendung102k3/oiadb" target="_blank">GitHub</a></li>
+                        <li><a href="https://pypi.org/project/oiadb/" target="_blank">PyPI</a></li>
+                        <li><a href="resources.html#changelog">Changelog</a></li>
+                        <li><a href="resources.html#license">Giấy phép</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Liên hệ</h3>
+                    <p>Email: monstertattoovn696@gmail.com</p>
+                    <div class="social-links">
+                        <a href="https://github.com/tiendung102k3" target="_blank"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 OIADB. Giấy phép MIT.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/prism.js"></script>
+    <script src="js/clipboard.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

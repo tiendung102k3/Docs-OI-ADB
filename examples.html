@@ -1,0 +1,1878 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ví dụ OIADB - Các ví dụ thực tế về cách sử dụng thư viện</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/prism.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="description" content="Các ví dụ thực tế về cách sử dụng thư viện OIADB - Từ cơ bản đến nâng cao">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <span class="logo-text">OIADB</span>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <button class="menu-toggle" aria-label="Toggle menu">
+                    <span class="hamburger"></span>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li><a href="getting-started.html">Bắt đầu</a></li>
+                    <li><a href="features.html">Tính năng</a></li>
+                    <li><a href="api-reference.html">API Reference</a></li>
+                    <li><a href="guides.html">Hướng dẫn</a></li>
+                    <li><a href="examples.html" class="active">Ví dụ</a></li>
+                    <li><a href="resources.html">Tài nguyên</a></li>
+                </ul>
+            </nav>
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider round"></div>
+                </label>
+                <span class="theme-label"><i class="fas fa-moon"></i></span>
+            </div>
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Tìm kiếm...">
+                <button id="search-button"><i class="fas fa-search"></i></button>
+                <div id="search-results" class="search-results"></div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>Ví dụ OIADB</h1>
+                <div class="breadcrumbs">
+                    <a href="index.html">Trang chủ</a> / <span>Ví dụ</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="content-layout">
+                    <aside class="sidebar">
+                        <div class="sidebar-content">
+                            <h3>Trong trang này</h3>
+                            <ul class="sidebar-nav">
+                                <li><a href="#basic-examples">Ví dụ cơ bản</a></li>
+                                <li><a href="#image-recognition-examples">Ví dụ nhận diện hình ảnh</a></li>
+                                <li><a href="#xml-dump-examples">Ví dụ XML Dump</a></li>
+                                <li><a href="#app-automation-examples">Ví dụ tự động hóa ứng dụng</a></li>
+                                <li><a href="#complete-projects">Dự án hoàn chỉnh</a></li>
+                            </ul>
+                        </div>
+                    </aside>
+
+                    <div class="main-content">
+                        <section id="basic-examples">
+                            <h2>Ví dụ cơ bản</h2>
+                            <p>Dưới đây là một số ví dụ cơ bản để bắt đầu với OIADB.</p>
+                            
+                            <div class="example-card">
+                                <h3>Kết nối và liệt kê thiết bị</h3>
+                                <p>Ví dụ này cho thấy cách kết nối với thiết bị Android và liệt kê các thiết bị đã kết nối.</p>
+                                <div class="code-block">
+                                    <pre><code class="language-python">from oiadb import MyADB
+
+# Khởi tạo ADB
+adb = MyADB()
+
+# Liệt kê các thiết bị đã kết nối
+devices = adb.get_devices()
+print(f"Connected devices: {devices}")
+
+# Lấy thông tin thiết bị
+device_info = adb.get_device_info()
+print(f"Device info: {device_info}")
+
+# Kiểm tra phiên bản ADB
+adb_version = adb.run("version")
+print(f"ADB version: {adb_version}")</code></pre>
+                                    <button class="copy-btn" data-clipboard-target="#code1"><i class="fas fa-copy"></i></button>
+                                </div>
+                                <div class="example-output">
+                                    <h4>Kết quả:</h4>
+                                    <pre>Connected devices: ['emulator-5554']
+Device info: {'model': 'Pixel 4', 'android_version': '11', 'sdk_version': '30', 'serial': 'emulator-5554'}
+ADB version: Android Debug Bridge version 1.0.41
+Version 31.0.3-7562133</pre>
+                                </div>
+                            </div>
+                            
+                            <div class="example-card">
+                                <h3>Cài đặt và gỡ cài đặt ứng dụng</h3>
+                                <p>Ví dụ này cho thấy cách cài đặt và gỡ cài đặt ứng dụng Android.</p>
+                                <div class="code-block">
+                                    <pre><code class="language-python">from oiadb import MyADB
+
+# Khởi tạo ADB
+adb = MyADB()
+
+# Cài đặt ứng dụng
+install_result = adb.install_app("/path/to/app.apk")
+print(f"Install result: {install_result}")
+
+# Liệt kê các ứng dụng đã cài đặt
+from oiadb.commands import apps
+installed_apps = apps.list_installed_apps()
+print(f"Installed apps: {installed_apps[:5]}...")  # Chỉ hiển thị 5 ứng dụng đầu tiên
+
+# Gỡ cài đặt ứng dụng
+uninstall_result = adb.uninstall_app("com.example.app")
+print(f"Uninstall result: {uninstall_result}")</code></pre>
+                                    <button class="copy-btn" data-clipboard-target="#code2"><i class="fas fa-copy"></i></button>
+                                </div>
+                                <div class="example-output">
+                                    <h4>Kết quả:</h4>
+                                    <pre>Install result: Success
+Installed apps: ['com.android.settings', 'com.google.android.gms', 'com.android.systemui', 'com.google.android.gsf', 'com.example.app']...
+Uninstall result: Success</pre>
+                                </div>
+                            </div>
+                            
+                            <div class="example-card">
+                                <h3>Tương tác cơ bản với thiết bị</h3>
+                                <p>Ví dụ này cho thấy cách thực hiện các thao tác cơ bản như nhấn, vuốt, và nhập văn bản.</p>
+                                <div class="code-block">
+                                    <pre><code class="language-python">from oiadb import MyADB
+from oiadb.commands import interaction
+import time
+
+# Khởi tạo ADB
+adb = MyADB()
+
+# Mở ứng dụng Settings
+from oiadb.commands import apps
+apps.start_app("com.android.settings")
+time.sleep(2)  # Đợi ứng dụng khởi động
+
+# Nhấn vào tọa độ màn hình
+interaction.tap(500, 500)
+time.sleep(1)
+
+# Vuốt màn hình từ dưới lên trên
+interaction.swipe(500, 1000, 500, 200)
+time.sleep(1)
+
+# Nhấn phím Home
+interaction.home()
+time.sleep(1)
+
+# Mở ứng dụng Messages
+apps.start_app("com.google.android.apps.messaging")
+time.sleep(2)
+
+# Nhập văn bản
+interaction.text_input("Hello from OIADB!")
+
+# Nhấn phím Back
+interaction.back()</code></pre>
+                                    <button class="copy-btn" data-clipboard-target="#code3"><i class="fas fa-copy"></i></button>
+                                </div>
+                            </div>
+                            
+                            <div class="example-card">
+                                <h3>Quản lý file</h3>
+                                <p>Ví dụ này cho thấy cách đẩy và kéo file giữa máy tính và thiết bị Android.</p>
+                                <div class="code-block">
+                                    <pre><code class="language-python">from oiadb import MyADB
+from oiadb.commands import file_ops
+
+# Khởi tạo ADB
+adb = MyADB()
+
+# Đẩy file từ máy tính lên thiết bị
+push_result = file_ops.push("/path/on/computer/file.txt", "/sdcard/file.txt")
+print(f"Push result: {push_result}")
+
+# Liệt kê các file trong thư mục
+files = file_ops.list_files("/sdcard")
+print(f"Files in /sdcard: {files[:5]}...")  # Chỉ hiển thị 5 file đầu tiên
+
+# Lấy file từ thiết bị về máy tính
+pull_result = file_ops.pull("/sdcard/file.txt", "/path/on/computer/file_from_device.txt")
+print(f"Pull result: {pull_result}")
+
+# Xóa file trên thiết bị
+delete_result = adb.run("shell rm /sdcard/file.txt")
+print(f"Delete result: {delete_result}")</code></pre>
+                                    <button class="copy-btn" data-clipboard-target="#code4"><i class="fas fa-copy"></i></button>
+                                </div>
+                                <div class="example-output">
+                                    <h4>Kết quả:</h4>
+                                    <pre>Push result: Success
+Files in /sdcard: ['DCIM', 'Download', 'Pictures', 'Movies', 'file.txt']...
+Pull result: Success
+Delete result: </pre>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="image-recognition-examples">
+                            <h2>Ví dụ nhận diện hình ảnh</h2>
+                            <p>Dưới đây là một số ví dụ về cách sử dụng tính năng nhận diện hình ảnh của OIADB.</p>
+                            
+                            <div class="example-card">
+                                <h3>Tìm và nhấp vào nút</h3>
+                                <p>Ví dụ này cho thấy cách tìm và nhấp vào nút dựa trên hình ảnh mẫu.</p>
+                                <div class="code-block">
+                                    <pre><code class="language-python">from oiadb import MyADB
+from oiadb.commands import image_interaction
+import time
+
+# Khởi tạo ADB
+adb = MyADB()
+
+# Mở ứng dụng Settings
+from oiadb.commands import apps
+apps.start_app("com.android.settings")
+time.sleep(2)  # Đợi ứng dụng khởi động
+
+# Tìm và nhấp vào nút "Wi-Fi"
+wifi_button_found = image_interaction.tap_image("/path/to/wifi_button.png", threshold=0.8)
+
+if wifi_button_found:
+    print("Wi-Fi button found and tapped")
+    
+    # Đợi màn hình Wi-Fi xuất hiện
+    wifi_screen_appeared = image_interaction.wait_for_image(
+        "/path/to/wifi_screen.png", 
+        timeout=5
+    )
+    
+    if wifi_screen_appeared:
+        print("Wi-Fi screen appeared")
+    else:
+        print("Wi-Fi screen did not appear")
+else:
+    print("Wi-Fi button not found")</code></pre>
+                                    <button class="copy-btn" data-clipboard-target="#code5"><i class="fas fa-copy"></i></button>
+                                </div>
+                                <div class="example-output">
+                                    <h4>Kết quả:</h4>
+                                    <pre>Wi-Fi button found and tapped
+Wi-Fi screen appeared</pre>
+                                </div>
+                            </div>
+                            
+                            <div class="example-card">
+                                <h3>Đợi và xác nhận trạng thái</h3>
+                                <p>Ví dụ này cho thấy cách đợi một phần tử xuất hiện và xác nhận trạng thái của nó.</p>
+                                <div class="code-block">
+                                    <pre><code class="language-python">from oiadb import MyADB
+from oiadb.commands import image_interaction, interaction
+import time
+
+# Khởi tạo ADB
+adb = MyADB()
+
+# Mở ứng dụng Settings
+from oiadb.commands import apps
+apps.start_app("com.android.settings")
+time.sleep(2)  # Đợi ứng dụng khởi động
+
+# Đợi nút "Wi-Fi" xuất hiện và nhấp vào
+wifi_button_appeared = image_interaction.wait_and_tap_image(
+    "/path/to/wifi_button.png", 
+    timeout=5
+)
+
+if wifi_button_appeared:
+    print("Wi-Fi button appeared and tapped")
+    
+    # Đợi công tắc Wi-Fi xuất hiện
+    wifi_switch_appeared = image_interaction.wait_for_image(
+        "/path/to/wifi_switch_off.png", 
+        timeout=5
+    )
+    
+    if wifi_switch_appeared:
+        print("Wi-Fi is currently OFF")
+        
+        # Nhấp vào công tắc để bật Wi-Fi
+        image_interaction.tap_image("/path/to/wifi_switch_off.png")
+        
+        # Đợi công tắc chuyển sang trạng thái ON
+        wifi_on = image_interaction.wait_for_image(
+            "/path/to/wifi_switch_on.png", 
+            timeout=10
+        )
+        
+        if wifi_on:
+            print("Wi-Fi turned ON successfully")
+        else:
+            print("Failed to turn ON Wi-Fi")
+    else:
+        print("Wi-Fi switch not found")
+else:
+    print("Wi-Fi button did not appear")</code></pre>
+                                    <button class="copy-btn" data-clipboard-target="#code6"><i class="fas fa-copy"></i></button>
+                                </div>
+                                <div class="example-output">
+                                    <h4>Kết quả:</h4>
+                                    <pre>Wi-Fi button appeared and tapped
+Wi-Fi is currently OFF
+Wi-Fi turned ON successfully</pre>
+                                </div>
+                            </div>
+                            
+                            <div class="example-card">
+                                <h3>Tìm nhiều phần tử</h3>
+                                <p>Ví dụ này cho thấy cách tìm nhiều phần tử trên màn hình và tương tác với chúng.</p>
+                                <div class="code-block">
+                                    <pre><code class="language-python">from oiadb import MyADB
+from oiadb.commands import image_interaction, interaction
+import time
+
+# Khởi tạo ADB
+adb = MyADB()
+
+# Mở ứng dụng Gallery
+from oiadb.commands import apps
+apps.start_app("com.google.android.apps.photos")
+time.sleep(3)  # Đợi ứng dụng khởi động
+
+# Tìm tất cả các hình ảnh trên màn hình
+from oiadb.utils import image_recognition
+import cv2
+import numpy as np
+
+# Chụp màn hình
+screenshot = adb.run("shell screencap -p")
+screenshot_bytes = bytes.fromhex(''.join([f"{ord(c):02x}" for c in screenshot]))
+screenshot_np = cv2.imdecode(np.frombuffer(screenshot_bytes, np.uint8), cv2.IMREAD_COLOR)
+
+# Tìm tất cả các phần tử khớp với hình ảnh mẫu
+template = cv2.imread("/path/to/photo_thumbnail.png")
+matches = image_recognition.find_all_templates(
+    screenshot_np, 
+    template, 
+    threshold=0.8
+)
+
+print(f"Found {len(matches)} photos")
+
+# Nhấp vào ảnh đầu tiên nếu có
+if matches:
+    x, y, confidence = matches[0]
+    print(f"Tapping on first photo at ({x}, {y}) with confidence {confidence}")
+    interaction.tap(x, y)
+    
+    # Đợi ảnh mở rộng
+    time.sleep(2)
+    
+    # Vuốt để xem ảnh tiếp theo
+    interaction.swipe(800, 500, 100, 500)  # Vuốt từ phải sang trái
+    
+    # Đợi một chút
+    time.sleep(1)
+    
+    # Vuốt để xem ảnh trước đó
+    interaction.swipe(100, 500, 800, 500)  # Vuốt từ trái sang phải
+else:
+    print("No photos found")</code></pre>
+                                    <button class="copy-btn" data-clipboard-target="#code7"><i class="fas fa-copy"></i></button>
+                                </div>
+                                <div class="example-output">
+                                    <h4>Kết quả:</h4>
+                                    <pre>Found 12 photos
+Tapping on first photo at (120, 350) with confidence 0.92</pre>
+                                </div>
+                            </div>
+                            
+                            <div class="example-card">
+                                <h3>Xử lý hình ảnh nâng cao</h3>
+                                <p>Ví dụ này cho thấy cách sử dụng các tùy chọn nâng cao của nhận diện hình ảnh để xử lý các trường hợp phức tạp.</p>
+                                <div class="code-block">
+                                    <pre><code class="language-python">from oiadb import MyADB
+from oiadb.commands import image_interaction
+import time
+
+# Khởi tạo ADB
+adb = MyADB()
+
+# Mở ứng dụng
+from oiadb.commands import apps
+apps.start_app("com.example.app")
+time.sleep(2)  # Đợi ứng dụng khởi động
+
+# Tìm hình ảnh với các tùy chọn nâng cao
+# Trường hợp 1: Hình ảnh có thể bị xoay
+rotated_result = image_interaction.find_image(
+    template_path="/path/to/rotated_element.png",
+    threshold=0.7,
+    rotation_range=(-30, 30),  # Tìm trong phạm vi xoay ±30 độ
+    rotation_steps=10  # Số bước xoay
+)
+
+if rotated_result:
+    x, y, confidence = rotated_result
+    print(f"Rotated element found at ({x}, {y}) with confidence {confidence}")
+    image_interaction.tap_image("/path/to/rotated_element.png", threshold=0.7)
+
+# Trường hợp 2: Hình ảnh có thể có kích thước khác nhau
+scaled_result = image_interaction.find_image(
+    template_path="/path/to/scaled_element.png",
+    threshold=0.7,
+    scale_range=(0.5, 1.5),  # Tìm trong phạm vi tỷ lệ từ 0.5x đến 1.5x
+    scale_steps=10  # Số bước tỷ lệ
+)
+
+if scaled_result:
+    x, y, confidence = scaled_result
+    print(f"Scaled element found at ({x}, {y}) with confidence {confidence}")
+    image_interaction.tap_image("/path/to/scaled_element.png", threshold=0.7)
+
+# Trường hợp 3: Hình ảnh mờ hoặc có độ tương phản thấp
+blurry_result = image_interaction.find_image(
+    template_path="/path/to/blurry_element.png",
+    threshold=0.6,  # Ngưỡng thấp hơn cho hình ảnh mờ
+    use_canny=True  # Sử dụng phát hiện cạnh Canny
+)
+
+if blurry_result:
+    x, y, confidence = blurry_result
+    print(f"Blurry element found at ({x}, {y}) with confidence {confidence}")
+    image_interaction.tap_image("/path/to/blurry_element.png", threshold=0.6)</code></pre>
+                                    <button class="copy-btn" data-clipboard-target="#code8"><i class="fas fa-copy"></i></button>
+                                </div>
+                                <div class="example-output">
+                                    <h4>Kết quả:</h4>
+                                    <pre>Rotated element found at (250, 450) with confidence 0.82
+Scaled element found at (300, 600) with confidence 0.78
+Blurry element found at (400, 700) with confidence 0.65</pre>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="xml-dump-examples">
+                            <h2>Ví dụ XML Dump</h2>
+                            <p>Dưới đây là một số ví dụ về cách sử dụng tính năng XML Dump của OIADB.</p>
+                            
+                            <div class="example-card">
+                                <h3>Thiết lập và sử dụng XML Server</h3>
+                                <p>Ví dụ này cho thấy cách thiết lập và sử dụng XML Server để truy xuất cấu trúc UI.</p>
+                                <div class="code-block">
+                                    <pre><code class="language-python">from oiadb import MyADB
+from oiadb.commands import xml_dump
+import time
+
+# Khởi tạo ADB
+adb = MyADB()
+
+# Khởi động XML Server
+server, server_thread = xml_dump.start_xml_server(port=8000)
+print("XML Server started")
+
+# Thiết lập port forwarding
+xml_dump.setup_port_forwarding(device_port=8000, host_port=8000)
+print("Port forwarding set up")
+
+# Mở ứng dụng Settings
+from oiadb.commands import apps
+apps.start_app("com.android.settings")
+time.sleep(2)  # Đợi ứng dụng khởi động
+
+# Lấy XML dump
+xml_content = xml_dump.get_xml_dump()
+print(f"XML dump size: {len(xml_content)} bytes")
+
+# Phân tích XML
+import xml.etree.ElementTree as ET
+root = ET.fromstring(xml_content)
+
+# Đếm số phần tử
+element_count = len(root.findall(".//*"))
+print(f"Number of elements: {element_count}")
+
+# Tìm tất cả các nút
+buttons = root.findall(".//node[@class='android.widget.Button']")
+print(f"Number of buttons: {len(buttons)}")
+
+# In thông tin của các nút
+for i, button in enumerate(buttons[:3]):  # Chỉ hiển thị 3 nút đầu tiên
+    text = button.get("text")
+    bounds = button.get("bounds")
+    print(f"Button {i+1}: Text='{text}', Bounds={bounds}")
+
+# Dừng XML Server khi hoàn tất
+xml_dump.stop_xml_server(server)
+print("XML Server stopped")</code></pre>
+                                    <button class="copy-btn" data-clipboard-target="#code9"><i class="fas fa-copy"></i></button>
+                                </div>
+                                <div class="example-output">
+                                    <h4>Kết quả:</h4>
+                                    <pre>XML Server started
+Port forwarding set up
+XML dump size: 45678 bytes
+Number of elements: 127
+Number of buttons: 8
+Button 1: Text='OK', Bounds=[100,200][200,250]
+Button 2: Text='Cancel', Bounds=[300,200][400,250]
+Button 3: Text='Apply', Bounds=[500,200][600,250]
+XML Server stopped</pre>
+                                </div>
+                            </div>
+                            
+                            <div class="example-card">
+                                <h3>Tìm và tương tác với phần tử UI</h3>
+                                <p>Ví dụ này cho thấy cách tìm và tương tác với các phần tử UI dựa trên thuộc tính của chúng.</p>
+                                <div class="code-block">
+                                    <pre><code class="language-python">from oiadb import MyADB
+from oiadb.commands import xml_dump
+import time
+
+# Khởi tạo ADB
+adb = MyADB()
+
+# Khởi động XML Server
+server, server_thread = xml_dump.start_xml_server(port=8000)
+xml_dump.setup_port_forwarding(device_port=8000, host_port=8000)
+
+# Mở ứng dụng Settings
+from oiadb.commands import apps
+apps.start_app("com.android.settings")
+time.sleep(2)  # Đợi ứng dụng khởi động
+
+# Tìm tất cả các nút
+buttons = xml_dump.find_elements_by_criteria({"class": "android.widget.Button"})
+print(f"Found {len(buttons)} buttons")
+
+# Tìm tất cả các TextView có chứa "Wi-Fi"
+wifi_elements = xml_dump.find_elements_by_criteria({
+    "class": "android.widget.TextView",
+    "value": "Wi-Fi",
+    "threshold": 0.7
+})
+print(f"Found {len(wifi_elements)} elements containing 'Wi-Fi'")
+
+# Nhấp vào phần tử Wi-Fi đầu tiên nếu có
+if wifi_elements:
+    # Lấy thông tin phần tử
+    wifi_element = wifi_elements[0]
+    print(f"Wi-Fi element: {wifi_element}")
+    
+    # Nhấp vào phần tử
+    success = xml_dump.perform_accessibility_action(
+        "click", 
+        {"value": "Wi-Fi", "threshold": 0.7}
+    )
+    
+    if success:
+        print("Clicked on Wi-Fi element")
+        time.sleep(2)  # Đợi màn hình Wi-Fi xuất hiện
+        
+        # Tìm công tắc Wi-Fi
+        switch_elements = xml_dump.find_elements_by_criteria({
+            "class": "android.widget.Switch"
+        })
+        
+        if switch_elements:
+            print(f"Found {len(switch_elements)} switches")
+            
+            # Nhấp vào công tắc đầu tiên
+            success = xml_dump.perform_accessibility_action(
+                "click", 
+                {"class": "android.widget.Switch"}
+            )
+            
+            if success:
+                print("Clicked on Wi-Fi switch")
+            else:
+                print("Failed to click on Wi-Fi switch")
+        else:
+            print("No switches found")
+    else:
+        print("Failed to click on Wi-Fi element")
+else:
+    print("No Wi-Fi elements found")
+
+# Dừng XML Server khi hoàn tất
+xml_dump.stop_xml_server(server)</code></pre>
+                                    <button class="copy-btn" data-clipboard-target="#code10"><i class="fas fa-copy"></i></button>
+                                </div>
+                                <div class="example-output">
+                                    <h4>Kết quả:</h4>
+                                    <pre>Found 8 buttons
+Found 2 elements containing 'Wi-Fi'
+Wi-Fi element: {'text': 'Wi-Fi', 'resource-id': 'android:id/title', 'class': 'android.widget.TextView', 'bounds': '[120,350][300,400]'}
+Clicked on Wi-Fi element
+Found 1 switches
+Clicked on Wi-Fi switch</pre>
+                                </div>
+                            </div>
+                            
+                            <div class="example-card">
+                                <h3>Điền form tự động</h3>
+                                <p>Ví dụ này cho thấy cách sử dụng XML Dump để điền form tự động.</p>
+                                <div class="code-block">
+                                    <pre><code class="language-python">from oiadb import MyADB
+from oiadb.commands import xml_dump
+import time
+
+# Khởi tạo ADB
+adb = MyADB()
+
+# Khởi động XML Server
+server, server_thread = xml_dump.start_xml_server(port=8000)
+xml_dump.setup_port_forwarding(device_port=8000, host_port=8000)
+
+# Mở ứng dụng
+from oiadb.commands import apps
+apps.start_app("com.example.form")
+time.sleep(2)  # Đợi ứng dụng khởi động
+
+# Tìm và điền vào trường tên
+name_field_success = xml_dump.perform_accessibility_action(
+    "setText", 
+    {"class": "android.widget.EditText", "hint": "Name"}, 
+    "John Doe"
+)
+
+if name_field_success:
+    print("Filled name field")
+else:
+    print("Failed to fill name field")
+
+# Tìm và điền vào trường email
+email_field_success = xml_dump.perform_accessibility_action(
+    "setText", 
+    {"class": "android.widget.EditText", "hint": "Email"}, 
+    "john.doe@example.com"
+)
+
+if email_field_success:
+    print("Filled email field")
+else:
+    print("Failed to fill email field")
+
+# Tìm và điền vào trường số điện thoại
+phone_field_success = xml_dump.perform_accessibility_action(
+    "setText", 
+    {"class": "android.widget.EditText", "hint": "Phone"}, 
+    "1234567890"
+)
+
+if phone_field_success:
+    print("Filled phone field")
+else:
+    print("Failed to fill phone field")
+
+# Tìm và nhấp vào nút gửi
+submit_button_success = xml_dump.perform_accessibility_action(
+    "click", 
+    {"class": "android.widget.Button", "value": "Submit"}
+)
+
+if submit_button_success:
+    print("Clicked submit button")
+else:
+    print("Failed to click submit button")
+
+# Đợi thông báo xác nhận
+time.sleep(2)
+
+# Kiểm tra xem thông báo xác nhận có xuất hiện không
+confirmation_elements = xml_dump.find_elements_by_criteria({
+    "value": "Form submitted successfully",
+    "threshold": 0.7
+})
+
+if confirmation_elements:
+    print("Form submitted successfully")
+else:
+    print("Form submission failed or confirmation not found")
+
+# Dừng XML Server khi hoàn tất
+xml_dump.stop_xml_server(server)</code></pre>
+                                    <button class="copy-btn" data-clipboard-target="#code11"><i class="fas fa-copy"></i></button>
+                                </div>
+                                <div class="example-output">
+                                    <h4>Kết quả:</h4>
+                                    <pre>Filled name field
+Filled email field
+Filled phone field
+Clicked submit button
+Form submitted successfully</pre>
+                                </div>
+                            </div>
+                            
+                            <div class="example-card">
+                                <h3>Kết hợp XML Dump và nhận diện hình ảnh</h3>
+                                <p>Ví dụ này cho thấy cách kết hợp XML Dump và nhận diện hình ảnh để xử lý các trường hợp phức tạp.</p>
+                                <div class="code-block">
+                                    <pre><code class="language-python">from oiadb import MyADB
+from oiadb.commands import xml_dump, image_interaction
+import time
+
+# Khởi tạo ADB
+adb = MyADB()
+
+# Khởi động XML Server
+server, server_thread = xml_dump.start_xml_server(port=8000)
+xml_dump.setup_port_forwarding(device_port=8000, host_port=8000)
+
+# Mở ứng dụng
+from oiadb.commands import apps
+apps.start_app("com.example.app")
+time.sleep(2)  # Đợi ứng dụng khởi động
+
+# Hàm kết hợp XML Dump và nhận diện hình ảnh
+def find_and_interact_with_element(element_text, image_path):
+    # Thử tìm phần tử bằng XML Dump trước
+    elements = xml_dump.find_elements_by_criteria({
+        "value": element_text,
+        "threshold": 0.7
+    })
+    
+    if elements:
+        print(f"Element '{element_text}' found using XML Dump")
+        
+        # Nhấp vào phần tử
+        success = xml_dump.perform_accessibility_action(
+            "click", 
+            {"value": element_text, "threshold": 0.7}
+        )
+        
+        return success
+    else:
+        print(f"Element '{element_text}' not found using XML Dump, trying image recognition")
+        
+        # Thử tìm phần tử bằng nhận diện hình ảnh
+        success = image_interaction.tap_image(image_path, threshold=0.7)
+        
+        if success:
+            print(f"Element '{element_text}' found and tapped using image recognition")
+        else:
+            print(f"Element '{element_text}' not found using image recognition")
+        
+        return success
+
+# Sử dụng hàm kết hợp
+login_success = find_and_interact_with_element("Login", "/path/to/login_button.png")
+
+if login_success:
+    print("Login button interaction successful")
+    
+    # Đợi màn hình đăng nhập xuất hiện
+    time.sleep(2)
+    
+    # Điền thông tin đăng nhập
+    username_success = xml_dump.perform_accessibility_action(
+        "setText", 
+        {"class": "android.widget.EditText", "hint": "Username"}, 
+        "user123"
+    )
+    
+    password_success = xml_dump.perform_accessibility_action(
+        "setText", 
+        {"class": "android.widget.EditText", "hint": "Password"}, 
+        "password123"
+    )
+    
+    # Nhấp vào nút đăng nhập
+    submit_success = find_and_interact_with_element("Submit", "/path/to/submit_button.png")
+    
+    if submit_success:
+        print("Login form submitted")
+    else:
+        print("Failed to submit login form")
+else:
+    print("Login button interaction failed")
+
+# Dừng XML Server khi hoàn tất
+xml_dump.stop_xml_server(server)</code></pre>
+                                    <button class="copy-btn" data-clipboard-target="#code12"><i class="fas fa-copy"></i></button>
+                                </div>
+                                <div class="example-output">
+                                    <h4>Kết quả:</h4>
+                                    <pre>Element 'Login' found using XML Dump
+Login button interaction successful
+Element 'Submit' not found using XML Dump, trying image recognition
+Element 'Submit' found and tapped using image recognition
+Login form submitted</pre>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="app-automation-examples">
+                            <h2>Ví dụ tự động hóa ứng dụng</h2>
+                            <p>Dưới đây là một số ví dụ về cách tự động hóa các tác vụ trên ứng dụng Android.</p>
+                            
+                            <div class="example-card">
+                                <h3>Tự động đăng nhập</h3>
+                                <p>Ví dụ này cho thấy cách tự động đăng nhập vào một ứng dụng.</p>
+                                <div class="code-block">
+                                    <pre><code class="language-python">from oiadb import MyADB
+from oiadb.commands import apps, interaction, image_interaction, xml_dump
+import time
+
+# Khởi tạo ADB
+adb = MyADB()
+
+# Khởi động XML Server
+server, server_thread = xml_dump.start_xml_server(port=8000)
+xml_dump.setup_port_forwarding(device_port=8000, host_port=8000)
+
+def auto_login(app_package, username, password):
+    # Mở ứng dụng
+    apps.start_app(app_package)
+    print(f"Started app: {app_package}")
+    time.sleep(3)  # Đợi ứng dụng khởi động
+    
+    # Kiểm tra xem đã đăng nhập chưa
+    home_screen = image_interaction.is_image_present("/path/to/home_screen.png")
+    
+    if home_screen:
+        print("Already logged in")
+        return True
+    
+    # Kiểm tra xem có màn hình đăng nhập không
+    login_screen = image_interaction.is_image_present("/path/to/login_screen.png")
+    
+    if not login_screen:
+        print("Login screen not found")
+        return False
+    
+    print("Login screen found")
+    
+    # Tìm và điền vào trường username
+    username_field = xml_dump.find_elements_by_criteria({
+        "class": "android.widget.EditText",
+        "hint": "Username"
+    })
+    
+    if username_field:
+        xml_dump.perform_accessibility_action(
+            "setText", 
+            {"class": "android.widget.EditText", "hint": "Username"}, 
+            username
+        )
+        print(f"Entered username: {username}")
+    else:
+        # Thử tìm bằng nhận diện hình ảnh
+        if image_interaction.tap_image("/path/to/username_field.png"):
+            interaction.text_input(username)
+            print(f"Entered username using image recognition: {username}")
+        else:
+            print("Username field not found")
+            return False
+    
+    # Tìm và điền vào trường password
+    password_field = xml_dump.find_elements_by_criteria({
+        "class": "android.widget.EditText",
+        "hint": "Password"
+    })
+    
+    if password_field:
+        xml_dump.perform_accessibility_action(
+            "setText", 
+            {"class": "android.widget.EditText", "hint": "Password"}, 
+            password
+        )
+        print(f"Entered password: {'*' * len(password)}")
+    else:
+        # Thử tìm bằng nhận diện hình ảnh
+        if image_interaction.tap_image("/path/to/password_field.png"):
+            interaction.text_input(password)
+            print(f"Entered password using image recognition: {'*' * len(password)}")
+        else:
+            print("Password field not found")
+            return False
+    
+    # Nhấp vào nút đăng nhập
+    login_button = xml_dump.find_elements_by_criteria({
+        "class": "android.widget.Button",
+        "value": "Login"
+    })
+    
+    if login_button:
+        xml_dump.perform_accessibility_action(
+            "click", 
+            {"class": "android.widget.Button", "value": "Login"}
+        )
+        print("Clicked login button")
+    else:
+        # Thử tìm bằng nhận diện hình ảnh
+        if image_interaction.tap_image("/path/to/login_button.png"):
+            print("Clicked login button using image recognition")
+        else:
+            print("Login button not found")
+            return False
+    
+    # Đợi màn hình chính xuất hiện
+    for i in range(10):  # Đợi tối đa 10 giây
+        if image_interaction.is_image_present("/path/to/home_screen.png"):
+            print("Login successful")
+            return True
+        time.sleep(1)
+    
+    print("Login failed or timed out")
+    return False
+
+# Sử dụng hàm tự động đăng nhập
+login_result = auto_login("com.example.app", "user123", "password123")
+print(f"Login result: {login_result}")
+
+# Dừng XML Server khi hoàn tất
+xml_dump.stop_xml_server(server)</code></pre>
+                                    <button class="copy-btn" data-clipboard-target="#code13"><i class="fas fa-copy"></i></button>
+                                </div>
+                                <div class="example-output">
+                                    <h4>Kết quả:</h4>
+                                    <pre>Started app: com.example.app
+Login screen found
+Entered username: user123
+Entered password: ***********
+Clicked login button
+Login successful
+Login result: True</pre>
+                                </div>
+                            </div>
+                            
+                            <div class="example-card">
+                                <h3>Tự động điều hướng menu</h3>
+                                <p>Ví dụ này cho thấy cách tự động điều hướng qua các menu của ứng dụng.</p>
+                                <div class="code-block">
+                                    <pre><code class="language-python">from oiadb import MyADB
+from oiadb.commands import apps, interaction, image_interaction
+import time
+
+# Khởi tạo ADB
+adb = MyADB()
+
+def navigate_menu(app_package, menu_items):
+    # Mở ứng dụng
+    apps.start_app(app_package)
+    print(f"Started app: {app_package}")
+    time.sleep(3)  # Đợi ứng dụng khởi động
+    
+    # Điều hướng qua từng mục menu
+    for i, menu_item in enumerate(menu_items):
+        print(f"Navigating to menu item {i+1}/{len(menu_items)}: {menu_item}")
+        
+        # Tìm và nhấp vào mục menu
+        menu_image_path = f"/path/to/menu/{menu_item.lower().replace(' ', '_')}.png"
+        
+        if image_interaction.tap_image(menu_image_path):
+            print(f"Found and tapped on '{menu_item}'")
+        else:
+            print(f"Menu item '{menu_item}' not found, trying to scroll")
+            
+            # Cuộn xuống để tìm mục menu
+            for _ in range(3):  # Thử cuộn tối đa 3 lần
+                interaction.swipe(500, 1000, 500, 300)  # Cuộn từ dưới lên
+                time.sleep(1)
+                
+                if image_interaction.tap_image(menu_image_path):
+                    print(f"Found and tapped on '{menu_item}' after scrolling")
+                    break
+            else:
+                print(f"Failed to find menu item '{menu_item}' after scrolling")
+                return False
+        
+        # Đợi màn hình mới xuất hiện
+        time.sleep(2)
+        
+        # Chụp ảnh màn hình hiện tại
+        screenshot_path = f"/path/to/screenshots/{menu_item.lower().replace(' ', '_')}.png"
+        adb.run(f"shell screencap -p /sdcard/screenshot.png")
+        adb.run(f"pull /sdcard/screenshot.png {screenshot_path}")
+        print(f"Saved screenshot to {screenshot_path}")
+        
+        # Quay lại màn hình trước đó (trừ mục menu cuối cùng)
+        if i < len(menu_items) - 1:
+            interaction.back()
+            time.sleep(1)
+    
+    print("Menu navigation completed successfully")
+    return True
+
+# Sử dụng hàm điều hướng menu
+menu_items = ["Settings", "Profile", "Notifications", "Privacy", "Help"]
+navigation_result = navigate_menu("com.example.app", menu_items)
+print(f"Navigation result: {navigation_result}")</code></pre>
+                                    <button class="copy-btn" data-clipboard-target="#code14"><i class="fas fa-copy"></i></button>
+                                </div>
+                                <div class="example-output">
+                                    <h4>Kết quả:</h4>
+                                    <pre>Started app: com.example.app
+Navigating to menu item 1/5: Settings
+Found and tapped on 'Settings'
+Saved screenshot to /path/to/screenshots/settings.png
+Navigating to menu item 2/5: Profile
+Found and tapped on 'Profile'
+Saved screenshot to /path/to/screenshots/profile.png
+Navigating to menu item 3/5: Notifications
+Menu item 'Notifications' not found, trying to scroll
+Found and tapped on 'Notifications' after scrolling
+Saved screenshot to /path/to/screenshots/notifications.png
+Navigating to menu item 4/5: Privacy
+Menu item 'Privacy' not found, trying to scroll
+Found and tapped on 'Privacy' after scrolling
+Saved screenshot to /path/to/screenshots/privacy.png
+Navigating to menu item 5/5: Help
+Menu item 'Help' not found, trying to scroll
+Found and tapped on 'Help' after scrolling
+Saved screenshot to /path/to/screenshots/help.png
+Menu navigation completed successfully
+Navigation result: True</pre>
+                                </div>
+                            </div>
+                            
+                            <div class="example-card">
+                                <h3>Tự động kiểm tra ứng dụng</h3>
+                                <p>Ví dụ này cho thấy cách tự động kiểm tra các chức năng của ứng dụng.</p>
+                                <div class="code-block">
+                                    <pre><code class="language-python">from oiadb import MyADB
+from oiadb.commands import apps, interaction, image_interaction, xml_dump
+import time
+import os
+
+# Khởi tạo ADB
+adb = MyADB()
+
+# Khởi động XML Server
+server, server_thread = xml_dump.start_xml_server(port=8000)
+xml_dump.setup_port_forwarding(device_port=8000, host_port=8000)
+
+def app_test_suite(app_package, test_cases):
+    # Tạo thư mục cho báo cáo kiểm tra
+    report_dir = "/path/to/test_reports"
+    os.makedirs(report_dir, exist_ok=True)
+    
+    # Mở ứng dụng
+    apps.start_app(app_package)
+    print(f"Started app: {app_package}")
+    time.sleep(3)  # Đợi ứng dụng khởi động
+    
+    # Chạy từng trường hợp kiểm tra
+    results = []
+    
+    for i, test_case in enumerate(test_cases):
+        test_name = test_case["name"]
+        test_steps = test_case["steps"]
+        expected_result = test_case["expected_result"]
+        
+        print(f"Running test case {i+1}/{len(test_cases)}: {test_name}")
+        
+        # Thực hiện các bước kiểm tra
+        step_results = []
+        
+        for j, step in enumerate(test_steps):
+            step_type = step["type"]
+            step_params = step["params"]
+            
+            print(f"  Step {j+1}/{len(test_steps)}: {step_type}")
+            
+            try:
+                if step_type == "tap_image":
+                    success = image_interaction.tap_image(step_params["image_path"], threshold=0.7)
+                    step_results.append({"step": j+1, "type": step_type, "success": success})
+                
+                elif step_type == "input_text":
+                    interaction.text_input(step_params["text"])
+                    step_results.append({"step": j+1, "type": step_type, "success": True})
+                
+                elif step_type == "wait_for_image":
+                    success = image_interaction.wait_for_image(
+                        step_params["image_path"], 
+                        timeout=step_params.get("timeout", 5)
+                    )
+                    step_results.append({"step": j+1, "type": step_type, "success": success})
+                
+                elif step_type == "xml_action":
+                    success = xml_dump.perform_accessibility_action(
+                        step_params["action"],
+                        step_params["criteria"],
+                        step_params.get("value")
+                    )
+                    step_results.append({"step": j+1, "type": step_type, "success": success})
+                
+                elif step_type == "swipe":
+                    interaction.swipe(
+                        step_params["x1"], step_params["y1"],
+                        step_params["x2"], step_params["y2"]
+                    )
+                    step_results.append({"step": j+1, "type": step_type, "success": True})
+                
+                elif step_type == "back":
+                    interaction.back()
+                    step_results.append({"step": j+1, "type": step_type, "success": True})
+                
+                elif step_type == "wait":
+                    time.sleep(step_params["seconds"])
+                    step_results.append({"step": j+1, "type": step_type, "success": True})
+                
+                else:
+                    print(f"    Unknown step type: {step_type}")
+                    step_results.append({"step": j+1, "type": step_type, "success": False})
+                    
+            except Exception as e:
+                print(f"    Step failed: {e}")
+                step_results.append({"step": j+1, "type": step_type, "success": False, "error": str(e)})
+        
+        # Kiểm tra kết quả cuối cùng
+        final_result = False
+        
+        if expected_result["type"] == "image_present":
+            final_result = image_interaction.is_image_present(expected_result["image_path"])
+        
+        elif expected_result["type"] == "xml_element_present":
+            elements = xml_dump.find_elements_by_criteria(expected_result["criteria"])
+            final_result = len(elements) > 0
+        
+        # Chụp ảnh màn hình kết quả
+        screenshot_path = f"{report_dir}/{test_name.lower().replace(' ', '_')}.png"
+        adb.run(f"shell screencap -p /sdcard/screenshot.png")
+        adb.run(f"pull /sdcard/screenshot.png {screenshot_path}")
+        
+        # Lưu kết quả kiểm tra
+        test_result = {
+            "name": test_name,
+            "steps": step_results,
+            "expected_result": expected_result,
+            "actual_result": final_result,
+            "screenshot": screenshot_path,
+            "passed": final_result == expected_result.get("value", True)
+        }
+        
+        results.append(test_result)
+        
+        print(f"  Test result: {'PASSED' if test_result['passed'] else 'FAILED'}")
+        
+        # Quay lại màn hình chính cho trường hợp kiểm tra tiếp theo
+        interaction.home()
+        time.sleep(1)
+        apps.start_app(app_package)
+        time.sleep(2)
+    
+    # Tạo báo cáo kiểm tra
+    report_path = f"{report_dir}/test_report.txt"
+    with open(report_path, "w") as f:
+        f.write(f"Test Report for {app_package}\n")
+        f.write(f"Date: {time.strftime('%Y-%m-%d %H:%M:%S')}\n")
+        f.write(f"Total test cases: {len(test_cases)}\n")
+        f.write(f"Passed: {sum(1 for r in results if r['passed'])}\n")
+        f.write(f"Failed: {sum(1 for r in results if not r['passed'])}\n\n")
+        
+        for i, result in enumerate(results):
+            f.write(f"Test Case {i+1}: {result['name']}\n")
+            f.write(f"  Result: {'PASSED' if result['passed'] else 'FAILED'}\n")
+            f.write(f"  Screenshot: {result['screenshot']}\n")
+            f.write(f"  Steps:\n")
+            
+            for step in result['steps']:
+                f.write(f"    Step {step['step']}: {step['type']} - {'Success' if step['success'] else 'Failed'}\n")
+                if not step['success'] and 'error' in step:
+                    f.write(f"      Error: {step['error']}\n")
+            
+            f.write("\n")
+    
+    print(f"Test report saved to {report_path}")
+    
+    # Dừng XML Server khi hoàn tất
+    xml_dump.stop_xml_server(server)
+    
+    return results
+
+# Định nghĩa các trường hợp kiểm tra
+test_cases = [
+    {
+        "name": "Login Test",
+        "steps": [
+            {"type": "tap_image", "params": {"image_path": "/path/to/login_button.png"}},
+            {"type": "wait", "params": {"seconds": 1}},
+            {"type": "xml_action", "params": {"action": "setText", "criteria": {"hint": "Username"}, "value": "user123"}},
+            {"type": "xml_action", "params": {"action": "setText", "criteria": {"hint": "Password"}, "value": "password123"}},
+            {"type": "tap_image", "params": {"image_path": "/path/to/submit_button.png"}},
+            {"type": "wait", "params": {"seconds": 3}}
+        ],
+        "expected_result": {"type": "image_present", "image_path": "/path/to/home_screen.png"}
+    },
+    {
+        "name": "Profile Update Test",
+        "steps": [
+            {"type": "tap_image", "params": {"image_path": "/path/to/profile_button.png"}},
+            {"type": "wait", "params": {"seconds": 2}},
+            {"type": "tap_image", "params": {"image_path": "/path/to/edit_profile_button.png"}},
+            {"type": "wait", "params": {"seconds": 1}},
+            {"type": "xml_action", "params": {"action": "setText", "criteria": {"hint": "Name"}, "value": "John Doe"}},
+            {"type": "xml_action", "params": {"action": "setText", "criteria": {"hint": "Bio"}, "value": "This is my bio"}},
+            {"type": "tap_image", "params": {"image_path": "/path/to/save_button.png"}},
+            {"type": "wait", "params": {"seconds": 2}}
+        ],
+        "expected_result": {"type": "xml_element_present", "criteria": {"value": "Profile updated", "threshold": 0.7}}
+    }
+]
+
+# Chạy bộ kiểm tra
+test_results = app_test_suite("com.example.app", test_cases)
+print(f"Tests passed: {sum(1 for r in test_results if r['passed'])}/{len(test_cases)}")</code></pre>
+                                    <button class="copy-btn" data-clipboard-target="#code15"><i class="fas fa-copy"></i></button>
+                                </div>
+                                <div class="example-output">
+                                    <h4>Kết quả:</h4>
+                                    <pre>Started app: com.example.app
+Running test case 1/2: Login Test
+  Step 1/6: tap_image
+  Step 2/6: wait
+  Step 3/6: xml_action
+  Step 4/6: xml_action
+  Step 5/6: tap_image
+  Step 6/6: wait
+  Test result: PASSED
+Running test case 2/2: Profile Update Test
+  Step 1/8: tap_image
+  Step 2/8: wait
+  Step 3/8: tap_image
+  Step 4/8: wait
+  Step 5/8: xml_action
+  Step 6/8: xml_action
+  Step 7/8: tap_image
+  Step 8/8: wait
+  Test result: PASSED
+Test report saved to /path/to/test_reports/test_report.txt
+Tests passed: 2/2</pre>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="complete-projects">
+                            <h2>Dự án hoàn chỉnh</h2>
+                            <p>Dưới đây là một số dự án hoàn chỉnh sử dụng OIADB để tự động hóa các tác vụ phức tạp.</p>
+                            
+                            <div class="example-card">
+                                <h3>Bot tự động đăng nhập và đăng bài</h3>
+                                <p>Dự án này tự động đăng nhập vào ứng dụng mạng xã hội và đăng bài.</p>
+                                <div class="code-block">
+                                    <pre><code class="language-python">import os
+import time
+import json
+from oiadb import MyADB
+from oiadb.commands import apps, interaction, image_interaction, xml_dump
+
+class SocialMediaBot:
+    def __init__(self, config_path):
+        # Đọc cấu hình
+        with open(config_path, 'r') as f:
+            self.config = json.load(f)
+        
+        # Khởi tạo ADB
+        self.adb = MyADB()
+        
+        # Khởi động XML Server
+        self.server, self.server_thread = xml_dump.start_xml_server(port=8000)
+        xml_dump.setup_port_forwarding(device_port=8000, host_port=8000)
+        
+        # Tạo thư mục cho ảnh
+        os.makedirs(self.config["image_dir"], exist_ok=True)
+    
+    def login(self):
+        # Mở ứng dụng
+        apps.start_app(self.config["app_package"])
+        print(f"Started app: {self.config['app_package']}")
+        time.sleep(3)  # Đợi ứng dụng khởi động
+        
+        # Kiểm tra xem đã đăng nhập chưa
+        if image_interaction.is_image_present(self.config["images"]["home_screen"]):
+            print("Already logged in")
+            return True
+        
+        # Đăng nhập
+        print("Logging in...")
+        
+        # Nhập username
+        xml_dump.perform_accessibility_action(
+            "setText", 
+            {"class": "android.widget.EditText", "hint": "Username"}, 
+            self.config["credentials"]["username"]
+        )
+        
+        # Nhập password
+        xml_dump.perform_accessibility_action(
+            "setText", 
+            {"class": "android.widget.EditText", "hint": "Password"}, 
+            self.config["credentials"]["password"]
+        )
+        
+        # Nhấp vào nút đăng nhập
+        xml_dump.perform_accessibility_action(
+            "click", 
+            {"class": "android.widget.Button", "value": "Log In"}
+        )
+        
+        # Đợi màn hình chính xuất hiện
+        for i in range(10):  # Đợi tối đa 10 giây
+            if image_interaction.is_image_present(self.config["images"]["home_screen"]):
+                print("Login successful")
+                return True
+            time.sleep(1)
+        
+        print("Login failed")
+        return False
+    
+    def create_post(self, text, image_path=None):
+        # Nhấp vào nút tạo bài viết
+        if not image_interaction.tap_image(self.config["images"]["create_post_button"]):
+            print("Create post button not found")
+            return False
+        
+        time.sleep(2)
+        
+        # Nhập nội dung bài viết
+        xml_dump.perform_accessibility_action(
+            "setText", 
+            {"class": "android.widget.EditText", "hint": "What's on your mind?"}, 
+            text
+        )
+        
+        # Thêm ảnh nếu có
+        if image_path:
+            # Nhấp vào nút thêm ảnh
+            if not image_interaction.tap_image(self.config["images"]["add_photo_button"]):
+                print("Add photo button not found")
+                return False
+            
+            time.sleep(1)
+            
+            # Chọn ảnh từ thư viện
+            # Đẩy ảnh lên thiết bị trước
+            from oiadb.commands import file_ops
+            remote_path = f"/sdcard/Pictures/{os.path.basename(image_path)}"
+            file_ops.push(image_path, remote_path)
+            
+            # Tìm và nhấp vào ảnh trong thư viện
+            # (Đây là phần phức tạp và phụ thuộc vào ứng dụng cụ thể)
+            # ...
+            
+            time.sleep(2)
+        
+        # Nhấp vào nút đăng
+        if not image_interaction.tap_image(self.config["images"]["post_button"]):
+            print("Post button not found")
+            return False
+        
+        # Đợi thông báo đăng bài thành công
+        for i in range(10):  # Đợi tối đa 10 giây
+            if image_interaction.is_image_present(self.config["images"]["post_success"]):
+                print("Post created successfully")
+                return True
+            time.sleep(1)
+        
+        print("Failed to create post or confirmation not found")
+        return False
+    
+    def run_schedule(self):
+        # Đăng nhập
+        if not self.login():
+            return False
+        
+        # Đọc lịch đăng bài
+        with open(self.config["schedule_path"], 'r') as f:
+            schedule = json.load(f)
+        
+        # Đăng bài theo lịch
+        for post in schedule:
+            if post.get("posted", False):
+                continue
+            
+            print(f"Creating post: {post['text'][:30]}...")
+            
+            image_path = None
+            if "image" in post and post["image"]:
+                image_path = os.path.join(self.config["image_dir"], post["image"])
+            
+            success = self.create_post(post["text"], image_path)
+            
+            if success:
+                # Cập nhật trạng thái đã đăng
+                post["posted"] = True
+                post["posted_time"] = time.strftime("%Y-%m-%d %H:%M:%S")
+                
+                # Lưu lại lịch đăng bài
+                with open(self.config["schedule_path"], 'w') as f:
+                    json.dump(schedule, f, indent=2)
+                
+                print(f"Post scheduled at {post.get('scheduled_time', 'N/A')} posted successfully")
+            else:
+                print(f"Failed to post scheduled at {post.get('scheduled_time', 'N/A')}")
+            
+            # Đợi một chút giữa các bài đăng
+            time.sleep(5)
+        
+        return True
+    
+    def cleanup(self):
+        # Dừng XML Server
+        xml_dump.stop_xml_server(self.server)
+        print("XML Server stopped")
+
+# Sử dụng bot
+if __name__ == "__main__":
+    bot = SocialMediaBot("/path/to/config.json")
+    
+    try:
+        bot.run_schedule()
+    finally:
+        bot.cleanup()</code></pre>
+                                    <button class="copy-btn" data-clipboard-target="#code16"><i class="fas fa-copy"></i></button>
+                                </div>
+                                <div class="example-output">
+                                    <h4>Cấu hình (config.json):</h4>
+                                    <pre>{
+  "app_package": "com.example.socialmedia",
+  "credentials": {
+    "username": "user123",
+    "password": "password123"
+  },
+  "images": {
+    "home_screen": "/path/to/images/home_screen.png",
+    "create_post_button": "/path/to/images/create_post_button.png",
+    "add_photo_button": "/path/to/images/add_photo_button.png",
+    "post_button": "/path/to/images/post_button.png",
+    "post_success": "/path/to/images/post_success.png"
+  },
+  "image_dir": "/path/to/post_images",
+  "schedule_path": "/path/to/schedule.json"
+}</pre>
+                                </div>
+                                <div class="example-output">
+                                    <h4>Lịch đăng bài (schedule.json):</h4>
+                                    <pre>[
+  {
+    "text": "Hello world! This is my first automated post.",
+    "image": "image1.jpg",
+    "scheduled_time": "2023-01-01 12:00:00",
+    "posted": false
+  },
+  {
+    "text": "Check out this amazing view!",
+    "image": "image2.jpg",
+    "scheduled_time": "2023-01-01 15:00:00",
+    "posted": false
+  },
+  {
+    "text": "Just a text post without any image.",
+    "image": null,
+    "scheduled_time": "2023-01-01 18:00:00",
+    "posted": false
+  }
+]</pre>
+                                </div>
+                            </div>
+                            
+                            <div class="example-card">
+                                <h3>Tự động kiểm tra ứng dụng đa nền tảng</h3>
+                                <p>Dự án này tự động kiểm tra ứng dụng trên nhiều thiết bị Android khác nhau.</p>
+                                <div class="code-block">
+                                    <pre><code class="language-python">import os
+import time
+import json
+import threading
+from oiadb import MyADB
+from oiadb.commands import apps, interaction, image_interaction, xml_dump, connect
+
+class MultiDeviceTester:
+    def __init__(self, config_path):
+        # Đọc cấu hình
+        with open(config_path, 'r') as f:
+            self.config = json.load(f)
+        
+        # Tạo thư mục cho báo cáo
+        self.report_dir = self.config["report_dir"]
+        os.makedirs(self.report_dir, exist_ok=True)
+        
+        # Kết nối các thiết bị
+        self.devices = self._connect_devices()
+    
+    def _connect_devices(self):
+        devices = []
+        
+        for device_config in self.config["devices"]:
+            try:
+                # Kết nối thiết bị
+                if device_config.get("wireless", False):
+                    connect.connect_over_network(
+                        device_config["ip"], 
+                        device_config.get("port", 5555)
+                    )
+                    device_id = f"{device_config['ip']}:{device_config.get('port', 5555)}"
+                else:
+                    device_id = device_config["id"]
+                
+                # Khởi tạo ADB cho thiết bị
+                adb = MyADB(device_id=device_id)
+                
+                # Khởi động XML Server
+                server, server_thread = xml_dump.start_xml_server(
+                    port=device_config.get("server_port", 8000)
+                )
+                xml_dump.setup_port_forwarding(
+                    device_port=device_config.get("server_port", 8000),
+                    host_port=device_config.get("server_port", 8000)
+                )
+                
+                # Lưu thông tin thiết bị
+                device_info = adb.get_device_info()
+                
+                devices.append({
+                    "id": device_id,
+                    "name": device_config["name"],
+                    "adb": adb,
+                    "server": server,
+                    "server_thread": server_thread,
+                    "info": device_info
+                })
+                
+                print(f"Connected to device: {device_config['name']} ({device_id})")
+            except Exception as e:
+                print(f"Failed to connect to device: {device_config['name']}: {e}")
+        
+        return devices
+    
+    def run_tests(self):
+        # Tạo các thread để chạy kiểm tra trên từng thiết bị
+        threads = []
+        results = {}
+        
+        for device in self.devices:
+            thread = threading.Thread(
+                target=self._run_device_tests,
+                args=(device, results)
+            )
+            threads.append(thread)
+            thread.start()
+        
+        # Đợi tất cả các thread hoàn tất
+        for thread in threads:
+            thread.join()
+        
+        # Tạo báo cáo tổng hợp
+        self._generate_summary_report(results)
+        
+        return results
+    
+    def _run_device_tests(self, device, results):
+        device_id = device["id"]
+        device_name = device["name"]
+        adb = device["adb"]
+        
+        print(f"Running tests on {device_name} ({device_id})")
+        
+        # Tạo thư mục cho báo cáo của thiết bị
+        device_report_dir = os.path.join(self.report_dir, device_name.replace(" ", "_"))
+        os.makedirs(device_report_dir, exist_ok=True)
+        
+        # Kết quả kiểm tra cho thiết bị này
+        device_results = []
+        
+        # Chạy từng trường hợp kiểm tra
+        for test_case in self.config["test_cases"]:
+            test_name = test_case["name"]
+            print(f"  Running test: {test_name}")
+            
+            # Mở ứng dụng
+            apps.start_app(self.config["app_package"])
+            time.sleep(3)  # Đợi ứng dụng khởi động
+            
+            # Thực hiện các bước kiểm tra
+            steps_results = []
+            test_passed = True
+            
+            for step in test_case["steps"]:
+                step_type = step["type"]
+                step_params = step["params"]
+                
+                try:
+                    if step_type == "tap_image":
+                        # Điều chỉnh đường dẫn hình ảnh cho thiết bị cụ thể
+                        image_path = step_params["image_path"]
+                        if "device_specific" in step_params and device_name in step_params["device_specific"]:
+                            image_path = step_params["device_specific"][device_name]
+                        
+                        success = image_interaction.tap_image(image_path, threshold=0.7)
+                        steps_results.append({"type": step_type, "success": success})
+                        
+                        if not success:
+                            test_passed = False
+                    
+                    elif step_type == "input_text":
+                        interaction.text_input(step_params["text"])
+                        steps_results.append({"type": step_type, "success": True})
+                    
+                    elif step_type == "wait":
+                        time.sleep(step_params["seconds"])
+                        steps_results.append({"type": step_type, "success": True})
+                    
+                    # Thêm các loại bước khác...
+                    
+                except Exception as e:
+                    print(f"    Step failed: {e}")
+                    steps_results.append({"type": step_type, "success": False, "error": str(e)})
+                    test_passed = False
+            
+            # Chụp ảnh màn hình kết quả
+            screenshot_path = os.path.join(
+                device_report_dir, 
+                f"{test_name.lower().replace(' ', '_')}.png"
+            )
+            adb.run(f"shell screencap -p /sdcard/screenshot.png")
+            adb.run(f"pull /sdcard/screenshot.png {screenshot_path}")
+            
+            # Lưu kết quả kiểm tra
+            test_result = {
+                "name": test_name,
+                "steps": steps_results,
+                "passed": test_passed,
+                "screenshot": screenshot_path
+            }
+            
+            device_results.append(test_result)
+            
+            print(f"    Result: {'PASSED' if test_passed else 'FAILED'}")
+            
+            # Quay lại màn hình chính cho trường hợp kiểm tra tiếp theo
+            interaction.home()
+            time.sleep(1)
+        
+        # Tạo báo cáo cho thiết bị
+        report_path = os.path.join(device_report_dir, "report.json")
+        with open(report_path, "w") as f:
+            json.dump({
+                "device": {
+                    "id": device_id,
+                    "name": device_name,
+                    "info": device["info"]
+                },
+                "results": device_results,
+                "summary": {
+                    "total": len(device_results),
+                    "passed": sum(1 for r in device_results if r["passed"]),
+                    "failed": sum(1 for r in device_results if not r["passed"])
+                }
+            }, f, indent=2)
+        
+        # Lưu kết quả vào kết quả tổng hợp
+        results[device_id] = {
+            "name": device_name,
+            "info": device["info"],
+            "results": device_results,
+            "report_path": report_path
+        }
+        
+        print(f"Tests completed on {device_name} ({device_id})")
+    
+    def _generate_summary_report(self, results):
+        summary_path = os.path.join(self.report_dir, "summary.json")
+        
+        summary = {
+            "app_package": self.config["app_package"],
+            "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
+            "devices": len(results),
+            "test_cases": len(self.config["test_cases"]),
+            "device_results": {}
+        }
+        
+        for device_id, device_result in results.items():
+            device_name = device_result["name"]
+            device_results = device_result["results"]
+            
+            summary["device_results"][device_id] = {
+                "name": device_name,
+                "total": len(device_results),
+                "passed": sum(1 for r in device_results if r["passed"]),
+                "failed": sum(1 for r in device_results if not r["passed"]),
+                "report_path": device_result["report_path"]
+            }
+        
+        with open(summary_path, "w") as f:
+            json.dump(summary, f, indent=2)
+        
+        print(f"Summary report saved to {summary_path}")
+    
+    def cleanup(self):
+        for device in self.devices:
+            try:
+                # Dừng XML Server
+                xml_dump.stop_xml_server(device["server"])
+                print(f"Stopped XML Server for {device['name']} ({device['id']})")
+            except Exception as e:
+                print(f"Error stopping XML Server for {device['name']}: {e}")
+
+# Sử dụng tester
+if __name__ == "__main__":
+    tester = MultiDeviceTester("/path/to/test_config.json")
+    
+    try:
+        results = tester.run_tests()
+        
+        # In tóm tắt kết quả
+        print("\nTest Results Summary:")
+        for device_id, device_result in results.items():
+            device_name = device_result["name"]
+            device_results = device_result["results"]
+            passed = sum(1 for r in device_results if r["passed"])
+            total = len(device_results)
+            
+            print(f"{device_name} ({device_id}): {passed}/{total} passed")
+    finally:
+        tester.cleanup()</code></pre>
+                                    <button class="copy-btn" data-clipboard-target="#code17"><i class="fas fa-copy"></i></button>
+                                </div>
+                                <div class="example-output">
+                                    <h4>Cấu hình (test_config.json):</h4>
+                                    <pre>{
+  "app_package": "com.example.app",
+  "report_dir": "/path/to/test_reports",
+  "devices": [
+    {
+      "name": "Pixel 4",
+      "id": "emulator-5554",
+      "server_port": 8000
+    },
+    {
+      "name": "Samsung Galaxy S10",
+      "wireless": true,
+      "ip": "192.168.1.100",
+      "port": 5555,
+      "server_port": 8001
+    }
+  ],
+  "test_cases": [
+    {
+      "name": "Login Test",
+      "steps": [
+        {
+          "type": "tap_image",
+          "params": {
+            "image_path": "/path/to/login_button.png",
+            "device_specific": {
+              "Samsung Galaxy S10": "/path/to/samsung/login_button.png"
+            }
+          }
+        },
+        {
+          "type": "wait",
+          "params": {
+            "seconds": 1
+          }
+        },
+        {
+          "type": "input_text",
+          "params": {
+            "text": "user123"
+          }
+        },
+        {
+          "type": "input_text",
+          "params": {
+            "text": "password123"
+          }
+        },
+        {
+          "type": "tap_image",
+          "params": {
+            "image_path": "/path/to/submit_button.png",
+            "device_specific": {
+              "Samsung Galaxy S10": "/path/to/samsung/submit_button.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Navigation Test",
+      "steps": [
+        {
+          "type": "tap_image",
+          "params": {
+            "image_path": "/path/to/menu_button.png",
+            "device_specific": {
+              "Samsung Galaxy S10": "/path/to/samsung/menu_button.png"
+            }
+          }
+        },
+        {
+          "type": "wait",
+          "params": {
+            "seconds": 1
+          }
+        },
+        {
+          "type": "tap_image",
+          "params": {
+            "image_path": "/path/to/settings_option.png",
+            "device_specific": {
+              "Samsung Galaxy S10": "/path/to/samsung/settings_option.png"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}</pre>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>OIADB</h3>
+                    <p>Thư viện Python wrapper cho Android Debug Bridge (ADB) với chức năng nhận diện hình ảnh, dump XML và hỗ trợ đa nền tảng.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Liên kết</h3>
+                    <ul>
+                        <li><a href="index.html">Trang chủ</a></li>
+                        <li><a href="getting-started.html">Bắt đầu</a></li>
+                        <li><a href="features.html">Tính năng</a></li>
+                        <li><a href="api-reference.html">API Reference</a></li>
+                        <li><a href="guides.html">Hướng dẫn</a></li>
+                        <li><a href="examples.html">Ví dụ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Tài nguyên</h3>
+                    <ul>
+                        <li><a href="https://github.com/tiendung102k3/oiadb" target="_blank">GitHub</a></li>
+                        <li><a href="https://pypi.org/project/oiadb/" target="_blank">PyPI</a></li>
+                        <li><a href="resources.html#changelog">Changelog</a></li>
+                        <li><a href="resources.html#license">Giấy phép</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Liên hệ</h3>
+                    <p>Email: monstertattoovn696@gmail.com</p>
+                    <div class="social-links">
+                        <a href="https://github.com/tiendung102k3" target="_blank"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 OIADB. Giấy phép MIT.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/prism.js"></script>
+    <script src="js/clipboard.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

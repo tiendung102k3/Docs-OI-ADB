@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tính năng OIADB - Nhận diện hình ảnh, XML Dump và hỗ trợ đa nền tảng</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/prism.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="description" content="Khám phá các tính năng chính của thư viện OIADB - Nhận diện hình ảnh, XML Dump, hỗ trợ trợ năng và hỗ trợ đa nền tảng">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <span class="logo-text">OIADB</span>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <button class="menu-toggle" aria-label="Toggle menu">
+                    <span class="hamburger"></span>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li><a href="getting-started.html">Bắt đầu</a></li>
+                    <li><a href="features.html" class="active">Tính năng</a></li>
+                    <li><a href="api-reference.html">API Reference</a></li>
+                    <li><a href="guides.html">Hướng dẫn</a></li>
+                    <li><a href="examples.html">Ví dụ</a></li>
+                    <li><a href="resources.html">Tài nguyên</a></li>
+                </ul>
+            </nav>
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider round"></div>
+                </label>
+                <span class="theme-label"><i class="fas fa-moon"></i></span>
+            </div>
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Tìm kiếm...">
+                <button id="search-button"><i class="fas fa-search"></i></button>
+                <div id="search-results" class="search-results"></div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>Tính năng OIADB</h1>
+                <div class="breadcrumbs">
+                    <a href="index.html">Trang chủ</a> / <span>Tính năng</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="content-layout">
+                    <aside class="sidebar">
+                        <div class="sidebar-content">
+                            <h3>Trong trang này</h3>
+                            <ul class="sidebar-nav">
+                                <li><a href="#core-features">Tính năng cơ bản</a></li>
+                                <li><a href="#image-recognition">Nhận diện hình ảnh</a></li>
+                                <li><a href="#xml-dump">XML Dump & Trợ năng</a></li>
+                                <li><a href="#multi-platform">Hỗ trợ đa nền tảng</a></li>
+                                <li><a href="#architecture">Kiến trúc thư viện</a></li>
+                            </ul>
+                        </div>
+                    </aside>
+
+                    <div class="main-content">
+                        <section id="core-features">
+                            <h2>Tính năng cơ bản</h2>
+                            <p>OIADB là một thư viện Python wrapper cho Android Debug Bridge (ADB) với nhiều tính năng mạnh mẽ, giúp đơn giản hóa việc tương tác với thiết bị Android thông qua ADB.</p>
+                            
+                            <div class="feature-list">
+                                <div class="feature-item">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-download"></i>
+                                    </div>
+                                    <div class="feature-details">
+                                        <h3>Tự động cài đặt ADB</h3>
+                                        <p>OIADB tự động phát hiện và cài đặt ADB nếu cần, không yêu cầu cài đặt thủ công. Thư viện cũng tự động cài đặt và quản lý <code>oiadb-server.apk</code> trên thiết bị Android của bạn.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="feature-item">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-mobile-alt"></i>
+                                    </div>
+                                    <div class="feature-details">
+                                        <h3>Quản lý thiết bị</h3>
+                                        <p>Dễ dàng liệt kê, kết nối và quản lý nhiều thiết bị Android. Hỗ trợ kết nối qua USB và mạng không dây.</p>
+                                        <div class="code-block">
+                                            <pre><code class="language-python"># Liệt kê các thiết bị đã kết nối
+devices = adb.get_devices()
+
+# Kết nối thiết bị qua mạng
+from oiadb.commands import connect
+connect.connect_over_network("192.168.1.100", 5555)</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="feature-item">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-cogs"></i>
+                                    </div>
+                                    <div class="feature-details">
+                                        <h3>Quản lý ứng dụng</h3>
+                                        <p>Cài đặt, gỡ cài đặt, khởi động và quản lý ứng dụng Android một cách dễ dàng.</p>
+                                        <div class="code-block">
+                                            <pre><code class="language-python"># Cài đặt ứng dụng
+adb.install_app("/path/to/app.apk")
+
+# Gỡ cài đặt ứng dụng
+adb.uninstall_app("com.example.app")
+
+# Khởi động ứng dụng
+from oiadb.commands import apps
+apps.start_app("com.example.app")</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="feature-item">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-hand-pointer"></i>
+                                    </div>
+                                    <div class="feature-details">
+                                        <h3>Tương tác với thiết bị</h3>
+                                        <p>Thực hiện các thao tác như nhấn, vuốt, nhập văn bản và các thao tác khác trên thiết bị Android.</p>
+                                        <div class="code-block">
+                                            <pre><code class="language-python">from oiadb.commands import interaction
+
+# Nhấn vào tọa độ màn hình
+interaction.tap(500, 500)
+
+# Vuốt màn hình
+interaction.swipe(100, 500, 600, 500)
+
+# Nhập văn bản
+interaction.text_input("Hello World")
+
+# Nhấn phím Home
+interaction.home()</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="feature-item">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-file-alt"></i>
+                                    </div>
+                                    <div class="feature-details">
+                                        <h3>Quản lý file</h3>
+                                        <p>Đẩy và kéo file giữa máy tính và thiết bị Android.</p>
+                                        <div class="code-block">
+                                            <pre><code class="language-python">from oiadb.commands import file_ops
+
+# Đẩy file từ máy tính lên thiết bị
+file_ops.push("/path/on/computer", "/path/on/device")
+
+# Lấy file từ thiết bị về máy tính
+file_ops.pull("/path/on/device", "/path/on/computer")</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="feature-item">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-terminal"></i>
+                                    </div>
+                                    <div class="feature-details">
+                                        <h3>Lệnh ADB tùy chỉnh</h3>
+                                        <p>Thực thi bất kỳ lệnh ADB tùy chỉnh nào thông qua giao diện Python đơn giản.</p>
+                                        <div class="code-block">
+                                            <pre><code class="language-python"># Thực thi lệnh ADB tùy chỉnh
+result = adb.run("shell dumpsys battery")
+print(result)</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="image-recognition">
+                            <h2>Nhận diện hình ảnh</h2>
+                            <p>Một trong những tính năng nổi bật của OIADB là khả năng nhận diện và tương tác với các phần tử trên màn hình dựa trên hình ảnh mẫu, thay vì phải dựa vào tọa độ cố định.</p>
+                            
+                            <div class="feature-highlight">
+                                <div class="feature-image">
+                                    <img src="images/image_recognition_workflow.svg" alt="Quy trình nhận diện hình ảnh">
+                                </div>
+                                <div class="feature-description">
+                                    <h3>Quy trình nhận diện hình ảnh</h3>
+                                    <p>Quy trình nhận diện hình ảnh trong OIADB bao gồm các bước:</p>
+                                    <ol>
+                                        <li><strong>Input Image</strong>: Hình ảnh mẫu cần tìm kiếm</li>
+                                        <li><strong>Screen Capture</strong>: Chụp màn hình thiết bị hiện tại</li>
+                                        <li><strong>Image Processing</strong>: Tiền xử lý hình ảnh (chuyển đổi grayscale, thay đổi kích thước, chuẩn hóa)</li>
+                                        <li><strong>Template Matching</strong>: Sử dụng thuật toán so khớp mẫu của OpenCV</li>
+                                        <li><strong>Match Detection</strong>: Xác định tọa độ của các vị trí khớp tốt nhất</li>
+                                        <li><strong>Device Interaction</strong>: Thực hiện các thao tác như nhấn, vuốt tại vị trí đã xác định</li>
+                                    </ol>
+                                </div>
+                            </div>
+                            
+                            <h3>Các tính năng nhận diện hình ảnh</h3>
+                            
+                            <div class="feature-list">
+                                <div class="feature-item">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-search"></i>
+                                    </div>
+                                    <div class="feature-details">
+                                        <h4>Tìm kiếm hình ảnh</h4>
+                                        <p>Tìm kiếm hình ảnh mẫu trên màn hình thiết bị với nhiều tùy chọn tùy chỉnh.</p>
+                                        <div class="code-block">
+                                            <pre><code class="language-python">from oiadb.commands import image_interaction
+
+# Tìm hình ảnh đơn
+result = image_interaction.find_image(
+    template_path="/path/to/template.png",
+    threshold=0.8,  # Ngưỡng tương đồng (0.0 - 1.0)
+    region=None,    # Vùng tìm kiếm (x, y, width, height), None = toàn màn hình
+    scale_range=(0.8, 1.2),  # Phạm vi tỷ lệ để tìm kiếm
+    scale_steps=5,  # Số bước tỷ lệ
+    rotation_range=(0, 0),  # Phạm vi góc xoay (độ)
+    rotation_steps=1,  # Số bước góc xoay
+    use_gray=True,  # Sử dụng ảnh xám để tăng tốc độ
+    use_canny=False  # Sử dụng phát hiện cạnh Canny cho hình ảnh mờ
+)
+
+if result:
+    x, y, confidence = result
+    print(f"Đã tìm thấy hình ảnh tại ({x}, {y}) với độ tương đồng {confidence}")
+else:
+    print("Không tìm thấy hình ảnh")</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="feature-item">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-mouse-pointer"></i>
+                                    </div>
+                                    <div class="feature-details">
+                                        <h4>Tương tác dựa trên hình ảnh</h4>
+                                        <p>Thực hiện các thao tác như nhấn, vuốt, kéo thả dựa trên vị trí của hình ảnh mẫu.</p>
+                                        <div class="code-block">
+                                            <pre><code class="language-python"># Tìm và nhấp vào hình ảnh
+image_interaction.tap_image("/path/to/button.png", threshold=0.8)
+
+# Đợi hình ảnh xuất hiện và nhấp vào
+image_interaction.wait_and_tap_image("/path/to/button.png", timeout=10)
+
+# Kéo từ hình ảnh này đến hình ảnh khác
+image_interaction.drag_image_to_image("/path/to/source.png", "/path/to/target.png")</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="feature-item">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-hourglass-half"></i>
+                                    </div>
+                                    <div class="feature-details">
+                                        <h4>Đợi và kiểm tra hình ảnh</h4>
+                                        <p>Đợi hình ảnh xuất hiện hoặc biến mất, kiểm tra sự hiện diện của hình ảnh trên màn hình.</p>
+                                        <div class="code-block">
+                                            <pre><code class="language-python"># Kiểm tra xem hình ảnh có xuất hiện không
+if image_interaction.is_image_present("/path/to/element.png"):
+    print("Hình ảnh xuất hiện trên màn hình")
+
+# Đợi hình ảnh xuất hiện
+image_interaction.wait_for_image("/path/to/button.png", timeout=10)
+
+# Đợi hình ảnh biến mất
+image_interaction.wait_until_image_disappears("/path/to/loading.png", timeout=30)</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="feature-item">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-sliders-h"></i>
+                                    </div>
+                                    <div class="feature-details">
+                                        <h4>Tùy chỉnh nâng cao</h4>
+                                        <p>Nhiều tùy chọn để xử lý các điều kiện màn hình khác nhau như phân giải cao/thấp, hình ảnh mờ/vỡ, hình ảnh xoay.</p>
+                                        <div class="code-block">
+                                            <pre><code class="language-python"># Tìm trên màn hình phân giải cao
+result_high_res = image_interaction.find_image(
+    template_path="/path/to/template.png",
+    threshold=0.8,
+    scale_range=(1.0, 1.5),  # Tỷ lệ lớn hơn cho màn hình phân giải cao
+    scale_steps=5
+)
+
+# Tìm hình ảnh mờ
+result_blurry = image_interaction.find_image(
+    template_path="/path/to/template.png",
+    threshold=0.7,  # Ngưỡng thấp hơn cho hình ảnh mờ
+    use_canny=True  # Sử dụng phát hiện cạnh Canny cho hình ảnh mờ
+)</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="info-box">
+                                <h4><i class="fas fa-info-circle"></i> Lưu ý</h4>
+                                <p>Để sử dụng tính năng nhận diện hình ảnh, bạn cần cài đặt OIADB với các phụ thuộc bổ sung:</p>
+                                <div class="code-block">
+                                    <pre><code class="language-bash">pip install oiadb[image]</code></pre>
+                                </div>
+                                <p>Để biết thêm chi tiết về chức năng nhận diện hình ảnh, vui lòng xem <a href="guides.html#image-recognition">Hướng dẫn nhận diện hình ảnh</a>.</p>
+                            </div>
+                        </section>
+
+                        <section id="xml-dump">
+                            <h2>XML Dump & Trợ năng</h2>
+                            <p>Tính năng XML Dump cho phép truy xuất cấu trúc XML của giao diện người dùng Android thông qua một local server, giúp phân tích cấu trúc UI nhanh chóng và tương tác với ứng dụng Android thông qua API trợ năng.</p>
+                            
+                            <div class="feature-highlight">
+                                <div class="feature-image">
+                                    <img src="images/xml_dump_architecture.svg" alt="Kiến trúc XML Dump">
+                                </div>
+                                <div class="feature-description">
+                                    <h3>Kiến trúc XML Dump</h3>
+                                    <p>Kiến trúc của tính năng XML Dump bao gồm:</p>
+                                    <ul>
+                                        <li><strong>Local Server</strong>: HTTP server chạy trên thiết bị Android</li>
+                                        <li><strong>XML Parser</strong>: Bộ phân tích XML với khả năng lọc nhanh</li>
+                                        <li><strong>Parameter Handler</strong>: Xử lý các tham số truy vấn</li>
+                                        <li><strong>API Endpoints</strong>: Các điểm cuối API (/get_xml, /find_elements, /accessibility_actions)</li>
+                                        <li><strong>Accessibility API</strong>: Tích hợp với API trợ năng của Android</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="feature-highlight">
+                                <div class="feature-image">
+                                    <img src="images/xml_dump_workflow.svg" alt="Quy trình XML Dump">
+                                </div>
+                                <div class="feature-description">
+                                    <h3>Quy trình xử lý</h3>
+                                    <p>Quy trình xử lý của tính năng XML Dump bao gồm ba luồng chính:</p>
+                                    <ol>
+                                        <li><strong>XML Dump Flow</strong>: Truy xuất và lọc cấu trúc XML</li>
+                                        <li><strong>Find Elements Flow</strong>: Tìm kiếm các phần tử UI dựa trên tiêu chí</li>
+                                        <li><strong>Accessibility Flow</strong>: Thực hiện các hành động trợ năng</li>
+                                    </ol>
+                                </div>
+                            </div>
+                            
+                            <h3>Các tính năng XML Dump & Trợ năng</h3>
+                            
+                            <div class="feature-list">
+                                <div class="feature-item">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-server"></i>
+                                    </div>
+                                    <div class="feature-details">
+                                        <h4>Khởi động XML Server</h4>
+                                        <p>Khởi động local server trên thiết bị Android để cung cấp các API XML Dump.</p>
+                                        <div class="code-block">
+                                            <pre><code class="language-python">from oiadb.commands import xml_dump
+
+# Khởi động server trên cổng 8000
+server, server_thread = xml_dump.start_xml_server(port=8000)
+
+# Thiết lập port forwarding
+xml_dump.setup_port_forwarding(device_port=8000, host_port=8000)
+
+# Lấy địa chỉ IP của thiết bị
+device_ip = xml_dump.get_device_ip()
+print(f"XML dump available at: http://{device_ip}:8000/get_xml")</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="feature-item">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-code"></i>
+                                    </div>
+                                    <div class="feature-details">
+                                        <h4>Lấy XML Dump</h4>
+                                        <p>Truy xuất cấu trúc XML của giao diện người dùng hiện tại với các tùy chọn lọc.</p>
+                                        <div class="code-block">
+                                            <pre><code class="language-python"># Lấy toàn bộ XML
+xml_content = xml_dump.get_xml_dump()
+
+# Lấy XML với bộ lọc
+filtered_xml = xml_dump.get_xml_dump(
+    resource_id="button_login",
+    text_value="Login",
+    threshold=0.7
+)
+
+# Sử dụng cache để tăng tốc độ
+cached_xml = xml_dump.get_xml_dump(
+    resource_id="button_login",
+    use_cache=True
+)</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="feature-item">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-search"></i>
+                                    </div>
+                                    <div class="feature-details">
+                                        <h4>Tìm phần tử UI</h4>
+                                        <p>Tìm kiếm các phần tử UI dựa trên nhiều tiêu chí như resource ID, text, class, v.v.</p>
+                                        <div class="code-block">
+                                            <pre><code class="language-python"># Tìm tất cả các nút
+buttons = xml_dump.find_elements_by_criteria({"class": "android.widget.Button"})
+
+# Tìm phần tử với nhiều tiêu chí
+login_buttons = xml_dump.find_elements_by_criteria({
+    "class": "android.widget.Button",
+    "value": "Login",
+    "threshold": 0.7
+})</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="feature-item">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-universal-access"></i>
+                                    </div>
+                                    <div class="feature-details">
+                                        <h4>Thực hiện hành động trợ năng</h4>
+                                        <p>Thực hiện các hành động trợ năng như nhấp, nhập text, cuộn, v.v. thông qua API trợ năng của Android.</p>
+                                        <div class="code-block">
+                                            <pre><code class="language-python"># Nhấp vào nút có text "Login"
+xml_dump.perform_accessibility_action(
+    "click", 
+    {"value": "Login", "threshold": 0.7}
+)
+
+# Nhập text vào trường EditText
+xml_dump.perform_accessibility_action(
+    "setText", 
+    {"class": "android.widget.EditText"}, 
+    "Hello from XML dump!"
+)</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="feature-item">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-mobile-alt"></i>
+                                    </div>
+                                    <div class="feature-details">
+                                        <h4>Hỗ trợ đa giao diện</h4>
+                                        <p>Tương thích với nhiều loại giao diện từ các nhà sản xuất khác nhau như Stock Android, Samsung OneUI, Xiaomi MIUI, v.v.</p>
+                                        <div class="code-block">
+                                            <pre><code class="language-python">from oiadb.commands import ui_compatibility
+
+# Tìm nút đăng nhập trên bất kỳ giao diện nào
+login_button = ui_compatibility.find_ui_element(
+    element_type="button",
+    text="Login"
+)
+
+# Nhấp vào nút
+ui_compatibility.click_ui_element(
+    element_type="button",
+    text="Login"
+)</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="info-box">
+                                <h4><i class="fas fa-info-circle"></i> Lưu ý</h4>
+                                <p>Để sử dụng đầy đủ tính năng XML Dump và trợ năng, bạn cần cấp quyền trợ năng cho ứng dụng:</p>
+                                <ol>
+                                    <li>Bật dịch vụ trợ năng trên thiết bị Android: Vào Cài đặt > Trợ năng > Dịch vụ đã cài đặt</li>
+                                    <li>Hoặc cấp quyền ADB để điều khiển trợ năng:</li>
+                                </ol>
+                                <div class="code-block">
+                                    <pre><code class="language-bash">adb shell settings put secure enabled_accessibility_services com.android.uiautomator/com.google.android.marvin.talkback.TalkBackService
+adb shell settings put secure accessibility_enabled 1</code></pre>
+                                </div>
+                                <p>Để biết thêm chi tiết về tính năng XML dump và trợ năng, vui lòng xem <a href="guides.html#xml-dump">Hướng dẫn XML Dump & Trợ năng</a>.</p>
+                            </div>
+                        </section>
+
+                        <section id="multi-platform">
+                            <h2>Hỗ trợ đa nền tảng</h2>
+                            <p>OIADB hiện hỗ trợ đầy đủ nhiều nền tảng khác nhau, đảm bảo trải nghiệm nhất quán trên tất cả các hệ điều hành.</p>
+                            
+                            <div class="platform-comparison">
+                                <table class="comparison-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Tính năng</th>
+                                            <th>Windows</th>
+                                            <th>Linux</th>
+                                            <th>macOS</th>
+                                            <th>Termux</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Tự động cài đặt ADB</td>
+                                            <td><i class="fas fa-check text-success"></i></td>
+                                            <td><i class="fas fa-check text-success"></i></td>
+                                            <td><i class="fas fa-check text-success"></i></td>
+                                            <td><i class="fas fa-check text-success"></i></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tính năng cơ bản</td>
+                                            <td><i class="fas fa-check text-success"></i></td>
+                                            <td><i class="fas fa-check text-success"></i></td>
+                                            <td><i class="fas fa-check text-success"></i></td>
+                                            <td><i class="fas fa-check text-success"></i></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nhận diện hình ảnh</td>
+                                            <td><i class="fas fa-check text-success"></i></td>
+                                            <td><i class="fas fa-check text-success"></i></td>
+                                            <td><i class="fas fa-check text-success"></i></td>
+                                            <td><i class="fas fa-check text-success"></i>*</td>
+                                        </tr>
+                                        <tr>
+                                            <td>XML Dump & Trợ năng</td>
+                                            <td><i class="fas fa-check text-success"></i></td>
+                                            <td><i class="fas fa-check text-success"></i></td>
+                                            <td><i class="fas fa-check text-success"></i></td>
+                                            <td><i class="fas fa-check text-success"></i></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Kết nối không dây</td>
+                                            <td><i class="fas fa-check text-success"></i></td>
+                                            <td><i class="fas fa-check text-success"></i></td>
+                                            <td><i class="fas fa-check text-success"></i></td>
+                                            <td><i class="fas fa-check text-success"></i></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <p class="table-note">* Trên Termux, tính năng nhận diện hình ảnh có thể yêu cầu cài đặt thêm các gói phụ thuộc.</p>
+                            </div>
+                            
+                            <h3>Tự động phát hiện nền tảng</h3>
+                            <p>OIADB tự động phát hiện nền tảng và điều chỉnh hành vi phù hợp, đảm bảo trải nghiệm nhất quán trên tất cả các hệ điều hành.</p>
+                            
+                            <div class="code-block">
+                                <pre><code class="language-python">from oiadb.utils import platform_utils
+
+# Kiểm tra nền tảng hiện tại
+current_platform = platform_utils.get_current_platform()
+print(f"Nền tảng hiện tại: {current_platform}")
+
+# Kiểm tra xem có phải là Windows không
+if platform_utils.is_windows():
+    print("Đang chạy trên Windows")
+
+# Kiểm tra xem có phải là Termux không
+if platform_utils.is_termux():
+    print("Đang chạy trên Termux")</code></pre>
+                            </div>
+                            
+                            <h3>Cài đặt đa nền tảng</h3>
+                            <p>OIADB cung cấp các phương thức cài đặt khác nhau cho từng nền tảng. Xem <a href="getting-started.html#platform-specific">Hướng dẫn đa nền tảng</a> để biết thêm chi tiết.</p>
+                            
+                            <div class="info-box">
+                                <h4><i class="fas fa-info-circle"></i> Lưu ý</h4>
+                                <p>Trên Termux, bạn cần cấp quyền truy cập bộ nhớ để OIADB hoạt động đúng:</p>
+                                <div class="code-block">
+                                    <pre><code class="language-bash">termux-setup-storage</code></pre>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="architecture">
+                            <h2>Kiến trúc thư viện</h2>
+                            <p>OIADB được tổ chức thành các module chính, mỗi module đảm nhận một chức năng cụ thể.</p>
+                            
+                            <div class="architecture-diagram">
+                                <img src="images/package_structure.svg" alt="Cấu trúc thư viện OIADB">
+                            </div>
+                            
+                            <h3>Cấu trúc module</h3>
+                            
+                            <div class="module-list">
+                                <div class="module-item">
+                                    <h4>MyADB</h4>
+                                    <p>Lớp chính để tương tác với ADB, cung cấp các phương thức cơ bản như khởi tạo, kết nối thiết bị, thực thi lệnh ADB, v.v.</p>
+                                    <div class="code-block">
+                                        <pre><code class="language-python">from oiadb import MyADB
+
+adb = MyADB(device_id=None, cache_enabled=True, timeout=30, 
+            adb_path=None, auto_start_server=True, auto_install_adb=True)</code></pre>
+                                    </div>
+                                </div>
+                                
+                                <div class="module-item">
+                                    <h4>commands</h4>
+                                    <p>Chứa các lệnh chuyên biệt như tương tác, quản lý ứng dụng, thao tác file, v.v.</p>
+                                    <ul>
+                                        <li><code>app_info</code>: Lấy thông tin ứng dụng</li>
+                                        <li><code>apps</code>: Quản lý ứng dụng</li>
+                                        <li><code>basic</code>: Các lệnh ADB cơ bản</li>
+                                        <li><code>connect</code>: Kết nối thiết bị qua mạng</li>
+                                        <li><code>device_actions</code>: Các hành động thiết bị</li>
+                                        <li><code>device_info</code>: Thông tin thiết bị</li>
+                                        <li><code>file_ops</code>: Thao tác file</li>
+                                        <li><code>interaction</code>: Tương tác với thiết bị</li>
+                                        <li><code>image_interaction</code>: Tương tác dựa trên nhận diện hình ảnh</li>
+                                        <li><code>xml_dump</code>: Dump XML và tương tác qua trợ năng</li>
+                                        <li><code>logs</code>: Xem log thiết bị</li>
+                                        <li><code>permissions</code>: Quản lý quyền</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="module-item">
+                                    <h4>utils</h4>
+                                    <p>Các tiện ích hỗ trợ như quản lý nền tảng, xử lý hình ảnh, v.v.</p>
+                                    <ul>
+                                        <li><code>platform_utils</code>: Hỗ trợ đa nền tảng</li>
+                                        <li><code>adb_manager</code>: Quản lý cài đặt và cấu hình ADB</li>
+                                        <li><code>advanced</code>: Các tiện ích nâng cao</li>
+                                        <li><code>image_recognition</code>: Nhận diện hình ảnh</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="module-item">
+                                    <h4>exceptions</h4>
+                                    <p>Định nghĩa các ngoại lệ đặc biệt của thư viện để xử lý lỗi một cách hiệu quả.</p>
+                                    <div class="code-block">
+                                        <pre><code class="language-python">from oiadb.exceptions import ADBError, DeviceNotFoundError, 
+                         TimeoutError, ImageNotFoundError</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <p>Để biết thêm chi tiết về cấu trúc và API của thư viện, vui lòng xem <a href="api-reference.html">API Reference</a>.</p>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>OIADB</h3>
+                    <p>Thư viện Python wrapper cho Android Debug Bridge (ADB) với chức năng nhận diện hình ảnh, dump XML và hỗ trợ đa nền tảng.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Liên kết</h3>
+                    <ul>
+                        <li><a href="index.html">Trang chủ</a></li>
+                        <li><a href="getting-started.html">Bắt đầu</a></li>
+                        <li><a href="features.html">Tính năng</a></li>
+                        <li><a href="api-reference.html">API Reference</a></li>
+                        <li><a href="guides.html">Hướng dẫn</a></li>
+                        <li><a href="examples.html">Ví dụ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Tài nguyên</h3>
+                    <ul>
+                        <li><a href="https://github.com/tiendung102k3/oiadb" target="_blank">GitHub</a></li>
+                        <li><a href="https://pypi.org/project/oiadb/" target="_blank">PyPI</a></li>
+                        <li><a href="resources.html#changelog">Changelog</a></li>
+                        <li><a href="resources.html#license">Giấy phép</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Liên hệ</h3>
+                    <p>Email: monstertattoovn696@gmail.com</p>
+                    <div class="social-links">
+                        <a href="https://github.com/tiendung102k3" target="_blank"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 OIADB. Giấy phép MIT.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/prism.js"></script>
+    <script src="js/clipboard.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
